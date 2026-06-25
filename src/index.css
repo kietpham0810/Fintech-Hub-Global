@@ -1,0 +1,28 @@
+@import "tailwindcss";
+
+@theme {
+  /* Khai báo bảng màu Mysten */
+  --color-mysten-black: #000000;
+  --color-mysten-white: #ffffff;
+  --color-mysten-red: #FF1F3A;
+  --color-mysten-dark: #111111;
+  --color-mysten-gray: #F5F5F5;
+
+  /* Khai báo Font */
+  --font-sans: 'Inter', sans-serif;
+
+  /* Khai báo Border Radius (Bo góc) */
+  --radius-4xl: 2rem;
+  --radius-5xl: 3rem;
+  --radius-6xl: 4rem;
+}
+
+body {
+  background-color: var(--color-mysten-white);
+  color: var(--color-mysten-black);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  padding: 0;
+}
