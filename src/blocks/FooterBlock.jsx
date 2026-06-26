@@ -1,21 +1,10 @@
-import React from 'react';
 import { motion } from 'framer-motion';
+import { staggerContainerWithY, fadeInUp } from '../utils/animations';
+import Logo from '../components/Logo';
 
 const FooterBlock = () => {
-  // Cấu hình kịch bản Animation
-  const containerVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.6, staggerChildren: 0.1, delayChildren: 0.2 },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-  };
+  const containerVariants = staggerContainerWithY(0.1, 0.2);
+  const itemVariants = fadeInUp(0.5);
 
   return (
     <footer className="bg-[var(--color-mysten-white)] pt-12 pb-2">
@@ -45,9 +34,7 @@ const FooterBlock = () => {
           <div>
             {/* Logo FintechHubGlobal (Màu Trắng) */}
             <motion.div variants={itemVariants} className="flex items-center gap-2 text-5xl font-black tracking-tighter mb-10">
-              <svg width="60" height="60" viewBox="0 0 24 24" fill="var(--color-mysten-white)">
-                <path d="M12 2L2 22h20L12 2zm0 4.5l6.5 13h-13L12 6.5z" />
-              </svg>
+              <Logo size={60} color="var(--color-mysten-white)" />
             </motion.div>
             
             <motion.h3 variants={itemVariants} className="text-3xl md:text-4xl font-bold tracking-tight text-[var(--color-mysten-black)] max-w-sm mb-8">

@@ -1,27 +1,9 @@
-import React from 'react';
 import { motion } from 'framer-motion';
+import { staggerContainer, slideUp } from '../utils/animations';
 
 const HeroBlock = () => {
-  // Cấu hình kịch bản Animation
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.15, // Thời gian trễ giữa mỗi khối chữ
-        delayChildren: 0.2,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { y: 80, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: { type: 'spring', damping: 20, stiffness: 100 },
-    },
-  };
+  const containerVariants = staggerContainer(0.15, 0.2);
+  const itemVariants = slideUp;
 
   return (
     <section className="bg-[var(--color-mysten-black)] px-2 pb-2">

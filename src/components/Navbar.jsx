@@ -1,4 +1,4 @@
-import React from 'react';
+import Logo from './Logo';
 
 const Navbar = () => {
   return (
@@ -6,9 +6,7 @@ const Navbar = () => {
       <div className="flex items-center gap-3">
         {/* Logo FintechHubGlobal */}
         <div className="flex items-center gap-2 text-2xl font-black tracking-tighter">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="var(--color-mysten-red)">
-            <path d="M12 2L2 22h20L12 2zm0 4.5l6.5 13h-13L12 6.5z" />
-          </svg>
+          <Logo size={28} color="var(--color-mysten-red)" />
           <span className="text-[var(--color-mysten-red)]">Fintech</span>
           <span className="text-[var(--color-mysten-white)]">Hub</span>
           <span className="text-[var(--color-mysten-white)]">Global</span>

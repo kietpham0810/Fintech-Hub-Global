@@ -1,4 +1,3 @@
-import React from 'react';
 // Import từ thư mục components
 import Navbar from './components/Navbar';
 
