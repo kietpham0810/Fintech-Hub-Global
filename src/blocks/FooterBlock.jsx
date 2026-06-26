@@ -1,7 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 const FooterBlock = () => {
+  const [email, setEmail] = useState('');
+  const [status, setStatus] = useState('idle'); // 'idle' | 'error' | 'success'
+  const [errorMessage, setErrorMessage] = useState('');
+
+  const handleSubscribe = (e) => {
+    e.preventDefault();
+
+    if (!email.trim()) {
+      setStatus('error');
+      setErrorMessage('Vui lòng nhập địa chỉ email.');
+      return;
+    }
+
+    if (!EMAIL_REGEX.test(email)) {
+      setStatus('error');
+      setErrorMessage('Địa chỉ email không hợp lệ.');
+      return;
+    }
+
+    setStatus('success');
+    setErrorMessage('');
+  };
   // Cấu hình kịch bản Animation
   const containerVariants = {
     hidden: { opacity: 0, y: 50 },
@@ -86,16 +110,46 @@ const FooterBlock = () => {
             </motion.div>
 
             {/* Form Đăng ký (Viền đen, chữ đen) */}
-            <motion.div variants={itemVariants} className="mt-16 flex flex-col sm:flex-row gap-4">
-              <input 
-                type="email" 
-                placeholder="Nhập email để nhận tin..." 
-                className="bg-transparent border border-[var(--color-mysten-black)] text-[var(--color-mysten-black)] placeholder-[var(--color-mysten-black)]/60 font-medium rounded-xl px-6 py-4 w-full focus:outline-none focus:bg-white/10 transition-colors"
-              />
-              <button className="bg-transparent border border-[var(--color-mysten-black)] text-[var(--color-mysten-black)] px-10 py-4 rounded-xl font-black uppercase tracking-wide hover:bg-[var(--color-mysten-black)] hover:text-[var(--color-mysten-white)] transition-colors shrink-0">
-                Đăng ký
-              </button>
-            </motion.div>
+            <motion.form
+              variants={itemVariants}
+              className="mt-16"
+              onSubmit={handleSubscribe}
+              noValidate
+            >
+              <div className="flex flex-col sm:flex-row gap-4">
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                    if (status !== 'idle') {
+                      setStatus('idle');
+                      setErrorMessage('');
+                    }
+                  }}
+                  placeholder="Nhập email để nhận tin..."
+                  aria-invalid={status === 'error'}
+                  aria-describedby={status !== 'idle' ? 'subscribe-feedback' : undefined}
+                  className={`bg-transparent border text-[var(--color-mysten-black)] placeholder-[var(--color-mysten-black)]/60 font-medium rounded-xl px-6 py-4 w-full focus:outline-none focus:bg-white/10 transition-colors ${status === 'error' ? 'border-[var(--color-mysten-white)]' : 'border-[var(--color-mysten-black)]'}`}
+                />
+                <button
+                  type="submit"
+                  className="bg-transparent border border-[var(--color-mysten-black)] text-[var(--color-mysten-black)] px-10 py-4 rounded-xl font-black uppercase tracking-wide hover:bg-[var(--color-mysten-black)] hover:text-[var(--color-mysten-white)] transition-colors shrink-0"
+                >
+                  Đăng ký
+                </button>
+              </div>
+              {status === 'error' && (
+                <p id="subscribe-feedback" className="mt-2 text-sm font-bold text-[var(--color-mysten-white)]">
+                  {errorMessage}
+                </p>
+              )}
+              {status === 'success' && (
+                <p id="subscribe-feedback" className="mt-2 text-sm font-bold text-[var(--color-mysten-black)]">
+                  Đăng ký thành công! Cảm ơn bạn.
+                </p>
+              )}
+            </motion.form>
           </div>
         </div>
 
