@@ -2,95 +2,108 @@ import React from 'react';
 import { motion } from 'framer-motion';
 
 const HeroBlock = () => {
-  // Cấu hình kịch bản Animation
+  // Cấu hình kịch bản Animation (Giữ lại logic cũ của cậu, tinh chỉnh thông số)
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.15, // Thời gian trễ giữa mỗi khối chữ
+        staggerChildren: 0.1, // Tốc độ xuất hiện nối tiếp
         delayChildren: 0.2,
       },
     },
   };
 
   const itemVariants = {
-    hidden: { y: 80, opacity: 0 },
+    hidden: { y: 30, opacity: 0 },
     visible: {
       y: 0,
       opacity: 1,
-      transition: { type: 'spring', damping: 20, stiffness: 100 },
+      transition: { type: 'spring', damping: 25, stiffness: 120 },
     },
   };
 
+  const rightCardVariants = {
+    hidden: { x: 50, opacity: 0 },
+    visible: { 
+      x: 0, 
+      opacity: 1,
+      transition: { type: 'spring', damping: 25, stiffness: 100, delay: 0.5 } 
+    }
+  };
+
+  // Hàm xử lý nút bấm (Tạm thời giữ nguyên alert, sẽ nâng cấp Modal sau)
+  const handleStartTrial = () => {
+    alert('Claim your 1-month free trial. We will configure DatumAI and schedule training.');
+  };
+
   return (
-    <section className="bg-[var(--color-mysten-black)] px-2 pb-2">
-      <div className="bg-[var(--color-mysten-white)] rounded-t-[3rem] md:rounded-t-[4rem] min-h-[90vh] relative overflow-hidden">
+    <div className="max-w-[1100px] mx-auto px-6 md:px-10 py-12">
+      <section className="flex flex-col md:flex-row gap-10 items-center justify-between bg-white/[0.02] p-8 md:p-10 rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.6)]">
         
-        {/* =========================================
-            BỘ ĐƯỜNG LINE ĐỎ (RED GEOMETRIC LINES)
-           ========================================= */}
+        {/* CỘT TRÁI: Nội dung có Animation tuần tự */}
         <motion.div 
-          initial={{ scaleX: 0 }} 
-          animate={{ scaleX: 1 }} 
-          transition={{ duration: 1, delay: 0.5 }}
-          className="absolute top-0 left-0 w-full h-[100px] border-b border-[var(--color-mysten-red)] pointer-events-none origin-left"
-        ></motion.div>
-        
-        <motion.div 
-          initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 1 }}
-          className="absolute top-[100px] left-0 w-[25%] h-[120px] border-t border-r border-[var(--color-mysten-red)] rounded-tr-[3rem] pointer-events-none"
-        ></motion.div>
-        
-        <div className="absolute top-0 right-0 w-[40%] h-[55%] pointer-events-none">
-           <motion.div 
-             initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 1, delay: 0.8 }}
-             className="absolute bottom-0 right-[15%] w-full h-full border-b border-l border-[var(--color-mysten-red)] rounded-bl-[6rem]"
-           ></motion.div>
-           <motion.div 
-             initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 1.2 }}
-             className="absolute bottom-[-150px] right-0 w-[15%] h-[150px] border-b border-l border-[var(--color-mysten-red)] rounded-bl-[2rem]"
-           ></motion.div>
-        </div>
-
-        <div className="pt-32 pb-20 px-6 md:px-16 max-w-[1500px] mx-auto relative z-10">
-          
-          {/* Typography Khối Đen Có Animation */}
-          <motion.h1 
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-            className="text-[4rem] md:text-[8rem] lg:text-[10rem] font-black leading-[0.85] tracking-tighter flex flex-col items-start uppercase overflow-hidden py-4"
-          >
-            <motion.span variants={itemVariants} className="bg-[var(--color-mysten-black)] text-[var(--color-mysten-white)] px-4 pt-4 pb-1 mb-[-4px] md:mb-[-8px] w-max inline-block">
-              Giải pháp
-            </motion.span>
-            <motion.span variants={itemVariants} className="bg-[var(--color-mysten-black)] text-[var(--color-mysten-white)] px-4 pt-4 pb-1 mb-[-4px] md:mb-[-8px] w-max inline-block">
-              kế toán chuẩn
-            </motion.span>
-            <motion.span variants={itemVariants} className="bg-[var(--color-mysten-black)] text-[var(--color-mysten-white)] px-4 pt-4 pb-1 mb-[-4px] md:mb-[-8px] w-max inline-block">
-              quốc tế cho
-            </motion.span>
-            <motion.span variants={itemVariants} className="bg-[var(--color-mysten-black)] text-[var(--color-mysten-white)] px-4 pt-4 pb-1 w-max inline-block">
-              doanh nghiệp
-            </motion.span>
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          className="flex-1 min-w-[320px]"
+        >
+          <motion.h1 variants={itemVariants} className="text-4xl md:text-[40px] font-bold m-0 mb-3 leading-[1.05] text-[var(--color-datum-ivory)]">
+            Automate clarity for your accounting team
           </motion.h1>
-
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 1.2 }}
-            className="mt-16 md:mt-24 max-w-3xl flex items-start gap-4"
-          >
-             <div className="w-12 h-1 bg-[var(--color-mysten-red)] mt-3 hidden md:block shrink-0"></div>
-             <p className="text-2xl md:text-4xl font-bold tracking-tight text-[var(--color-mysten-black)] leading-snug">
-               Tại FintechHubGlobal, chúng tôi xây dựng hệ thống báo cáo tài chính và kê khai thuế chuẩn mực, giúp doanh nghiệp tự tin vươn ra thị trường Mỹ.
-             </p>
+          
+          <motion.p variants={itemVariants} className="m-0 mb-5 text-[var(--color-datum-muted)] text-base max-w-[720px]">
+            Custom AI solutions that automate workflows, elevate preparers into reviewers, and train your team to use AI for tax research.
+          </motion.p>
+      
+          <motion.div variants={itemVariants} className="flex flex-wrap gap-3 my-5">
+            <span className="bg-white/[0.02] px-3.5 py-2.5 rounded-xl text-[var(--color-datum-ivory)] text-sm font-medium">Faster closes</span>
+            <span className="bg-white/[0.02] px-3.5 py-2.5 rounded-xl text-[var(--color-datum-ivory)] text-sm font-medium">Smarter reviews</span>
+            <span className="bg-white/[0.02] px-3.5 py-2.5 rounded-xl text-[var(--color-datum-ivory)] text-sm font-medium">Practical AI training</span>
+          </motion.div>
+      
+          <motion.div variants={itemVariants} className="flex gap-3 flex-wrap mt-7">
+            <button 
+              onClick={handleStartTrial}
+              className="inline-flex items-center gap-2 px-5 py-3 rounded-xl border-0 cursor-pointer font-semibold bg-gradient-to-r from-[var(--color-datum-primary)] to-[#00c0e6] text-[#071018] shadow-[0_6px_18px_rgba(0,229,255,0.12)] hover:scale-105 transition-transform"
+            >
+              Start 1-Month Free
+            </button>
+            <button className="inline-flex items-center gap-2 px-5 py-3 rounded-xl cursor-pointer font-semibold bg-transparent border border-white/10 text-[var(--color-datum-ivory)] hover:bg-white/5 transition-colors">
+              See a Live Demo
+            </button>
+            <button className="inline-flex items-center gap-2 px-5 py-3 rounded-xl cursor-pointer font-semibold bg-transparent border border-white/10 text-[var(--color-datum-ivory)] hover:bg-white/5 transition-colors">
+              Download Feature Brief
+            </button>
           </motion.div>
           
-        </div>
-      </div>
-    </section>
+          <motion.div variants={itemVariants} className="text-[13px] text-[var(--color-datum-muted)] mt-4">
+            No credit card required; one social review in exchange for the trial.
+          </motion.div>
+        </motion.div>
+      
+        {/* CỘT PHẢI: Các thẻ thông số trượt từ phải sang */}
+        <motion.aside 
+          variants={rightCardVariants}
+          initial="hidden"
+          animate="visible"
+          className="w-full md:w-[320px] flex flex-col items-center gap-3 shrink-0"
+        >
+          <div className="w-full bg-gradient-to-b from-white/[0.03] to-white/[0.01] p-5 rounded-xl border border-white/[0.05] hover:border-[var(--color-datum-primary)]/30 transition-colors">
+            <div className="text-[12px] text-[var(--color-datum-muted)] mb-1">Estimate your monthly savings</div>
+            <div className="text-base text-[var(--color-datum-primary)] font-bold mb-2">~ 120 hours saved / month</div>
+            <div className="text-[13px] text-[var(--color-datum-muted)]">Based on average close automation for mid-sized firms.</div>
+          </div>
+      
+          <div className="w-full bg-gradient-to-b from-white/[0.03] to-white/[0.01] p-5 rounded-xl border border-white/[0.05] hover:border-[var(--color-datum-primary)]/30 transition-colors">
+            <div className="text-[12px] text-[var(--color-datum-muted)] mb-1">Onboarding</div>
+            <div className="text-base text-[var(--color-datum-primary)] font-bold mb-2">2 weeks to configure & train</div>
+            <div className="text-[13px] text-[var(--color-datum-muted)]">Includes AI tax research workshop for your team.</div>
+          </div>
+        </motion.aside>
+
+      </section>
+    </div>
   );
 };
 
