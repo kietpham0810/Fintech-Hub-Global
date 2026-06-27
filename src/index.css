@@ -1,12 +1,12 @@
 @import "tailwindcss";
 
 @theme {
-  /* Khai báo bảng màu Mysten */
-  --color-mysten-black: #000000;
-  --color-mysten-white: #ffffff;
-  --color-mysten-red: #FF1F3A;
-  --color-mysten-dark: #111111;
-  --color-mysten-gray: #F5F5F5;
+  /* Khai báo bảng màu chuẩn của Datum AI */
+  --color-datum-dark: #111315; /* Dark Charcoal Background */
+  --color-datum-cyan: #00F0FF; /* Neon Cyan Accents */
+  --color-datum-white: #FFFFFF;
+  --color-datum-text-gray: #A1A1AA;
+  --color-datum-card: #1A1D21; /* Màu nền cho các thẻ Card bên trong */
 
   /* Khai báo Font */
   --font-sans: 'Inter', sans-serif;
@@ -18,8 +18,9 @@
 }
 
 body {
-  background-color: var(--color-mysten-white);
-  color: var(--color-mysten-black);
+  /* Đã sửa: Nền tối, chữ sáng cho toàn bộ ứng dụng */
+  background-color: var(--color-datum-dark);
+  color: var(--color-datum-white);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
