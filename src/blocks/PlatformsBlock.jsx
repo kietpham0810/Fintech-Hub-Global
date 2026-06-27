@@ -3,66 +3,83 @@ import { motion } from 'framer-motion';
 
 const PlatformsBlock = () => {
   return (
-    <section className="bg-[var(--color-mysten-white)] px-6 md:px-16 py-32 max-w-[1500px] mx-auto">
+    <section className="px-6 md:px-10 py-32 max-w-[1100px] mx-auto border-t border-white/5 mt-20">
       <motion.div 
-        initial={{ opacity: 0, y: 50 }}
+        initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-100px" }}
         transition={{ duration: 0.6 }}
         className="flex flex-col md:flex-row justify-between items-start mb-16 relative"
       >
-        <div>
-          <span className="text-[var(--color-mysten-red)] font-black tracking-widest uppercase mb-4 block text-lg">Hệ sinh thái Dịch vụ</span>
-          <h2 className="text-5xl md:text-7xl font-black tracking-tighter max-w-3xl text-[var(--color-mysten-black)] leading-tight uppercase">
-            Khám phá các giải pháp của chúng tôi
+        <div className="max-w-2xl">
+          <span className="text-[var(--color-datum-primary)] font-bold tracking-widest uppercase mb-4 block text-sm">Accounting Transformation Platform</span>
+          <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-[var(--color-datum-ivory)] leading-tight">
+            Unified, audit-ready platform that centralizes and automates workflows.
           </h2>
         </div>
-        <button className="mt-8 md:mt-0 border-2 border-[var(--color-mysten-red)] text-[var(--color-mysten-black)] font-bold px-8 py-4 rounded-2xl hover:bg-[var(--color-mysten-red)] hover:text-[var(--color-mysten-white)] transition-colors text-lg uppercase tracking-wide">
-          Xem tất cả dịch vụ
+        <button className="mt-8 md:mt-0 border border-white/10 text-[var(--color-datum-ivory)] font-semibold px-6 py-3 rounded-xl hover:bg-white/5 transition-colors">
+          View All Solutions
         </button>
       </motion.div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {/* Card 1 */}
+        {/* Card 1: Optimize the Close */}
         <motion.div 
-          initial={{ opacity: 0, y: 80 }}
+          initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          className="bg-[#EAEAEA] rounded-[3rem] p-12 min-h-[500px] flex flex-col justify-between hover:scale-[1.02] transition-transform duration-500 cursor-pointer"
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="bg-white/[0.02] border border-white/[0.05] rounded-2xl p-8 flex flex-col justify-between hover:border-[var(--color-datum-primary)]/40 transition-colors group cursor-pointer"
         >
           <div>
-            <h3 className="text-6xl font-black text-[var(--color-mysten-black)] mb-6 uppercase tracking-tighter">Kế Toán<br/>Tổng Hợp</h3>
-            <p className="text-2xl font-bold text-[var(--color-mysten-black)]/70 max-w-sm">Quản lý sổ sách, đối chiếu giao dịch và lập báo cáo tài chính định kỳ theo chuẩn US GAAP.</p>
+            <h3 className="text-2xl font-bold text-[var(--color-datum-ivory)] mb-4 group-hover:text-[var(--color-datum-primary)] transition-colors">Optimize the Close</h3>
+            <p className="text-base text-[var(--color-datum-muted)] leading-relaxed">Standardize close processes and gain global visibility into tasks and status.</p>
           </div>
-          <div className="w-full h-56 bg-black/5 rounded-2xl mt-8"></div>
+          <div className="w-full h-40 bg-gradient-to-t from-white/[0.05] to-transparent rounded-xl mt-8 border border-white/[0.02]"></div>
         </motion.div>
 
-        <div className="grid grid-rows-2 gap-6">
-           {/* Card 2 */}
-           <motion.div 
-             initial={{ opacity: 0, x: 50 }}
-             whileInView={{ opacity: 1, x: 0 }}
-             viewport={{ once: true }}
-             transition={{ duration: 0.6, delay: 0.2 }}
-             className="bg-[#F5F5F5] rounded-[3rem] p-10 flex flex-col justify-between border border-gray-200 hover:scale-[1.02] transition-transform duration-500 cursor-pointer"
-           >
-             <h3 className="text-4xl font-black text-[var(--color-mysten-black)] mb-2 uppercase tracking-tight">Kê khai thuế (Tax)</h3>
-             <p className="text-lg font-bold text-[var(--color-mysten-black)]/70 mb-4">Giải pháp thuế TNDN, TNCN tối ưu hợp pháp tại 50 bang của Mỹ.</p>
-           </motion.div>
-           
-           {/* Card 3 */}
-           <motion.div 
-             initial={{ opacity: 0, x: 50 }}
-             whileInView={{ opacity: 1, x: 0 }}
-             viewport={{ once: true }}
-             transition={{ duration: 0.6, delay: 0.3 }}
-             className="bg-[var(--color-mysten-red)] rounded-[3rem] p-10 flex flex-col justify-between text-white hover:scale-[1.02] transition-transform duration-500 cursor-pointer"
-           >
-             <h3 className="text-4xl font-black mb-2 uppercase tracking-tight">Quản lý lương (Payroll)</h3>
-             <p className="text-lg font-bold text-white/90">Tính toán lương, bảo hiểm và xử lý tuân thủ nhân sự quốc tế tự động.</p>
-           </motion.div>
-        </div>
+        {/* Card 2: Automate the Close */}
+        <motion.div 
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="bg-white/[0.02] border border-white/[0.05] rounded-2xl p-8 flex flex-col justify-between hover:border-[var(--color-datum-primary)]/40 transition-colors group cursor-pointer"
+        >
+          <div>
+            <h3 className="text-2xl font-bold text-[var(--color-datum-ivory)] mb-4 group-hover:text-[var(--color-datum-primary)] transition-colors">Automate the Close</h3>
+            <p className="text-base text-[var(--color-datum-muted)] leading-relaxed">End-to-end automation for reconciliations, follow-ups, and close tasks.</p>
+          </div>
+          <div className="w-full h-40 bg-gradient-to-t from-white/[0.05] to-transparent rounded-xl mt-8 border border-white/[0.02]"></div>
+        </motion.div>
+
+        {/* Card 3: Connected Compliance */}
+        <motion.div 
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="bg-white/[0.02] border border-white/[0.05] rounded-2xl p-8 flex flex-col justify-between hover:border-[var(--color-datum-primary)]/40 transition-colors group cursor-pointer"
+        >
+          <div>
+            <h3 className="text-2xl font-bold text-[var(--color-datum-ivory)] mb-4 group-hover:text-[var(--color-datum-primary)] transition-colors">Connected Compliance</h3>
+            <p className="text-base text-[var(--color-datum-muted)] leading-relaxed">Automated evidence collection and controls to reduce compliance risk.</p>
+          </div>
+        </motion.div>
+
+        {/* Card 4: AI Agents */}
+        <motion.div 
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+          className="bg-gradient-to-br from-white/[0.02] to-[var(--color-datum-primary)]/10 border border-white/[0.05] rounded-2xl p-8 flex flex-col justify-between hover:border-[var(--color-datum-primary)]/60 transition-colors group cursor-pointer"
+        >
+          <div>
+            <h3 className="text-2xl font-bold text-[var(--color-datum-primary)] mb-4">AI Agents & Automation</h3>
+            <p className="text-base text-[var(--color-datum-ivory)]/80 leading-relaxed">No-code AI agents that generate checklists, explain variances, match transactions, and automate inbox tasks.</p>
+          </div>
+        </motion.div>
       </div>
     </section>
   );

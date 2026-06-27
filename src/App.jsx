@@ -1,21 +1,17 @@
 import React from 'react';
-// Import từ thư mục components
 import Navbar from './components/Navbar';
-
-// Import từ thư mục blocks
 import HeroBlock from './blocks/HeroBlock';
 import PlatformsBlock from './blocks/PlatformsBlock';
-import ProductsBlock from './blocks/ProductsBlock';
 import FooterBlock from './blocks/FooterBlock';
 
 function App() {
   return (
-    <div className="bg-mysten-white font-sans selection:bg-mysten-red selection:text-white">
+    <div className="min-h-screen flex flex-col">
+      {/* Loại bỏ hoàn toàn các class màu sắc cũ, để body trong index.css tự lo việc render Dark Theme */}
       <Navbar />
-      <main>
+      <main className="flex-grow">
         <HeroBlock />
         <PlatformsBlock />
-        <ProductsBlock />
       </main>
       <FooterBlock />
     </div>
