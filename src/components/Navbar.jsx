@@ -1,38 +1,34 @@
 import React from 'react';
-import logo from '../assets/logo.png'; // Đảm bảo cậu đã đưa logo vào thư mục assets
+import logo from '../assets/logo.png';
 
 const Navbar = () => {
   return (
-    // Sử dụng nền trắng (var(--color-datum-dark)) và chữ tối (var(--color-datum-white))
-    <nav className="bg-[var(--color-datum-dark)] text-[var(--color-datum-white)] px-6 py-5 flex items-center justify-between sticky top-0 z-50 border-b border-gray-200">
+    <nav className="bg-white border-b border-gray-200 px-8 py-3 flex items-center sticky top-0 z-50">
       
       {/* Logo Section */}
-      <div className="flex items-center">
-        <a href="/" className="flex items-center cursor-pointer">
-          <img 
-            src={logo} 
-            alt="DatumAI Logo" 
-            className="w-[120px] h-auto object-contain" 
-          />
+      <div className="mr-10">
+        <a href="/">
+          <img src={logo} alt="DatumAI Logo" className="w-[100px] h-auto" />
         </a>
       </div>
       
-      {/* Menu chuẩn SaaS - Đã cập nhật màu chữ theo Light Theme */}
-      <div className="hidden lg:flex items-center gap-8 text-sm font-medium tracking-wide">
-        <a href="#" className="text-[var(--color-datum-text-gray)] hover:text-[var(--color-datum-cyan)] transition-colors">Platform</a>
-        <a href="#" className="text-[var(--color-datum-text-gray)] hover:text-[var(--color-datum-cyan)] transition-colors">Solutions</a>
-        <a href="#" className="text-[var(--color-datum-text-gray)] hover:text-[var(--color-datum-cyan)] transition-colors">Pricing</a>
-        <a href="#" className="text-[var(--color-datum-text-gray)] hover:text-[var(--color-datum-cyan)] transition-colors">Resources ▾</a>
+      {/* Menu Navigation - Giống Upwork với các dấu mũi tên */}
+      <div className="flex items-center gap-8 text-sm font-medium text-gray-700">
+        <a href="#" className="flex items-center gap-1 hover:text-black">Platform ▾</a>
+        <a href="#" className="flex items-center gap-1 hover:text-black">Solutions ▾</a>
+        <a href="#" className="flex items-center gap-1 hover:text-black">Pricing ▾</a>
+        <a href="#" className="hover:text-black">Resources</a>
       </div>
 
-      {/* Cụm nút CTA */}
-      <div className="hidden lg:flex items-center gap-3">
-         <button className="bg-transparent border border-gray-300 text-[var(--color-datum-white)] px-5 py-2.5 rounded-xl font-semibold text-sm hover:bg-gray-100 transition-colors">
-           Sign In
-         </button>
-         <button className="bg-[var(--color-datum-cyan)] text-white px-5 py-2.5 rounded-xl font-bold text-sm shadow-md hover:opacity-90 transition-opacity">
-           Start Free Trial
-         </button>
+      {/* Spacer để đẩy các phần tử về phía bên phải giống Upwork */}
+      <div className="flex-grow"></div>
+
+      {/* Action Section */}
+      <div className="flex items-center gap-4">
+        <a href="#" className="text-sm font-semibold hover:text-gray-600">Sign In</a>
+        <button className="border border-gray-300 px-5 py-1.5 rounded-full text-sm font-semibold hover:bg-gray-50 transition-colors">
+          Start Free Trial
+        </button>
       </div>
     </nav>
   );
