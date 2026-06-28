@@ -12,14 +12,13 @@ const PlatformsBlock = () => {
         className="flex flex-col md:flex-row justify-between items-start mb-16 relative"
       >
         <div className="max-w-2xl">
-          <span className="text-[var(--color-datum-primary)] font-bold tracking-widest uppercase mb-4 block text-sm">Accounting Transformation Platform</span>
+        
           <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-[var(--color-datum-ivory)] leading-tight">
-            Unified, audit-ready platform that centralizes and automates workflows.
+            Advanced Financial Operations Solutions
           </h2>
+          <p className="text-base text-[var(--color-datum-muted)] leading-relaxed">Powered by DatumAI</p>
+
         </div>
-        <button className="mt-8 md:mt-0 border border-white/10 text-[var(--color-datum-ivory)] font-semibold px-6 py-3 rounded-xl hover:bg-white/5 transition-colors">
-          View All Solutions
-        </button>
       </motion.div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -78,6 +77,19 @@ const PlatformsBlock = () => {
           <div>
             <h3 className="text-2xl font-bold text-[var(--color-datum-primary)] mb-4">AI Agents & Automation</h3>
             <p className="text-base text-[var(--color-datum-ivory)]/80 leading-relaxed">No-code AI agents that generate checklists, explain variances, match transactions, and automate inbox tasks.</p>
+          </div>
+        </motion.div>
+
+        <motion.div 
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.5 }}
+          className="bg-gradient-to-br from-white/[0.02] to-[var(--color-datum-primary)]/10 border border-white/[0.05] rounded-2xl p-8 flex flex-col justify-between hover:border-[var(--color-datum-primary)]/60 transition-colors group cursor-pointer"
+        >
+          <div>
+            <h3 className="text-2xl font-bold text-[var(--color-datum-primary)] mb-4">Integrated Record‑to‑Report</h3>
+            <p className="text-base text-[var(--color-datum-ivory)]/80 leading-relaxed">Faster, more accurate reporting by consolidating systems and processes.</p>
           </div>
         </motion.div>
       </div>
