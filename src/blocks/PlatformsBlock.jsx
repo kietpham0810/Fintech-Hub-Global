@@ -9,16 +9,12 @@ const PlatformsBlock = () => {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-100px" }}
         transition={{ duration: 0.6 }}
-        className="flex flex-col md:flex-row justify-between items-start mb-16 relative"
+        className="mb-16 relative text-center"
       >
-        <div className="max-w-2xl">
-        
-          <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-[var(--color-datum-ivory)] leading-tight">
-            Advanced Financial Operations Solutions
-          </h2>
-          <p className="text-base text-[var(--color-datum-muted)] leading-relaxed">Powered by DatumAI</p>
-
-        </div>
+        <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-[var(--color-datum-ivory)] leading-tight">
+          Advanced Financial Operations Solutions
+        </h2>
+        <p className="text-base text-[var(--color-datum-muted)] leading-relaxed mt-2">Powered by DatumAI</p>
       </motion.div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
