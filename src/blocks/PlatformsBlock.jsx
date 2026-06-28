@@ -34,6 +34,7 @@ const PlatformsBlock = () => {
             <h3 className="text-2xl font-bold text-[var(--color-datum-primary)] mb-4">Accounting Transformation Platform</h3>
             <p className="text-base text-[var(--color-datum-ivory)]/80 leading-relaxed">Unified, audit‑ready platform that centralizes and automates accounting workflows..</p>
           </div>
+          <div></div>
         </motion.div>
 
         {/* Card 1: Optimize the Close */}
@@ -62,6 +63,7 @@ const PlatformsBlock = () => {
             <h3 className="text-2xl font-bold text-[var(--color-datum-primary)] mb-4">Optimize the Close</h3>
             <p className="text-base text-[var(--color-datum-ivory)]/80 leading-relaxed">tandardize close processes and gain global visibility into tasks and status.</p>
           </div>
+          <div></div>
         </motion.div>
 
         {/* Card 2: Automate the Close */}
@@ -90,6 +92,7 @@ const PlatformsBlock = () => {
             <h3 className="text-2xl font-bold text-[var(--color-datum-ivory)] mb-4 group-hover:text-[var(--color-datum-primary)] transition-colors">Connected Compliance</h3>
             <p className="text-base text-[var(--color-datum-muted)] leading-relaxed">Automated evidence collection and controls to reduce compliance risk.</p>
           </div>
+          <div></div>
         </motion.div>
 
         {/* Card 4: AI Agents */}
@@ -106,6 +109,7 @@ const PlatformsBlock = () => {
             <h3 className="text-2xl font-bold text-[var(--color-datum-primary)] mb-4">Integrated Record‑to‑Report</h3>
             <p className="text-base text-[var(--color-datum-ivory)]/80 leading-relaxed">Faster, more accurate reporting by consolidating systems and processes.</p>
           </div>
+          <div></div>
         </motion.div>
       </div>
     </section>
