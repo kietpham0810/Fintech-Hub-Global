@@ -1,24 +1,24 @@
 @import "tailwindcss";
 
 @theme {
-  /* Khai báo bảng màu chuẩn của Datum AI */
-  --color-datum-dark: #111315; /* Dark Charcoal Background */
-  --color-datum-cyan: #00F0FF; /* Neon Cyan Accents */
-  --color-datum-white: #FFFFFF;
-  --color-datum-text-gray: #A1A1AA;
-  --color-datum-card: #1A1D21; /* Màu nền cho các thẻ Card bên trong */
+  /* Bảng màu được đảo ngược cho Light Theme */
+  --color-datum-dark: #FFFFFF;    /* Đổi nền thành trắng */
+  --color-datum-white: #111315;   /* Đổi chữ thành tối (Dark Charcoal) */
+  --color-datum-cyan: #008899;    /* Điều chỉnh nhẹ tone Cyan để dễ nhìn trên nền trắng */
+  --color-datum-text-gray: #52525B; /* Xám tối hơn để giữ độ tương phản */
+  --color-datum-card: #F4F4F5;    /* Màu nền card nhạt */
 
   /* Khai báo Font */
   --font-sans: 'Inter', sans-serif;
 
-  /* Khai báo Border Radius (Bo góc) */
+  /* Khai báo Border Radius */
   --radius-4xl: 2rem;
   --radius-5xl: 3rem;
   --radius-6xl: 4rem;
 }
 
 body {
-  /* Đã sửa: Nền tối, chữ sáng cho toàn bộ ứng dụng */
+  /* Thiết lập nền trắng, chữ tối */
   background-color: var(--color-datum-dark);
   color: var(--color-datum-white);
   font-family: var(--font-sans);
