@@ -49,7 +49,7 @@ const PlatformsBlock = () => {
             <h3 className="text-2xl font-bold text-[var(--color-datum-ivory)] mb-4 group-hover:text-[var(--color-datum-primary)] transition-colors">AI Agents & Automation</h3>
             <p className="text-base text-[var(--color-datum-muted)] leading-relaxed">No-code AI agents that generate checklists, explain variances, match transactions, and automate inbox tasks.</p>
           </div>
-          <div className="w-full h-40 bg-gradient-to-t from-white/[0.05] to-transparent rounded-xl mt-8 border border-white/[0.02]"></div>
+          <div></div>
         </motion.div>
 
          <motion.div 
@@ -78,7 +78,7 @@ const PlatformsBlock = () => {
             <h3 className="text-2xl font-bold text-[var(--color-datum-ivory)] mb-4 group-hover:text-[var(--color-datum-primary)] transition-colors">Automate the Close</h3>
             <p className="text-base text-[var(--color-datum-muted)] leading-relaxed">End-to-end automation for reconciliations, follow-ups, and close tasks.</p>
           </div>
-          <div className="w-full h-40 bg-gradient-to-t from-white/[0.05] to-transparent rounded-xl mt-8 border border-white/[0.02]"></div>
+          <div></div>
         </motion.div>
 
         {/* Card 3: Connected Compliance */}
