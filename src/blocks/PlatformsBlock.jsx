@@ -42,11 +42,11 @@ const PlatformsBlock = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="bg-white/[0.02] border border-white/[0.05] rounded-2xl p-8 flex flex-col justify-between hover:border-[var(--color-datum-primary)]/40 transition-colors group cursor-pointer"
+          className="bg-gradient-to-br from-white/[0.02] to-[var(--color-datum-primary)]/10 border border-white/[0.05] rounded-2xl p-8 flex flex-col justify-between hover:border-[var(--color-datum-primary)]/60 transition-colors group cursor-pointer"
         >
           <div>
             <h3 className="text-2xl font-bold text-[var(--color-datum-ivory)] mb-4 group-hover:text-[var(--color-datum-primary)] transition-colors">AI Agents & Automation</h3>
-            <p className="text-base text-[var(--color-datum-muted)] leading-relaxed">Standardize close processes and gain global visibility into tasks and statusNo-code AI agents that generate checklists, explain variances, match transactions, and automate inbox tasks.</p>
+            <p className="text-base text-[var(--color-datum-muted)] leading-relaxed">No-code AI agents that generate checklists, explain variances, match transactions, and automate inbox tasks.</p>
           </div>
           <div className="w-full h-40 bg-gradient-to-t from-white/[0.05] to-transparent rounded-xl mt-8 border border-white/[0.02]"></div>
         </motion.div>
@@ -70,7 +70,7 @@ const PlatformsBlock = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.4 }}
-          className="bg-white/[0.02] border border-white/[0.05] rounded-2xl p-8 flex flex-col justify-between hover:border-[var(--color-datum-primary)]/40 transition-colors group cursor-pointer"
+          className="bg-gradient-to-br from-white/[0.02] to-[var(--color-datum-primary)]/10 border border-white/[0.05] rounded-2xl p-8 flex flex-col justify-between hover:border-[var(--color-datum-primary)]/60 transition-colors group cursor-pointer"
         >
           <div>
             <h3 className="text-2xl font-bold text-[var(--color-datum-ivory)] mb-4 group-hover:text-[var(--color-datum-primary)] transition-colors">Automate the Close</h3>
@@ -85,8 +85,7 @@ const PlatformsBlock = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.5 }}
-          className="bg-white/[0.02] border border-white/[0.05] rounded-2xl p-8 flex flex-col justify-between hover:border-[var(--color-datum-primary)]/40 transition-colors group cursor-pointer"
-        >
+          className="bg-gradient-to-br from-white/[0.02] to-[var(--color-datum-primary)]/10 border border-white/[0.05] rounded-2xl p-8 flex flex-col justify-between hover:border-[var(--color-datum-primary)]/60 transition-colors group cursor-pointer" >
           <div>
             <h3 className="text-2xl font-bold text-[var(--color-datum-ivory)] mb-4 group-hover:text-[var(--color-datum-primary)] transition-colors">Connected Compliance</h3>
             <p className="text-base text-[var(--color-datum-muted)] leading-relaxed">Automated evidence collection and controls to reduce compliance risk.</p>
