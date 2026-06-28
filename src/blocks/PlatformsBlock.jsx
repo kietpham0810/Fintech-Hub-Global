@@ -28,25 +28,25 @@ const PlatformsBlock = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="bg-white/[0.02] border border-white/[0.05] rounded-2xl p-8 flex flex-col justify-between hover:border-[var(--color-datum-primary)]/40 transition-colors group cursor-pointer"
+          className="bg-gradient-to-br from-white/[0.02] to-[var(--color-datum-primary)]/10 border border-white/[0.05] rounded-2xl p-8 flex flex-col justify-between hover:border-[var(--color-datum-primary)]/60 transition-colors group cursor-pointer"
         >
           <div>
-            <h3 className="text-2xl font-bold text-[var(--color-datum-ivory)] mb-4 group-hover:text-[var(--color-datum-primary)] transition-colors">Accounting Transformation Platform</h3>
-            <p className="text-base text-[var(--color-datum-muted)] leading-relaxed">Unified, audit‑ready platform that centralizes and automates accounting workflows..</p>
+            <h3 className="text-2xl font-bold text-[var(--color-datum-primary)] mb-4">Accounting Transformation Platform</h3>
+            <p className="text-base text-[var(--color-datum-ivory)]/80 leading-relaxed">Unified, audit‑ready platform that centralizes and automates accounting workflows..</p>
           </div>
-          <div className="w-full h-40 bg-gradient-to-t from-white/[0.05] to-transparent rounded-xl mt-8 border border-white/[0.02]"></div>
         </motion.div>
+
         {/* Card 1: Optimize the Close */}
         <motion.div 
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.1 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
           className="bg-white/[0.02] border border-white/[0.05] rounded-2xl p-8 flex flex-col justify-between hover:border-[var(--color-datum-primary)]/40 transition-colors group cursor-pointer"
         >
           <div>
-            <h3 className="text-2xl font-bold text-[var(--color-datum-ivory)] mb-4 group-hover:text-[var(--color-datum-primary)] transition-colors">Optimize the Close</h3>
-            <p className="text-base text-[var(--color-datum-muted)] leading-relaxed">Standardize close processes and gain global visibility into tasks and status.</p>
+            <h3 className="text-2xl font-bold text-[var(--color-datum-ivory)] mb-4 group-hover:text-[var(--color-datum-primary)] transition-colors">AI Agents & Automation</h3>
+            <p className="text-base text-[var(--color-datum-muted)] leading-relaxed">Standardize close processes and gain global visibility into tasks and statusNo-code AI agents that generate checklists, explain variances, match transactions, and automate inbox tasks.</p>
           </div>
           <div className="w-full h-40 bg-gradient-to-t from-white/[0.05] to-transparent rounded-xl mt-8 border border-white/[0.02]"></div>
         </motion.div>
@@ -55,12 +55,12 @@ const PlatformsBlock = () => {
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.2 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
           className="bg-gradient-to-br from-white/[0.02] to-[var(--color-datum-primary)]/10 border border-white/[0.05] rounded-2xl p-8 flex flex-col justify-between hover:border-[var(--color-datum-primary)]/60 transition-colors group cursor-pointer"
         >
           <div>
-            <h3 className="text-2xl font-bold text-[var(--color-datum-primary)] mb-4">AI Agents & Automation</h3>
-            <p className="text-base text-[var(--color-datum-ivory)]/80 leading-relaxed">No-code AI agents that generate checklists, explain variances, match transactions, and automate inbox tasks.</p>
+            <h3 className="text-2xl font-bold text-[var(--color-datum-primary)] mb-4">Optimize the Close</h3>
+            <p className="text-base text-[var(--color-datum-ivory)]/80 leading-relaxed">tandardize close processes and gain global visibility into tasks and status.</p>
           </div>
         </motion.div>
 
@@ -69,7 +69,7 @@ const PlatformsBlock = () => {
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.3 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
           className="bg-white/[0.02] border border-white/[0.05] rounded-2xl p-8 flex flex-col justify-between hover:border-[var(--color-datum-primary)]/40 transition-colors group cursor-pointer"
         >
           <div>
@@ -84,7 +84,7 @@ const PlatformsBlock = () => {
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.4 }}
+          transition={{ duration: 0.5, delay: 0.5 }}
           className="bg-white/[0.02] border border-white/[0.05] rounded-2xl p-8 flex flex-col justify-between hover:border-[var(--color-datum-primary)]/40 transition-colors group cursor-pointer"
         >
           <div>
@@ -100,7 +100,7 @@ const PlatformsBlock = () => {
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.5 }}
+          transition={{ duration: 0.5, delay: 0.6 }}
           className="bg-gradient-to-br from-white/[0.02] to-[var(--color-datum-primary)]/10 border border-white/[0.05] rounded-2xl p-8 flex flex-col justify-between hover:border-[var(--color-datum-primary)]/60 transition-colors group cursor-pointer"
         >
           <div>
