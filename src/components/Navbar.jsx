@@ -1,36 +1,35 @@
 import React from 'react';
-import logo from '../assets/logo.png'; // Đảm bảo cậu đã đưa logo vào thư mục assets
+import logo from '../assets/logo.png';
 
 const Navbar = () => {
   return (
-    // Sử dụng nền trắng (var(--color-datum-dark)) và chữ tối (var(--color-datum-white))
-    <nav className="bg-[var(--color-datum-dark)] text-[var(--color-datum-white)] px-6 py-5 flex items-center justify-between sticky top-0 z-50 border-b border-gray-200">
+    // Dùng py-4 để có chiều cao vừa phải, cân đối như Deloitte
+    <nav className="bg-[#111315] text-white px-8 py-4 flex items-center justify-between sticky top-0 z-50 border-b border-white/10">
       
-      {/* Logo Section */}
+      {/* Logo Section - Giữ tỷ lệ chuẩn */}
       <div className="flex items-center">
         <a href="/" className="flex items-center cursor-pointer">
           <img 
             src={logo} 
             alt="DatumAI Logo" 
-            className="w-[120px] h-auto object-contain" 
+            className="w-[110px] h-auto object-contain brightness-0 invert" 
           />
         </a>
       </div>
       
-      {/* Menu chuẩn SaaS - Đã cập nhật màu chữ theo Light Theme */}
-      <div className="hidden lg:flex items-center gap-8 text-sm font-medium tracking-wide">
-        <a href="#" className="text-[var(--color-datum-text-gray)] hover:text-[var(--color-datum-cyan)] transition-colors">Platform</a>
-        <a href="#" className="text-[var(--color-datum-text-gray)] hover:text-[var(--color-datum-cyan)] transition-colors">Solutions</a>
-        <a href="#" className="text-[var(--color-datum-text-gray)] hover:text-[var(--color-datum-cyan)] transition-colors">Pricing</a>
-        <a href="#" className="text-[var(--color-datum-text-gray)] hover:text-[var(--color-datum-cyan)] transition-colors">Resources ▾</a>
+      {/* Menu - Tăng khoảng cách (gap-10) để tạo sự sang trọng */}
+      <div className="hidden lg:flex items-center gap-10 text-[13px] font-medium tracking-wide">
+        {['Platform', 'Solutions', 'Pricing', 'Resources'].map((item) => (
+          <a key={item} href="#" className="text-gray-300 hover:text-[#00E5FF] transition-colors uppercase">
+            {item}
+          </a>
+        ))}
       </div>
 
-      {/* Cụm nút CTA */}
-      <div className="hidden lg:flex items-center gap-3">
-         <button className="bg-transparent border border-gray-300 text-[var(--color-datum-white)] px-5 py-2.5 rounded-xl font-semibold text-sm hover:bg-gray-100 transition-colors">
-           Sign In
-         </button>
-         <button className="bg-[var(--color-datum-cyan)] text-white px-5 py-2.5 rounded-xl font-bold text-sm shadow-md hover:opacity-90 transition-opacity">
+      {/* CTA Section - Đơn giản hóa */}
+      <div className="hidden lg:flex items-center gap-6 text-[13px]">
+         <a href="#" className="text-white hover:text-[#00E5FF] transition-colors">Sign In</a>
+         <button className="bg-[#00E5FF] text-black px-6 py-2 rounded font-bold hover:bg-white transition-colors">
            Start Free Trial
          </button>
       </div>
