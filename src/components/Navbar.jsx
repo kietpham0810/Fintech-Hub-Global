@@ -2,33 +2,34 @@ import React from 'react';
 import logo from '../assets/logo.png';
 
 const Navbar = () => {
+  // Tập trung vào 3 menu chính theo yêu cầu
+  const navItems = [
+    { name: 'Home', path: '/' },
+    { name: 'About us', path: '/about' },
+    { name: 'Contact', path: '/contact' }
+  ];
+
   return (
-    <nav className="bg-white border-b border-gray-200 px-8 py-3 flex items-center sticky top-0 z-50">
+    <nav className="bg-white border-b border-gray-200 px-8 py-3 flex items-center justify-between sticky top-0 z-50">
       
-      {/* Logo Section */}
-      <div className="mr-10">
+      <div className="flex items-center gap-12">
+        {/* Logo Section */}
         <a href="/">
           <img src={logo} alt="DatumAI Logo" className="w-[100px] h-auto" />
         </a>
-      </div>
-      
-      {/* Menu Navigation - Giống Upwork với các dấu mũi tên */}
-      <div className="flex items-center gap-8 text-sm font-medium text-gray-700">
-        <a href="#" className="flex items-center gap-1 hover:text-black">Platform ▾</a>
-        <a href="#" className="flex items-center gap-1 hover:text-black">Solutions ▾</a>
-        <a href="#" className="flex items-center gap-1 hover:text-black">Pricing ▾</a>
-        <a href="#" className="hover:text-black">Resources</a>
-      </div>
-
-      {/* Spacer để đẩy các phần tử về phía bên phải giống Upwork */}
-      <div className="flex-grow"></div>
-
-      {/* Action Section */}
-      <div className="flex items-center gap-4">
-        <a href="#" className="text-sm font-semibold hover:text-gray-600">Sign In</a>
-        <button className="border border-gray-300 px-5 py-1.5 rounded-full text-sm font-semibold hover:bg-gray-50 transition-colors">
-          Start Free Trial
-        </button>
+        
+        {/* Main Navigation */}
+        <div className="hidden lg:flex items-center gap-8 text-sm font-medium text-gray-700">
+          {navItems.map((item) => (
+            <a 
+              key={item.name} 
+              href={item.path} 
+              className="hover:text-[#008899] transition-colors"
+            >
+              {item.name}
+            </a>
+          ))}
+        </div>
       </div>
     </nav>
   );
