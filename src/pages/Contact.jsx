@@ -61,7 +61,7 @@ const Contact = () => {
               </div>
               <div>
                 <h3 className="text-sm font-bold text-gray-900">Phone</h3>
-                <p className="text-sm text-gray-600 mt-1">Hotline: (+8) 179 889 092</p>
+                <p className="text-sm text-gray-600 mt-1">Hotline: (+1) 817 988 9092</p>
               </div>
             </div>
             
