@@ -47,8 +47,7 @@ const Contact = () => {
               <div>
                 <h3 className="text-sm font-bold text-gray-900">Office</h3>
                 <p className="text-sm leading-relaxed text-gray-600 mt-1">
-                  159C De Tham, Cau Ong Lanh Ward<br />
-                  Ho Chi Minh City, Vietnam
+                  1351 Oxford Rd NE, Atlanta, GA 30307
                 </p>
               </div>
             </div>
