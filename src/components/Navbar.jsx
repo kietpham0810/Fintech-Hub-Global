@@ -13,9 +13,9 @@ const Navbar = () => {
     <nav className="bg-white border-b border-gray-200 px-8 py-3 flex items-center justify-between sticky top-0 z-50">
       
       <div className="flex items-center gap-12">
-        {/* Logo Section */}
+        {/* Logo Section - Kích thước đã được tăng 1.5 lần (100px -> 150px) */}
         <a href="/">
-          <img src={logo} alt="DatumAI Logo" className="w-[100px] h-auto" />
+          <img src={logo} alt="DatumAI Logo" className="w-[150px] h-auto object-contain" />
         </a>
         
         {/* Main Navigation */}

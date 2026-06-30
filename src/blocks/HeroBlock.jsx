@@ -1,14 +1,16 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+// Cậu nhớ import ảnh dashboard từ thư mục images vào đây
+import dashboardImg from '../images/dashboard.jpg';
 
 const HeroBlock = () => {
-  // Cấu hình kịch bản Animation (Giữ lại logic cũ của cậu, tinh chỉnh thông số)
+  // Cấu hình kịch bản Animation
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1, // Tốc độ xuất hiện nối tiếp
+        staggerChildren: 0.1,
         delayChildren: 0.2,
       },
     },
@@ -23,7 +25,7 @@ const HeroBlock = () => {
     },
   };
 
-  const rightCardVariants = {
+  const rightImageVariants = {
     hidden: { x: 50, opacity: 0 },
     visible: { 
       x: 0, 
@@ -32,75 +34,77 @@ const HeroBlock = () => {
     }
   };
 
-  // Hàm xử lý nút bấm (Tạm thời giữ nguyên alert, sẽ nâng cấp Modal sau)
-  const handleStartTrial = () => {
-    alert('Claim your 1-month free trial. We will configure DatumAI and schedule training.');
+  // Hàm xử lý nút liên hệ (Cậu có thể đổi thành chuyển hướng sang trang Contact)
+  const handleContact = () => {
+    // window.location.href = '/contact';
+    alert('Chuyển hướng đến trang Liên hệ...');
   };
 
   return (
-    <div className="max-w-[1100px] mx-auto px-6 md:px-10 py-12">
-      <section className="flex flex-col md:flex-row gap-10 items-center justify-between bg-white/[0.02] p-8 md:p-10 rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.6)]">
+    <div className="max-w-[1200px] mx-auto px-6 md:px-10 py-12">
+      <section className="flex flex-col lg:flex-row gap-12 items-center justify-between">
         
         {/* CỘT TRÁI: Nội dung có Animation tuần tự */}
         <motion.div 
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="flex-1 min-w-[320px]"
+          className="flex-1 min-w-[320px] max-w-2xl"
         >
-          <motion.h1 variants={itemVariants} className="text-4xl md:text-[40px] font-bold m-0 mb-3 leading-[1.05] text-[var(--color-datum-ivory)]">
+          <motion.h1 
+            variants={itemVariants} 
+            className="text-4xl md:text-5xl lg:text-[54px] font-extrabold m-0 mb-6 leading-tight text-gray-900 tracking-tight"
+          >
             Automate clarity for your accounting team
           </motion.h1>
           
-          <motion.p variants={itemVariants} className="m-0 mb-5 text-[var(--color-datum-muted)] text-base max-w-[720px]">
+          <motion.p 
+            variants={itemVariants} 
+            className="m-0 mb-8 text-gray-600 text-lg md:text-xl leading-relaxed"
+          >
             Custom AI solutions that automate workflows, elevate preparers into reviewers, and train your team to use AI for tax research.
           </motion.p>
       
-          <motion.div variants={itemVariants} className="flex flex-wrap gap-3 my-5">
-            <span className="bg-white/[0.02] px-3.5 py-2.5 rounded-xl text-[var(--color-datum-ivory)] text-sm font-medium">Faster closes</span>
-            <span className="bg-white/[0.02] px-3.5 py-2.5 rounded-xl text-[var(--color-datum-ivory)] text-sm font-medium">Smarter reviews</span>
-            <span className="bg-white/[0.02] px-3.5 py-2.5 rounded-xl text-[var(--color-datum-ivory)] text-sm font-medium">Practical AI training</span>
+          <motion.div variants={itemVariants} className="flex flex-wrap gap-3 mb-10">
+            <span className="bg-[#008899]/10 px-4 py-2 rounded-full text-[#008899] font-semibold text-sm">Faster closes</span>
+            <span className="bg-[#008899]/10 px-4 py-2 rounded-full text-[#008899] font-semibold text-sm">Smarter reviews</span>
+            <span className="bg-[#008899]/10 px-4 py-2 rounded-full text-[#008899] font-semibold text-sm">Practical AI training</span>
           </motion.div>
       
-          <motion.div variants={itemVariants} className="flex gap-3 flex-wrap mt-7">
+          <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
             <button 
-              onClick={handleStartTrial}
-              className="inline-flex items-center gap-2 px-5 py-3 rounded-xl border-0 cursor-pointer font-semibold bg-gradient-to-r from-[var(--color-datum-primary)] to-[#00c0e6] text-[#071018] shadow-[0_6px_18px_rgba(0,229,255,0.12)] hover:scale-105 transition-transform"
+              onClick={handleContact}
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl border-0 cursor-pointer font-bold bg-[#008899] text-white shadow-[0_8px_20px_rgba(0,136,153,0.3)] hover:bg-[#007080] hover:-translate-y-1 transition-all duration-300 w-full sm:w-auto"
             >
-              Start 1-Month Free
+              Contact us now for consultancy
             </button>
-            <button className="inline-flex items-center gap-2 px-5 py-3 rounded-xl cursor-pointer font-semibold bg-transparent border border-white/10 text-[var(--color-datum-ivory)] hover:bg-white/5 transition-colors">
-              See a Live Demo
-            </button>
-            <button className="inline-flex items-center gap-2 px-5 py-3 rounded-xl cursor-pointer font-semibold bg-transparent border border-white/10 text-[var(--color-datum-ivory)] hover:bg-white/5 transition-colors">
-              Download Feature Brief
-            </button>
-          </motion.div>
-          
-          <motion.div variants={itemVariants} className="text-[13px] text-[var(--color-datum-muted)] mt-4">
-            No credit card required; one social review in exchange for the trial.
+            <div className="flex items-center gap-2 text-gray-700 font-semibold text-lg px-2">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5 text-[#008899]">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-2.896-1.596-5.439-4.099-7.031-7.031l1.293-.97c.362-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
+              </svg>
+              +8 179 889 092
+            </div>
           </motion.div>
         </motion.div>
       
-        {/* CỘT PHẢI: Các thẻ thông số trượt từ phải sang */}
-        <motion.aside 
-          variants={rightCardVariants}
+        {/* CỘT PHẢI: Ảnh Dashboard */}
+        <motion.div 
+          variants={rightImageVariants}
           initial="hidden"
           animate="visible"
-          className="w-full md:w-[320px] flex flex-col items-center gap-3 shrink-0"
+          className="w-full lg:w-[50%] flex justify-center shrink-0 perspective-1000"
         >
-          <div className="w-full bg-gradient-to-b from-white/[0.03] to-white/[0.01] p-5 rounded-xl border border-white/[0.05] hover:border-[var(--color-datum-primary)]/30 transition-colors">
-            <div className="text-[12px] text-[var(--color-datum-muted)] mb-1">Estimate your monthly savings</div>
-            <div className="text-base text-[var(--color-datum-primary)] font-bold mb-2">~ 120 hours saved / month</div>
-            <div className="text-[13px] text-[var(--color-datum-muted)]">Based on average close automation for mid-sized firms.</div>
+          {/* Vùng chứa ảnh với hiệu ứng nổi 3D nhẹ */}
+          <div className="relative w-full max-w-lg rounded-2xl overflow-hidden shadow-2xl border border-gray-100 transform rotate-y-[-5deg] rotate-x-[5deg] hover:rotate-y-0 hover:rotate-x-0 transition-transform duration-700">
+            {/* Lớp gradient bóng đổ giả lập */}
+            <div className="absolute inset-0 bg-gradient-to-tr from-black/10 to-transparent z-10 pointer-events-none"></div>
+            <img 
+              src={dashboardImg} 
+              alt="Datum AI Dashboard Interface" 
+              className="w-full h-auto object-cover block relative z-0"
+            />
           </div>
-      
-          <div className="w-full bg-gradient-to-b from-white/[0.03] to-white/[0.01] p-5 rounded-xl border border-white/[0.05] hover:border-[var(--color-datum-primary)]/30 transition-colors">
-            <div className="text-[12px] text-[var(--color-datum-muted)] mb-1">Onboarding</div>
-            <div className="text-base text-[var(--color-datum-primary)] font-bold mb-2">2 weeks to configure & train</div>
-            <div className="text-[13px] text-[var(--color-datum-muted)]">Includes AI tax research workshop for your team.</div>
-          </div>
-        </motion.aside>
+        </motion.div>
 
       </section>
     </div>
