@@ -2,17 +2,17 @@ import React from 'react';
 import { motion } from 'framer-motion';
 
 // Import hình ảnh từ thư mục images (Dựa theo đúng cấu trúc cậu đã tạo)
-import anh1 from '../images/anh1.jpg'; // Hình Hero
-import anh3 from '../images/ảnh3.jpg'; // Hình Mission
-import bgTagline1 from '../images/ảnh 2.2.jpg'; // Background: Smarter processes
-import bgTogether from '../images/together.jpg'; // Background: Together
-import anh5 from '../images/anh5.jpg'; // Background: Less cost
-import founderImg from '../assets/leader.png'; // Ảnh Lynn Le (Giữ nguyên path của cậu)
+import anh1 from '../images/anh1.jpg'; 
+import anh3 from '../images/ảnh3.jpg'; 
+import bgTagline1 from '../images/ảnh 2.2.jpg'; 
+import bgTogether from '../images/together.jpg'; 
+import anh5 from '../images/anh5.jpg'; 
+import founderImg from '../assets/leader.png'; 
 
 const About = () => {
   // Biến đồng bộ định dạng chữ (Typography) để dễ bảo trì
   const formChu1 = "text-4xl md:text-5xl font-extrabold text-gray-900 tracking-tight";
-  const formChu2 = "text-xl text-gray-600 leading-relaxed";
+  const formChu2 = "text-xl text-gray-600 leading-relaxed font-medium";
 
   return (
     <div className="w-full bg-white overflow-hidden">
@@ -44,10 +44,11 @@ const About = () => {
       {/* 2. MISSION SECTION */}
       <section className="bg-gray-50 py-24 mt-8">
         <div className="max-w-7xl mx-auto px-6 text-center">
-          <h2 className="text-sm font-bold uppercase tracking-widest text-[#008899] mb-4">Our Mission</h2>
-          <h3 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-14 tracking-tight">
+          {/* Áp dụng formChu1 cho Our Mission, formChu2 cho Smarter systems */}
+          <h2 className={`${formChu1} mb-6`}>Our Mission</h2>
+          <p className={`${formChu2} mb-14 max-w-3xl mx-auto`}>
             Smarter systems. Better growth.
-          </h3>
+          </p>
           
           {/* Hình 2 */}
           <div className="w-full max-w-5xl mx-auto aspect-[21/9] bg-white rounded-2xl overflow-hidden flex items-center justify-center shadow-xl border border-gray-200">
@@ -59,7 +60,7 @@ const About = () => {
       {/* 3. WHAT WE DO SECTION */}
       <section className="py-24 max-w-7xl mx-auto px-6">
         <div className="text-center mb-20">
-          <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 tracking-tight">What We Do</h2>
+          <h2 className={formChu1}>What We Do</h2>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-5xl mx-auto">
@@ -69,8 +70,9 @@ const About = () => {
               <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg>
             </div>
             <div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">Accounting & Tax</h3>
-              <p className="text-gray-600 leading-relaxed font-medium">Comprehensive tax and accounting services tailored to optimize your business compliance.</p>
+              {/* Áp dụng formChu2 cho các tiêu đề con, ghi đè màu đen và đậm để hợp với thẻ */}
+              <h3 className={`${formChu2} text-gray-900 font-bold mb-3`}>Accounting & Tax</h3>
+              <p className="text-gray-500 leading-relaxed">Comprehensive tax and accounting services tailored to optimize your business compliance.</p>
             </div>
           </div>
           
@@ -80,8 +82,8 @@ const About = () => {
               <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
             </div>
             <div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">Bookkeeping</h3>
-              <p className="text-gray-600 leading-relaxed font-medium">Accurate and timely financial record-keeping to give you clear visibility into your cash flow.</p>
+              <h3 className={`${formChu2} text-gray-900 font-bold mb-3`}>Bookkeeping</h3>
+              <p className="text-gray-500 leading-relaxed">Accurate and timely financial record-keeping to give you clear visibility into your cash flow.</p>
             </div>
           </div>
 
@@ -91,8 +93,8 @@ const About = () => {
               <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
             </div>
             <div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">AI Automation</h3>
-              <p className="text-gray-600 leading-relaxed font-medium">Streamline repetitive finance tasks with cutting-edge artificial intelligence systems.</p>
+              <h3 className={`${formChu2} text-gray-900 font-bold mb-3`}>AI Automation</h3>
+              <p className="text-gray-500 leading-relaxed">Streamline repetitive finance tasks with cutting-edge artificial intelligence systems.</p>
             </div>
           </div>
 
@@ -102,8 +104,8 @@ const About = () => {
               <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg>
             </div>
             <div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">Software Solutions</h3>
-              <p className="text-gray-600 leading-relaxed font-medium">Custom software development designed specifically for modern financial workflows.</p>
+              <h3 className={`${formChu2} text-gray-900 font-bold mb-3`}>Software Solutions</h3>
+              <p className="text-gray-500 leading-relaxed">Custom software development designed specifically for modern financial workflows.</p>
             </div>
           </div>
         </div>
