@@ -75,6 +75,17 @@ const FooterBlock = () => {
                 <span>+8 179 889 092</span>
               </motion.div>
 
+              {/* Thay đổi href để chuyển hướng thẳng sang trang Contact */}
+              <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-2 sm:gap-6">
+                <span className="font-bold w-20 shrink-0 text-gray-900">Email:</span>
+                <a 
+                  href="/contact" 
+                  className="hover:text-[#008899] transition-colors duration-300"
+                >
+                  lynn@datumai.online
+                </a>
+              </motion.div>
+
             </motion.div>
           </div>
         </div>
