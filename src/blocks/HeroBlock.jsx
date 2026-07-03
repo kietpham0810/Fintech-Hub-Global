@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 // Cậu nhớ import ảnh dashboard từ thư mục images vào đây
-import dashboardImg from '../images/dashboard.jpg';
+import dashboardImg from '../images/dashboard.png';
 
 const HeroBlock = () => {
   // Cấu hình kịch bản Animation

@@ -3,10 +3,10 @@ import { motion } from 'framer-motion';
 
 // Import hình ảnh từ thư mục images (Dựa theo đúng cấu trúc cậu đã tạo)
 import anh1 from '../images/anh1.jpg'; 
-import anh3 from '../images/ảnh3.jpg'; 
-import bgTagline1 from '../images/ảnh 2.2.jpg'; 
-import bgTogether from '../images/together.jpg'; 
-import anh5 from '../images/anh5.jpg'; 
+import anh3 from '../images/ảnh3.png'; 
+import bgTagline1 from '../images/ảnh 2.2.png'; 
+import bgTogether from '../images/together.png'; 
+import anh5 from '../images/anh5.png'; 
 import founderImg from '../assets/leader.png'; 
 
 const About = () => {
@@ -29,7 +29,7 @@ const About = () => {
           initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }}
           className={`${formChu2} mb-12 max-w-3xl mx-auto`}
         >
-          We help businesses run smarter finance with AI.
+          We help businesses run smarter accounting with AI.
         </motion.p>
         
         {/* Hình 1 */}
@@ -94,7 +94,7 @@ const About = () => {
             </div>
             <div>
               <h3 className={`${formChu2} text-gray-900 font-bold mb-3`}>AI Automation</h3>
-              <p className="text-gray-500 leading-relaxed">Streamline repetitive finance tasks with cutting-edge artificial intelligence systems.</p>
+              <p className="text-gray-500 leading-relaxed">Streamline repetitive accounting tasks with cutting-edge artificial intelligence systems.</p>
             </div>
           </div>
 
@@ -153,7 +153,7 @@ const About = () => {
                 Lynn brings Big Four expertise in tax, compliance, and automation for Fortune-level clients.
               </p>
               <p>
-                She is backed by a team with extensive experience in finance and technology, delivering modern, practical solutions for global companies.
+                She is backed by a team with extensive experience in accounting and technology, delivering modern, practical solutions for global companies.
               </p>
             </div>
           </div>
@@ -166,7 +166,7 @@ const About = () => {
         <div className="absolute inset-0 bg-black/50 z-10"></div>
         <div className="relative z-20 text-center px-6 max-w-4xl">
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white tracking-tight drop-shadow-lg">
-            Together, we bridge <span className="text-[#008899]">finance and innovation.</span>
+            Together, we bridge <span className="text-[#008899]">accounting and innovation.</span>
           </h2>
         </div>
       </section>
