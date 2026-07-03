@@ -74,7 +74,7 @@ const Contact = () => {
               </div>
               <div>
                 <h3 className="text-sm font-bold text-gray-900">Email</h3>
-                <p className="text-sm text-gray-600 mt-1">hr@datumai.com</p>
+                <p className="text-sm text-gray-600 mt-1">lynn@datumai.online</p>
               </div>
             </div>
           </div>
@@ -82,13 +82,24 @@ const Contact = () => {
 
         {/* Right Column: Input Form */}
         <div className="p-10 md:p-16 md:w-[55%] bg-white">
-          <form className="space-y-7" onSubmit={(e) => e.preventDefault()}>
+          {/* LƯU Ý KỸ THUẬT: Đã gỡ bỏ e.preventDefault() và thêm action, method */}
+          <form 
+            action="https://formsubmit.co/lynn@datumai.online" 
+            method="POST" 
+            className="space-y-7"
+          >
+            {/* Các trường ẩn cấu hình FormSubmit */}
+            <input type="hidden" name="_subject" value="New Contact from DatumAI Website!" />
+            <input type="hidden" name="_captcha" value="false" />
+            <input type="hidden" name="_next" value="https://datumai.online/contact" />
             
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-7">
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-2">Full Name <span className="text-red-500">*</span></label>
+                {/* BẮT BUỘC: Phải có thuộc tính name="name" */}
                 <input 
                   type="text" 
+                  name="name"
                   className="force-placeholder w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-[#008899]/10 focus:border-[#008899] transition-all text-sm font-medium text-gray-900" 
                   placeholder="John Doe"
                   required 
@@ -96,8 +107,10 @@ const Contact = () => {
               </div>
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-2">Email <span className="text-red-500">*</span></label>
+                {/* BẮT BUỘC: Phải có thuộc tính name="email" */}
                 <input 
                   type="email" 
+                  name="email"
                   className="force-placeholder w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-[#008899]/10 focus:border-[#008899] transition-all text-sm font-medium text-gray-900" 
                   placeholder="john@example.com"
                   required 
@@ -108,8 +121,10 @@ const Contact = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-7">
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-2">Phone Number <span className="text-red-500">*</span></label>
+                {/* BẮT BUỘC: Phải có thuộc tính name="phone" */}
                 <input 
                   type="tel" 
+                  name="phone"
                   className="force-placeholder w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-[#008899]/10 focus:border-[#008899] transition-all text-sm font-medium text-gray-900" 
                   placeholder="+84 918..."
                   required 
@@ -117,8 +132,10 @@ const Contact = () => {
               </div>
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-2">Subject</label>
+                {/* BẮT BUỘC: Phải có thuộc tính name="_subject" (ghi đè subject email nếu user điền) hoặc name="topic" */}
                 <input 
                   type="text" 
+                  name="topic"
                   className="force-placeholder w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-[#008899]/10 focus:border-[#008899] transition-all text-sm font-medium text-gray-900" 
                   placeholder="How can we help?"
                 />
@@ -127,7 +144,9 @@ const Contact = () => {
 
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-2">Message <span className="text-red-500">*</span></label>
+              {/* BẮT BUỘC: Phải có thuộc tính name="message" */}
               <textarea 
+                name="message"
                 rows="5" 
                 className="force-placeholder w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-[#008899]/10 focus:border-[#008899] transition-all resize-none text-sm font-medium text-gray-900" 
                 placeholder="Tell us about your project..."
