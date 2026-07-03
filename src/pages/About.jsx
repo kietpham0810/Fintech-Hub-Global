@@ -70,7 +70,6 @@ const About = () => {
               <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg>
             </div>
             <div>
-              {/* Áp dụng formChu2 cho các tiêu đề con, ghi đè màu đen và đậm để hợp với thẻ */}
               <h3 className={`${formChu2} text-gray-900 font-bold mb-3`}>Accounting & Tax</h3>
               <p className="text-gray-500 leading-relaxed">Comprehensive tax and accounting services tailored to optimize your business compliance.</p>
             </div>
@@ -125,22 +124,37 @@ const About = () => {
       {/* 4. FOUNDER & TEAM SECTION */}
       <section className="py-16 md:py-32 max-w-7xl mx-auto px-4 sm:px-6">
         <div className="flex flex-col md:flex-row items-center gap-12 md:gap-16 max-w-5xl mx-auto">
-          {/* Founder Image */}
+          
+          {/* TÁI CẤU TRÚC: Khối ảnh đại diện và Huy hiệu LinkedIn đồng bộ cấu trúc hình học */}
           <div className="w-full md:w-2/5 flex flex-col items-center">
-            <div className="w-64 h-64 md:w-72 md:h-72 rounded-full overflow-hidden border-8 border-gray-50 shadow-2xl mb-8 relative group">
-              <div className="absolute inset-0 bg-[#008899]/20 group-hover:bg-transparent transition-colors duration-300 z-10"></div>
-              <img src={founderImg} alt="Lynn Le, Founder" className="w-full h-full object-cover relative z-0" />
+            {/* Khung bọc tương đối tạo điểm neo cho Badge hệ thống */}
+            <div className="relative w-64 h-64 md:w-72 md:h-72 group">
+              
+              {/* Vòng tròn Avatar nguyên bản, sạch sẽ với shadow sâu */}
+              <div className="w-full h-full rounded-full overflow-hidden border-[10px] border-white shadow-2xl bg-gray-50 relative z-10">
+                <div className="absolute inset-0 bg-[#008899]/5 group-hover:bg-transparent transition-colors duration-300 z-10"></div>
+                <img 
+                  src={founderImg} 
+                  alt="Lynn Le, Founder" 
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 relative z-0" 
+                />
+              </div>
+              
+              {/* Huy hiệu LinkedIn cao cấp ghim ở góc dưới bên phải - Loại bỏ hoàn toàn sự lệch tông đường nét */}
+              <a 
+                href="https://www.linkedin.com/in/lynnle2/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="absolute bottom-2 right-2 md:bottom-4 md:right-4 z-20 flex items-center justify-center w-12 h-12 md:w-14 md:h-14 bg-[#0A66C2] text-white rounded-full shadow-xl hover:bg-[#004182] hover:scale-110 active:scale-95 transition-all duration-300 border-4 border-white"
+                title="Connect on LinkedIn"
+              >
+                {/* SVG LinkedIn chuẩn tỷ lệ */}
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                </svg>
+              </a>
+
             </div>
-            {/* Đã dọn dẹp URL tại đây */}
-            <a 
-              href="https://www.linkedin.com/in/lynnle2/" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="flex items-center gap-3 text-[#008899] font-bold text-lg hover:text-gray-900 transition-colors"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-              LinkedIn
-            </a>
           </div>
 
           {/* Founder Text */}
