@@ -11,14 +11,14 @@ import founderImg from '../assets/leader.png';
 
 const About = () => {
   // Biến đồng bộ định dạng chữ (Typography) để dễ bảo trì
-  const formChu1 = "text-4xl md:text-5xl font-extrabold text-gray-900 tracking-tight";
-  const formChu2 = "text-xl text-gray-600 leading-relaxed font-medium";
+  const formChu1 = "text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 tracking-tight";
+  const formChu2 = "text-lg md:text-xl text-gray-600 leading-relaxed font-medium";
 
   return (
     <div className="w-full bg-white overflow-hidden">
       
       {/* 1. HERO SECTION */}
-      <section className="max-w-7xl mx-auto px-6 pt-20 pb-16 text-center">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 pt-16 pb-12 md:pt-20 md:pb-16 text-center">
         <motion.h1 
           initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}
           className={`${formChu1} mb-6`}
@@ -42,8 +42,8 @@ const About = () => {
       </section>
 
       {/* 2. MISSION SECTION */}
-      <section className="bg-gray-50 py-24 mt-8">
-        <div className="max-w-7xl mx-auto px-6 text-center">
+      <section className="bg-gray-50 py-16 md:py-24 mt-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 text-center">
           {/* Áp dụng formChu1 cho Our Mission, formChu2 cho Smarter systems */}
           <h2 className={`${formChu1} mb-6`}>Our Mission</h2>
           <p className={`${formChu2} mb-14 max-w-3xl mx-auto`}>
@@ -58,14 +58,14 @@ const About = () => {
       </section>
 
       {/* 3. WHAT WE DO SECTION */}
-      <section className="py-24 max-w-7xl mx-auto px-6">
-        <div className="text-center mb-20">
+      <section className="py-16 md:py-24 max-w-7xl mx-auto px-4 sm:px-6">
+        <div className="text-center mb-16 md:mb-20">
           <h2 className={formChu1}>What We Do</h2>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 max-w-5xl mx-auto">
           {/* Item 1 */}
-          <div className="flex items-start gap-6 p-8 rounded-2xl bg-white border border-gray-100 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+          <div className="flex items-start gap-6 p-6 md:p-8 rounded-2xl bg-white border border-gray-100 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
             <div className="w-14 h-14 rounded-xl bg-[#008899]/10 flex items-center justify-center text-[#008899] shrink-0">
               <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg>
             </div>
@@ -77,7 +77,7 @@ const About = () => {
           </div>
           
           {/* Item 2 */}
-          <div className="flex items-start gap-6 p-8 rounded-2xl bg-white border border-gray-100 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+          <div className="flex items-start gap-6 p-6 md:p-8 rounded-2xl bg-white border border-gray-100 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
             <div className="w-14 h-14 rounded-xl bg-[#008899]/10 flex items-center justify-center text-[#008899] shrink-0">
               <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
             </div>
@@ -88,7 +88,7 @@ const About = () => {
           </div>
 
           {/* Item 3 */}
-          <div className="flex items-start gap-6 p-8 rounded-2xl bg-white border border-gray-100 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+          <div className="flex items-start gap-6 p-6 md:p-8 rounded-2xl bg-white border border-gray-100 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
             <div className="w-14 h-14 rounded-xl bg-[#008899]/10 flex items-center justify-center text-[#008899] shrink-0">
               <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
             </div>
@@ -99,7 +99,7 @@ const About = () => {
           </div>
 
           {/* Item 4 */}
-          <div className="flex items-start gap-6 p-8 rounded-2xl bg-white border border-gray-100 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+          <div className="flex items-start gap-6 p-6 md:p-8 rounded-2xl bg-white border border-gray-100 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
             <div className="w-14 h-14 rounded-xl bg-[#008899]/10 flex items-center justify-center text-[#008899] shrink-0">
               <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg>
             </div>
@@ -112,22 +112,22 @@ const About = () => {
       </section>
 
       {/* Tagline 1 (Background Hình 2.2) */}
-      <section className="relative py-40 flex items-center justify-center overflow-hidden bg-gray-900">
+      <section className="relative py-20 md:py-32 lg:py-40 flex items-center justify-center overflow-hidden bg-gray-900">
         <img src={bgTagline1} alt="Smarter processes" className="absolute inset-0 w-full h-full object-cover opacity-60" />
         <div className="absolute inset-0 bg-gradient-to-r from-black/80 to-black/40 z-10"></div>
-        <div className="relative z-20 text-center px-6">
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white tracking-tight drop-shadow-lg">
+        <div className="relative z-20 text-center px-4 sm:px-6">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white tracking-tight drop-shadow-lg">
             Smarter processes. <span className="text-[#008899]">Stronger results.</span>
           </h2>
         </div>
       </section>
 
       {/* 4. FOUNDER & TEAM SECTION */}
-      <section className="py-32 max-w-7xl mx-auto px-6">
-        <div className="flex flex-col md:flex-row items-center gap-16 max-w-5xl mx-auto">
+      <section className="py-16 md:py-32 max-w-7xl mx-auto px-4 sm:px-6">
+        <div className="flex flex-col md:flex-row items-center gap-12 md:gap-16 max-w-5xl mx-auto">
           {/* Founder Image */}
           <div className="w-full md:w-2/5 flex flex-col items-center">
-            <div className="w-72 h-72 rounded-full overflow-hidden border-8 border-gray-50 shadow-2xl mb-8 relative group">
+            <div className="w-64 h-64 md:w-72 md:h-72 rounded-full overflow-hidden border-8 border-gray-50 shadow-2xl mb-8 relative group">
               <div className="absolute inset-0 bg-[#008899]/20 group-hover:bg-transparent transition-colors duration-300 z-10"></div>
               <img src={founderImg} alt="Lynn Le, Founder" className="w-full h-full object-cover relative z-0" />
             </div>
@@ -146,9 +146,9 @@ const About = () => {
           {/* Founder Text */}
           <div className="w-full md:w-3/5 text-center md:text-left">
             <h2 className="text-sm font-bold uppercase tracking-widest text-[#008899] mb-4">Leadership</h2>
-            <h3 className="text-4xl font-extrabold text-gray-900 mb-4 tracking-tight">Our Founder & Team</h3>
-            <h4 className="text-2xl text-gray-800 font-semibold mb-8">Lynn Le, <span className="text-gray-500 font-normal">CPA, Founder & CEO</span></h4>
-            <div className="space-y-6 text-xl text-gray-600 leading-relaxed font-medium">
+            <h3 className="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-4 tracking-tight">Our Founder & Team</h3>
+            <h4 className="text-xl md:text-2xl text-gray-800 font-semibold mb-6 md:mb-8">Lynn Le, <span className="text-gray-500 font-normal">CPA, Founder & CEO</span></h4>
+            <div className="space-y-6 text-lg md:text-xl text-gray-600 leading-relaxed font-medium">
               <p>
                 Lynn brings Big Four expertise in tax, compliance, and automation for Fortune-level clients.
               </p>
@@ -161,63 +161,63 @@ const About = () => {
       </section>
 
       {/* Tagline 2 (Background Hình together) */}
-      <section className="relative py-40 flex items-center justify-center overflow-hidden bg-gray-900">
+      <section className="relative py-20 md:py-32 lg:py-40 flex items-center justify-center overflow-hidden bg-gray-900">
         <img src={bgTogether} alt="Together we bridge" className="absolute inset-0 w-full h-full object-cover opacity-50" />
         <div className="absolute inset-0 bg-black/50 z-10"></div>
-        <div className="relative z-20 text-center px-6 max-w-4xl">
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white tracking-tight drop-shadow-lg">
-              Together, we bridge
-               <span className="block text-[#008899] mt-2 md:mt-4">accounting and innovation.</span>
+        <div className="relative z-20 text-center px-4 sm:px-6 max-w-4xl">
+          <h2 className="flex flex-col items-center text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white tracking-tight drop-shadow-lg leading-[1.1]">
+              <span>Together, we bridge</span>
+              <span className="text-[#008899]">accounting and innovation.</span>
           </h2>
         </div>
       </section>
 
       {/* 5. WHY DATUM AI SECTION */}
-      <section className="py-32 max-w-7xl mx-auto px-6">
-        <div className="text-center mb-20 max-w-3xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-6 tracking-tight">Why DatumAI</h2>
-          <p className="text-xl text-gray-600 font-medium">
+      <section className="py-16 md:py-32 max-w-7xl mx-auto px-4 sm:px-6">
+        <div className="text-center mb-16 md:mb-20 max-w-3xl mx-auto">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 mb-6 tracking-tight">Why DatumAI</h2>
+          <p className="text-lg md:text-xl text-gray-600 font-medium">
             We don’t just manage numbers—we deliver results that drive your success.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 max-w-6xl mx-auto">
-          <div className="bg-gray-50 p-10 rounded-2xl border border-gray-100 shadow-sm text-center hover:-translate-y-2 hover:shadow-xl transition-all duration-300 group">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 max-w-6xl mx-auto">
+          <div className="bg-gray-50 p-8 md:p-10 rounded-2xl border border-gray-100 shadow-sm text-center hover:-translate-y-2 hover:shadow-xl transition-all duration-300 group">
             <div className="w-16 h-16 bg-white shadow-sm text-[#008899] rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
               <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6" /></svg>
             </div>
-            <h4 className="font-bold text-gray-900 text-xl">Reduce costs</h4>
+            <h4 className="font-bold text-gray-900 text-lg md:text-xl">Reduce costs</h4>
           </div>
 
-          <div className="bg-gray-50 p-10 rounded-2xl border border-gray-100 shadow-sm text-center hover:-translate-y-2 hover:shadow-xl transition-all duration-300 group">
+          <div className="bg-gray-50 p-8 md:p-10 rounded-2xl border border-gray-100 shadow-sm text-center hover:-translate-y-2 hover:shadow-xl transition-all duration-300 group">
             <div className="w-16 h-16 bg-white shadow-sm text-[#008899] rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
               <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
             </div>
-            <h4 className="font-bold text-gray-900 text-xl">Save time</h4>
+            <h4 className="font-bold text-gray-900 text-lg md:text-xl">Save time</h4>
           </div>
 
-          <div className="bg-gray-50 p-10 rounded-2xl border border-gray-100 shadow-sm text-center hover:-translate-y-2 hover:shadow-xl transition-all duration-300 group">
+          <div className="bg-gray-50 p-8 md:p-10 rounded-2xl border border-gray-100 shadow-sm text-center hover:-translate-y-2 hover:shadow-xl transition-all duration-300 group">
             <div className="w-16 h-16 bg-white shadow-sm text-[#008899] rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
               <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
             </div>
-            <h4 className="font-bold text-gray-900 text-xl">Decide faster</h4>
+            <h4 className="font-bold text-gray-900 text-lg md:text-xl">Decide faster</h4>
           </div>
 
-          <div className="bg-gray-50 p-10 rounded-2xl border border-gray-100 shadow-sm text-center hover:-translate-y-2 hover:shadow-xl transition-all duration-300 group">
+          <div className="bg-gray-50 p-8 md:p-10 rounded-2xl border border-gray-100 shadow-sm text-center hover:-translate-y-2 hover:shadow-xl transition-all duration-300 group">
             <div className="w-16 h-16 bg-white shadow-sm text-[#008899] rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
               <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
             </div>
-            <h4 className="font-bold text-gray-900 text-xl">Scale securely</h4>
+            <h4 className="font-bold text-gray-900 text-lg md:text-xl">Scale securely</h4>
           </div>
         </div>
       </section>
 
       {/* Tagline 3 (Background Hình anh5) */}
-      <section className="relative py-40 flex items-center justify-center overflow-hidden bg-gray-900">
+      <section className="relative py-20 md:py-32 lg:py-40 flex items-center justify-center overflow-hidden bg-gray-900">
         <img src={anh5} alt="Less cost" className="absolute inset-0 w-full h-full object-cover opacity-60" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-black/30 z-10"></div>
-        <div className="relative z-20 text-center px-6">
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white tracking-tight drop-shadow-lg">
+        <div className="relative z-20 text-center px-4 sm:px-6">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white tracking-tight drop-shadow-lg">
             Less cost. <span className="text-[#008899]">More growth.</span>
           </h2>
         </div>

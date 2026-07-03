@@ -19,13 +19,13 @@ const FooterBlock = () => {
   };
 
   return (
-    <footer className="border-t border-gray-200 pt-20 pb-10 mt-10 bg-white">
+    <footer className="border-t border-gray-200 pt-16 md:pt-20 pb-10 mt-10 bg-white">
       <motion.div 
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
         variants={containerVariants}
-        className="max-w-[1100px] mx-auto px-6 md:px-10"
+        className="max-w-[1100px] mx-auto px-4 sm:px-6 md:px-10"
       >
         <div className="flex flex-col lg:flex-row justify-between gap-16 mb-16">
           
