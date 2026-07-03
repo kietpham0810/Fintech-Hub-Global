@@ -166,7 +166,8 @@ const About = () => {
         <div className="absolute inset-0 bg-black/50 z-10"></div>
         <div className="relative z-20 text-center px-6 max-w-4xl">
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white tracking-tight drop-shadow-lg">
-            Together, we bridge <span className="text-[#008899]">accounting and innovation.</span>
+              Together, we bridge
+               <span className="block text-[#008899] mt-2 md:mt-4">accounting and innovation.</span>
           </h2>
         </div>
       </section>
