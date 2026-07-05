@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-// Cập nhật lại đuôi file (.png, .svg, .jpg) cho đúng với tên file logo thực tế của cậu
+import { Link } from 'react-router-dom';
 import logoImg from '../assets/logo.png'; 
 
 const FooterBlock = () => {
@@ -29,35 +29,27 @@ const FooterBlock = () => {
       >
         <div className="flex flex-col lg:flex-row justify-between gap-16 mb-16">
           
-          {/* CỘT TRÁI: Logo, Tagline và Social Icons */}
           <div className="lg:w-1/2">
             
-            {/* Logo DatumAI được phóng to 1.5 lần (40px -> 60px) */}
             <motion.div variants={itemVariants} className="mb-6">
-              <img 
-                src={logoImg} 
-                alt="DatumAI Logo" 
-                className="h-[60px] w-auto object-contain" 
-              />
+              {/* Bọc Logo bằng <Link> để về trang chủ */}
+              <Link to="/">
+                <img 
+                  src={logoImg} 
+                  alt="DatumAI Logo" 
+                  className="h-[60px] w-auto object-contain" 
+                />
+              </Link>
             </motion.div>
             
             <motion.h3 variants={itemVariants} className="text-xl font-bold text-gray-800 max-w-sm mb-8">
               Automate clarity for your accounting team.
             </motion.h3>
             
-            {/* Social Icons */}
             <motion.div variants={itemVariants}>
               <p className="text-gray-500 mb-3 text-sm">Connect with us</p>
               <div className="flex gap-5 text-gray-800">
-                {/* X (Twitter) Icon - Gán tạm link rỗng */}
-                {/*<a 
-                  href="#" 
-                  className="hover:text-[#008899] transition-colors"
-                >
-                  <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-                </a>*/}
-
-                {/* LinkedIn Icon - Nhảy sang trang cá nhân của Leader */}
+                {/* External Link - BẮT BUỘC dùng thẻ <a> */}
                 <a 
                   href="https://www.linkedin.com/in/lynnle2/" 
                   target="_blank" 
@@ -70,7 +62,6 @@ const FooterBlock = () => {
             </motion.div>
           </div>
 
-          {/* CỘT PHẢI: Thông tin liên hệ */}
           <div className="lg:w-1/2 flex flex-col justify-start lg:pt-16">
             <motion.div variants={containerVariants} className="flex flex-col gap-6 text-gray-700 text-base">
               
@@ -86,19 +77,19 @@ const FooterBlock = () => {
 
               <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-2 sm:gap-6">
                 <span className="font-bold w-20 shrink-0 text-gray-900">Email:</span>
-                <a 
-                  href="/contact" 
+                {/* Internal Link - Chuyển sang <Link> */}
+                <Link 
+                  to="/contact" 
                   className="hover:text-[#008899] transition-colors duration-300"
                 >
                   lynn@datumai.online
-                </a>
+                </Link>
               </motion.div>
 
             </motion.div>
           </div>
         </div>
 
-        {/* Bottom Bar */}
         <motion.div variants={itemVariants} className="flex flex-col md:flex-row justify-between items-center text-sm text-gray-500 border-t border-gray-100 pt-6">
           <p>© 2026 DatumAI. All Rights Reserved.</p>
         </motion.div>

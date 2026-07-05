@@ -1,5 +1,33 @@
 import React from 'react';
 
+// BÓC TÁCH DỮ LIỆU: Phân định rõ màu nền và màu chữ từ gốc
+const productsData = [
+  { 
+    id: 1, 
+    name: 'SLUSH', 
+    bgColor: 'bg-[#a3d5ff]', 
+    textColor: 'text-black' 
+  },
+  { 
+    id: 2, 
+    name: 'SuiPlay 0X1', 
+    bgColor: 'bg-[#1e2348]', 
+    textColor: 'text-white' 
+  },
+  { 
+    id: 3, 
+    name: '.NS', 
+    bgColor: 'bg-[#8c3ef1]', 
+    textColor: 'text-white' 
+  },
+  { 
+    id: 4, 
+    name: 'SUIFRENS', 
+    bgColor: 'bg-[#ffd38a]', 
+    textColor: 'text-black' 
+  }
+];
+
 const ProductsBlock = () => {
   return (
     <section className="bg-mysten-black text-mysten-white px-6 md:px-16 py-24 rounded-t-4xl relative overflow-hidden">
@@ -16,16 +44,14 @@ const ProductsBlock = () => {
           </button>
         </div>
 
-        {/* Lưới sản phẩm (Slush, SuiPlay, NS, SuiFrens) */}
+        {/* Lưới sản phẩm render động từ mảng productsData */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {[
-            { name: 'SLUSH', color: 'bg-[#a3d5ff]' },
-            { name: 'SuiPlay 0X1', color: 'bg-[#1e2348]' },
-            { name: '.NS', color: 'bg-[#8c3ef1]' },
-            { name: 'SUIFRENS', color: 'bg-[#ffd38a]' }
-          ].map((prod, idx) => (
-            <div key={idx} className={`${prod.color} rounded-3xl h-[300px] p-6 flex flex-col justify-between text-mysten-black`}>
-               <h3 className={`text-3xl font-black ${idx === 1 || idx === 2 ? 'text-white' : 'text-black'}`}>{prod.name}</h3>
+          {productsData.map((prod) => (
+            <div 
+              key={prod.id} 
+              className={`${prod.bgColor} rounded-3xl h-[300px] p-6 flex flex-col justify-between`}
+            >
+               <h3 className={`text-3xl font-black ${prod.textColor}`}>{prod.name}</h3>
                <div className="w-full h-3/4 bg-black/10 rounded-xl mt-4"></div> {/* Placeholder image */}
             </div>
           ))}

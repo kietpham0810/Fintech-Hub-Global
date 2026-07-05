@@ -14,7 +14,7 @@ const Contact = () => {
     const formData = new FormData(e.target);
 
     // Gửi Fetch API đến FormSubmit (LƯU Ý CÓ CHỮ /ajax/)
-    fetch("https://formsubmit.co/ajax/lynn@datumai.online", {
+    fetch("https://formsubmit.co/ajax/4f16c4ce5654c2d08551139fb30d4b65", {
       method: "POST",
       body: formData,
       headers: {
