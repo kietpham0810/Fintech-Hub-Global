@@ -76,12 +76,12 @@ const FooterBlock = () => {
               
               <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-2 sm:gap-6">
                 <span className="font-bold w-20 shrink-0 text-gray-900">Address:</span>
-                <span className="leading-relaxed">1351 Oxford Rd NE, Atlanta, GA 30307</span>
+                <span className="leading-relaxed">8735 Dunwoody Place, Suite 6, Atlanta, GA 30350</span>
               </motion.div>
               
               <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-2 sm:gap-6">
                 <span className="font-bold w-20 shrink-0 text-gray-900">Phone:</span>
-                <span>+8 179 889 092</span>
+                <span>+(404) 462 1315</span>
               </motion.div>
 
               <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-2 sm:gap-6">

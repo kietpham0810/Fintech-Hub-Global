@@ -1,17 +1,54 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const Contact = () => {
+  // 1. Khai báo State quản lý trạng thái gửi và hiển thị Popup
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
+
+  // 2. Hàm xử lý gửi form ngầm (AJAX)
+  const handleSubmit = (e) => {
+    e.preventDefault(); // Chặn hành vi reload trang mặc định của HTML
+    setIsSubmitting(true); // Đổi trạng thái thành đang gửi (khóa nút)
+
+    // Khởi tạo dữ liệu từ Form
+    const formData = new FormData(e.target);
+
+    // Gửi Fetch API đến FormSubmit (LƯU Ý CÓ CHỮ /ajax/)
+    fetch("https://formsubmit.co/ajax/lynn@datumai.online", {
+      method: "POST",
+      body: formData,
+      headers: {
+        'Accept': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      .then(data => {
+        setIsSubmitting(false); // Mở khóa nút
+        setShowPopup(true); // Hiển thị Popup thành công
+        e.target.reset(); // Xóa trắng các ô nhập liệu
+
+        // Tự động đóng Popup sau 5 giây để tăng trải nghiệm
+        setTimeout(() => {
+          setShowPopup(false);
+        }, 5000);
+      })
+      .catch(error => {
+        console.log(error);
+        setIsSubmitting(false);
+        alert("Something went wrong. Please try again later.");
+      });
+  };
+
   return (
-    <div className="min-h-[calc(100vh-80px)] bg-gray-50 py-16 px-4 sm:px-6 lg:px-8 flex items-center justify-center">
+    <div className="min-h-[calc(100vh-80px)] bg-gray-50 py-16 px-4 sm:px-6 lg:px-8 flex items-center justify-center relative">
       
       {/* CSS Ép cứng cho Placeholder */}
       <style>{`
         .force-placeholder::placeholder {
-          color: #9ca3af !important; /* gray-400 */
+          color: #9ca3af !important;
           font-weight: 300 !important;
           opacity: 0.6 !important;
         }
-        /* Fix cho các trình duyệt lõi Mozilla */
         .force-placeholder::-moz-placeholder {
           color: #9ca3af !important;
           font-weight: 300 !important;
@@ -19,13 +56,35 @@ const Contact = () => {
         }
       `}</style>
 
+      {/* --- POPUP MODAL THÀNH CÔNG --- */}
+      {showPopup && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 backdrop-blur-sm transition-opacity duration-300">
+          <div className="bg-white rounded-2xl p-8 max-w-sm w-full mx-4 shadow-2xl transform scale-100 opacity-100 transition-all duration-300 text-center">
+            <div className="w-16 h-16 bg-[#008899]/10 rounded-full flex items-center justify-center mx-auto mb-5">
+              <svg className="w-8 h-8 text-[#008899]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+              </svg>
+            </div>
+            <h3 className="text-2xl font-extrabold text-gray-900 mb-2 tracking-tight">Thank You!</h3>
+            <p className="text-gray-600 mb-8 font-medium">
+              Thanks for reaching out!<br />We will be in touch shortly.
+            </p>
+            <button 
+              onClick={() => setShowPopup(false)}
+              className="w-full bg-gray-900 text-white font-bold py-3.5 rounded-lg hover:bg-[#008899] shadow-md hover:shadow-lg transition-all duration-300"
+            >
+              Back to site
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* Main Container */}
       <div className="max-w-6xl w-full bg-white rounded-2xl shadow-2xl overflow-hidden flex flex-col md:flex-row border border-gray-100">
         
         {/* Left Column: Contact Information */}
         <div className="bg-white p-10 md:p-16 md:w-[45%] flex flex-col justify-center border-b md:border-b-0 md:border-r border-gray-100 relative">
           
-          {/* Brand Accent Line */}
           <div className="absolute top-0 left-0 w-1.5 h-full bg-[#008899]"></div>
           
           <h2 className="text-3xl font-extrabold text-gray-900 mb-6 tracking-tight">
@@ -47,7 +106,8 @@ const Contact = () => {
               <div>
                 <h3 className="text-sm font-bold text-gray-900">Office</h3>
                 <p className="text-sm leading-relaxed text-gray-600 mt-1">
-                  1351 Oxford Rd NE, Atlanta, GA 30307
+                  8735 Dunwoody Place, Suite 6<br />
+                  Atlanta, GA 30350
                 </p>
               </div>
             </div>
@@ -61,7 +121,7 @@ const Contact = () => {
               </div>
               <div>
                 <h3 className="text-sm font-bold text-gray-900">Phone</h3>
-                <p className="text-sm text-gray-600 mt-1">Hotline: (+1) 817 988 9092</p>
+                <p className="text-sm text-gray-600 mt-1">Hotline: +(404) 462 1315</p>
               </div>
             </div>
             
@@ -82,38 +142,37 @@ const Contact = () => {
 
         {/* Right Column: Input Form */}
         <div className="p-10 md:p-16 md:w-[55%] bg-white">
-          {/* LƯU Ý KỸ THUẬT: Đã gỡ bỏ e.preventDefault() và thêm action, method */}
+          
+          {/* Đã xóa thuộc tính action và method, thay bằng sự kiện onSubmit gọi hàm xử lý ngầm */}
           <form 
-            action="https://formsubmit.co/lynn@datumai.online" 
-            method="POST" 
+            onSubmit={handleSubmit}
             className="space-y-7"
           >
             {/* Các trường ẩn cấu hình FormSubmit */}
             <input type="hidden" name="_subject" value="New Contact from DatumAI Website!" />
             <input type="hidden" name="_captcha" value="false" />
-            <input type="hidden" name="_next" value="https://datumai.online/contact" />
             
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-7">
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-2">Full Name <span className="text-red-500">*</span></label>
-                {/* BẮT BUỘC: Phải có thuộc tính name="name" */}
                 <input 
                   type="text" 
                   name="name"
-                  className="force-placeholder w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-[#008899]/10 focus:border-[#008899] transition-all text-sm font-medium text-gray-900" 
+                  className="force-placeholder w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-[#008899]/10 focus:border-[#008899] transition-all text-sm font-medium text-gray-900 disabled:opacity-50" 
                   placeholder="John Doe"
-                  required 
+                  required
+                  disabled={isSubmitting} 
                 />
               </div>
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-2">Email <span className="text-red-500">*</span></label>
-                {/* BẮT BUỘC: Phải có thuộc tính name="email" */}
                 <input 
                   type="email" 
                   name="email"
-                  className="force-placeholder w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-[#008899]/10 focus:border-[#008899] transition-all text-sm font-medium text-gray-900" 
+                  className="force-placeholder w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-[#008899]/10 focus:border-[#008899] transition-all text-sm font-medium text-gray-900 disabled:opacity-50" 
                   placeholder="john@example.com"
-                  required 
+                  required
+                  disabled={isSubmitting} 
                 />
               </div>
             </div>
@@ -121,48 +180,53 @@ const Contact = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-7">
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-2">Phone Number <span className="text-red-500">*</span></label>
-                {/* BẮT BUỘC: Phải có thuộc tính name="phone" */}
                 <input 
                   type="tel" 
                   name="phone"
-                  className="force-placeholder w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-[#008899]/10 focus:border-[#008899] transition-all text-sm font-medium text-gray-900" 
+                  className="force-placeholder w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-[#008899]/10 focus:border-[#008899] transition-all text-sm font-medium text-gray-900 disabled:opacity-50" 
                   placeholder="+84 918..."
-                  required 
+                  required
+                  disabled={isSubmitting} 
                 />
               </div>
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-2">Subject</label>
-                {/* BẮT BUỘC: Phải có thuộc tính name="_subject" (ghi đè subject email nếu user điền) hoặc name="topic" */}
                 <input 
                   type="text" 
                   name="topic"
-                  className="force-placeholder w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-[#008899]/10 focus:border-[#008899] transition-all text-sm font-medium text-gray-900" 
+                  className="force-placeholder w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-[#008899]/10 focus:border-[#008899] transition-all text-sm font-medium text-gray-900 disabled:opacity-50" 
                   placeholder="How can we help?"
+                  disabled={isSubmitting}
                 />
               </div>
             </div>
 
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-2">Message <span className="text-red-500">*</span></label>
-              {/* BẮT BUỘC: Phải có thuộc tính name="message" */}
               <textarea 
                 name="message"
                 rows="5" 
-                className="force-placeholder w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-[#008899]/10 focus:border-[#008899] transition-all resize-none text-sm font-medium text-gray-900" 
+                className="force-placeholder w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-[#008899]/10 focus:border-[#008899] transition-all resize-none text-sm font-medium text-gray-900 disabled:opacity-50" 
                 placeholder="Tell us about your project..."
                 required
+                disabled={isSubmitting}
               ></textarea>
             </div>
 
             <div className="flex justify-end pt-4">
               <button 
                 type="submit" 
-                className="bg-gray-900 hover:bg-[#008899] text-white px-8 py-3.5 rounded-lg font-semibold shadow-md hover:shadow-lg transition-all duration-300 flex items-center gap-2 text-sm tracking-wide"
+                disabled={isSubmitting}
+                className="bg-gray-900 hover:bg-[#008899] text-white px-8 py-3.5 rounded-lg font-semibold shadow-md hover:shadow-lg transition-all duration-300 flex items-center gap-2 text-sm tracking-wide disabled:opacity-70 disabled:cursor-not-allowed"
               >
-                SEND MESSAGE
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
-                </svg>
+                {/* Đổi chữ linh hoạt khi đang load */}
+                {isSubmitting ? 'SENDING...' : 'SEND MESSAGE'}
+                
+                {!isSubmitting && (
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
+                  </svg>
+                )}
               </button>
             </div>
             
