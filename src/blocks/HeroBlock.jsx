@@ -1,9 +1,12 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 // Cậu nhớ import ảnh dashboard từ thư mục images vào đây
 import dashboardImg from '../images/dashboard.png';
 
 const HeroBlock = () => {
+  const navigate = useNavigate();
+
   // Cấu hình kịch bản Animation
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -45,14 +48,21 @@ const HeroBlock = () => {
       <section className="flex flex-col lg:flex-row gap-12 items-center justify-between">
         
         {/* CỘT TRÁI: Nội dung có Animation tuần tự */}
-        <motion.div 
+        <motion.div
           variants={containerVariants}
           initial="hidden"
           animate="visible"
           className="flex-1 min-w-[320px] max-w-2xl"
         >
-          <motion.h1 
-            variants={itemVariants} 
+          <motion.p
+            variants={itemVariants}
+            className="text-sm font-semibold text-gray-700 mb-4 uppercase tracking-wide"
+          >
+            FOR BUSINESSES & ACCOUNTING TEAMS
+          </motion.p>
+
+          <motion.h1
+            variants={itemVariants}
             className="text-4xl md:text-5xl lg:text-[54px] font-extrabold m-0 mb-6 leading-tight text-gray-900 tracking-tight"
           >
             Automate clarity for your accounting team
@@ -71,12 +81,21 @@ const HeroBlock = () => {
             <span className="bg-[#008899]/10 px-4 py-2 rounded-full text-[#008899] font-semibold text-sm">Practical AI training</span>
           </motion.div>
       
+          <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-4 items-start sm:items-center mb-6">
+            <button
+              onClick={() => navigate('/business-services')}
+              className="inline-flex items-center justify-center px-8 py-4 rounded-xl border-2 border-[#008899] text-[#008899] font-bold cursor-pointer bg-transparent hover:bg-[#008899]/5 transition-all duration-300 w-full sm:w-auto"
+            >
+              View All Business Solutions
+            </button>
+          </motion.div>
+
           <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
-            <button 
+            <button
               onClick={handleContact}
               className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl border-0 cursor-pointer font-bold bg-[#008899] text-white shadow-[0_8px_20px_rgba(0,136,153,0.3)] hover:bg-[#007080] hover:-translate-y-1 transition-all duration-300 w-full sm:w-auto"
             >
-              Contact us now for consultancy
+              Contact Us Now for Consultancy
             </button>
             <div className="flex items-center gap-2 text-gray-700 font-semibold text-lg px-2">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5 text-[#008899]">

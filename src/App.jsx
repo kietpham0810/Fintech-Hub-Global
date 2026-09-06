@@ -5,6 +5,8 @@ import FooterBlock from './blocks/FooterBlock';
 import Home from './pages/Home';
 import About from './pages/About';
 import Contact from './pages/Contact';
+import IndividualServices from './pages/IndividualServices';
+import BusinessServices from './pages/BusinessServices';
 
 function App() {
   return (
@@ -23,6 +25,12 @@ function App() {
           
           {/* Định tuyến cho trang Contact (Layout chia đôi) */}
           <Route path="/contact" element={<Contact />} />
+
+          {/* Định tuyến cho trang Individual Services */}
+          <Route path="/individual-services" element={<IndividualServices />} />
+
+          {/* Định tuyến cho trang Business Services */}
+          <Route path="/business-services" element={<BusinessServices />} />
         </Routes>
       </main>
 

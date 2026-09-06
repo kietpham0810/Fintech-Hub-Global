@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import threePersonImg from '../images/threeperson.png';
 
 // BÓC TÁCH DỮ LIỆU: Array of Objects
 // Nếu muốn thêm/sửa/xóa dịch vụ, chỉ cần thao tác trên mảng này. Tuyệt đối không chạm vào phần HTML bên dưới.
@@ -55,7 +56,11 @@ const PlatformsBlock = () => {
         <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-[var(--color-datum-ivory)] leading-tight">
           Advanced Financial Operations Solutions
         </h2>
-        <p className="text-base text-[var(--color-datum-muted)] leading-relaxed mt-2">Powered by DatumAI</p>
+        <img
+          src={threePersonImg}
+          alt="DatumAI Team"
+          className="mx-auto mt-8 max-w-md w-full h-auto rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.25)]"
+        />
       </motion.div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
