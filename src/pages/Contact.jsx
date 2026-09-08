@@ -1,9 +1,15 @@
 import React, { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
 const Contact = () => {
+  const location = useLocation();
+  const prefill = location.state || {};
+
   // 1. Khai báo State quản lý trạng thái gửi và hiển thị Popup
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
+  const [topic, setTopic] = useState(prefill.subject || '');
+  const [message, setMessage] = useState(prefill.message || '');
 
   // 2. Hàm xử lý gửi form ngầm (AJAX)
   const handleSubmit = (e) => {
@@ -26,6 +32,8 @@ const Contact = () => {
         setIsSubmitting(false); // Mở khóa nút
         setShowPopup(true); // Hiển thị Popup thành công
         e.target.reset(); // Xóa trắng các ô nhập liệu
+        setTopic('');
+        setMessage('');
 
         // Tự động đóng Popup sau 5 giây để tăng trải nghiệm
         setTimeout(() => {
@@ -151,6 +159,24 @@ const Contact = () => {
             {/* Các trường ẩn cấu hình FormSubmit */}
             <input type="hidden" name="_subject" value="New Contact from DatumAI Website!" />
             <input type="hidden" name="_captcha" value="false" />
+
+            {prefill.estimate && (
+              <div className="rounded-lg border border-[#008899]/30 bg-[#008899]/[0.06] p-4 text-sm text-gray-700">
+                <p className="font-bold text-gray-900 mb-1">Your pricing estimate</p>
+                <p>
+                  Complexity: <strong>{prefill.estimate.complexity}</strong> ·{' '}
+                  {prefill.estimate.points} points
+                </p>
+                <p>
+                  Essential {prefill.estimate.essential} · Priority{' '}
+                  {prefill.estimate.priority} · Private Client{' '}
+                  {prefill.estimate.privateClient}
+                </p>
+                <p className="text-gray-500 mt-1 text-xs">
+                  Details are included in your message below — feel free to edit.
+                </p>
+              </div>
+            )}
             
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-7">
               <div>
@@ -191,10 +217,12 @@ const Contact = () => {
               </div>
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-2">Subject</label>
-                <input 
-                  type="text" 
+                <input
+                  type="text"
                   name="topic"
-                  className="force-placeholder w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-[#008899]/10 focus:border-[#008899] transition-all text-sm font-medium text-gray-900 disabled:opacity-50" 
+                  value={topic}
+                  onChange={(e) => setTopic(e.target.value)}
+                  className="force-placeholder w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-[#008899]/10 focus:border-[#008899] transition-all text-sm font-medium text-gray-900 disabled:opacity-50"
                   placeholder="How can we help?"
                   disabled={isSubmitting}
                 />
@@ -203,10 +231,12 @@ const Contact = () => {
 
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-2">Message <span className="text-red-500">*</span></label>
-              <textarea 
+              <textarea
                 name="message"
-                rows="5" 
-                className="force-placeholder w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-[#008899]/10 focus:border-[#008899] transition-all resize-none text-sm font-medium text-gray-900 disabled:opacity-50" 
+                rows={prefill.estimate ? 9 : 5}
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                className="force-placeholder w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-[#008899]/10 focus:border-[#008899] transition-all resize-none text-sm font-medium text-gray-900 disabled:opacity-50"
                 placeholder="Tell us about your project..."
                 required
                 disabled={isSubmitting}

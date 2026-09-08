@@ -78,6 +78,7 @@ const IndividualsBlock = () => {
 
           <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
             <button
+              onClick={() => navigate('/pricing-estimate')}
               className="inline-flex items-center justify-center px-8 py-4 rounded-xl border-0 cursor-pointer font-bold bg-[#008899] text-white shadow-[0_8px_20px_rgba(0,136,153,0.3)] hover:bg-[#007080] hover:-translate-y-1 transition-all duration-300 w-full sm:w-auto"
             >
               Pricing Estimate

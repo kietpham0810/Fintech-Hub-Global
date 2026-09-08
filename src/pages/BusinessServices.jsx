@@ -1,6 +1,8 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import togetherImg from '../images/togetherbussin.png';
+import threePersonImg from '../images/threeperson.png';
 
 const servicesData = [
   {
@@ -11,7 +13,7 @@ const servicesData = [
   {
     id: 2,
     title: 'Bookkeeping & Payroll',
-    description: 'Precise Bookkeeping & Global Payroll Management.',
+    description: 'Organized Bookkeeping and seamless Payroll Management.',
   },
   {
     id: 3,
@@ -25,9 +27,46 @@ const servicesData = [
   },
 ];
 
+const financialOpsData = [
+  {
+    id: 1,
+    title: 'Accounting Transformation Platform',
+    description: 'Unified, audit‑ready platform that centralizes and automates accounting workflows.',
+  },
+  {
+    id: 2,
+    title: 'AI Agents & Automation',
+    description: 'No-code AI agents that generate checklists, explain variances, match transactions, and automate inbox tasks.',
+  },
+  {
+    id: 3,
+    title: 'Optimize the Close',
+    description: 'Standardize close processes and gain global visibility into tasks and status.',
+  },
+  {
+    id: 4,
+    title: 'Automate the Close',
+    description: 'End-to-end automation for reconciliations, follow-ups, and close tasks.',
+  },
+  {
+    id: 5,
+    title: 'Connected Compliance',
+    description: 'Automated evidence collection and controls to reduce compliance risk.',
+  },
+  {
+    id: 6,
+    title: 'Integrated Record‑to‑Report',
+    description: 'Faster, more accurate reporting by consolidating systems and processes.',
+  },
+];
+
+const cardClass =
+  'rounded-2xl p-8 border border-transparent hover:border-gray-900 transition-colors duration-300';
+
 const BusinessServices = () => {
+  const navigate = useNavigate();
   const handleContact = () => {
-    alert('Chuyển hướng đến trang Liên hệ...');
+    navigate('/contact');
   };
 
   return (
@@ -54,24 +93,65 @@ const BusinessServices = () => {
         />
       </motion.div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-14">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-20">
         {servicesData.map((service, index) => (
           <motion.div
             key={service.id}
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 * (index + 1) }}
-            className="border-2 border-gray-200 rounded-2xl p-8"
+            className={cardClass}
           >
             <h3 className="text-2xl font-bold text-gray-900 mb-4">{service.title}</h3>
-            <p className="text-gray-600 leading-relaxed">{service.description}</p>
+            <p className="text-base text-gray-600 leading-relaxed">{service.description}</p>
+          </motion.div>
+        ))}
+      </div>
+
+      <motion.h2
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-100px' }}
+        transition={{ duration: 0.5 }}
+        className="text-3xl md:text-4xl font-extrabold text-gray-900 text-center mb-10"
+      >
+        Advanced Financial Operations Solutions
+      </motion.h2>
+
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5, delay: 0.1 }}
+        className="w-full max-w-md mx-auto mb-14 rounded-2xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.12)]"
+      >
+        <img
+          src={threePersonImg}
+          alt="DatumAI Team"
+          className="w-full h-auto object-cover block"
+        />
+      </motion.div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-14">
+        {financialOpsData.map((service, index) => (
+          <motion.div
+            key={service.id}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.1 * (index + 1) }}
+            className={cardClass}
+          >
+            <h3 className="text-2xl font-bold text-gray-900 mb-4">{service.title}</h3>
+            <p className="text-base text-gray-600 leading-relaxed">{service.description}</p>
           </motion.div>
         ))}
       </div>
 
       <motion.div
         initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
         transition={{ duration: 0.5, delay: 0.6 }}
         className="flex flex-col sm:flex-row gap-4 items-center justify-center"
       >

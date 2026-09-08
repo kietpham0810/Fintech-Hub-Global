@@ -1,19 +1,29 @@
-import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
+
+function ScrollToTop() {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+  return null;
+}
 import FooterBlock from './blocks/FooterBlock';
 import Home from './pages/Home';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import IndividualServices from './pages/IndividualServices';
 import BusinessServices from './pages/BusinessServices';
+import PricingEstimate from './pages/PricingEstimate';
 
 function App() {
   return (
     <div className="min-h-screen flex flex-col">
       {/* Thanh điều hướng toàn cục */}
       <Navbar />
-      
+      <ScrollToTop />
+
       {/* Khu vực nội dung thay đổi động theo URL */}
       <main className="flex-grow">
         <Routes>
@@ -31,6 +41,9 @@ function App() {
 
           {/* Định tuyến cho trang Business Services */}
           <Route path="/business-services" element={<BusinessServices />} />
+
+          {/* Định tuyến cho trang Pricing Estimate (Individual Tax Calculator) */}
+          <Route path="/pricing-estimate" element={<PricingEstimate />} />
         </Routes>
       </main>
 

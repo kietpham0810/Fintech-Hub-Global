@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import invoiceImg from '../images/invoice.png';
 
@@ -16,8 +17,9 @@ const servicesData = [
 ];
 
 const IndividualServices = () => {
+  const navigate = useNavigate();
   const handleContact = () => {
-    alert('Chuyển hướng đến trang Liên hệ...');
+    navigate('/contact');
   };
 
   return (
@@ -51,10 +53,10 @@ const IndividualServices = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 * (index + 1) }}
-            className="border-2 border-gray-200 rounded-2xl p-8"
+            className="rounded-2xl p-8 border border-transparent hover:border-gray-900 transition-colors duration-300"
           >
             <h3 className="text-2xl font-bold text-gray-900 mb-4">{service.title}</h3>
-            <p className="text-gray-600 leading-relaxed">{service.description}</p>
+            <p className="text-base text-gray-600 leading-relaxed">{service.description}</p>
           </motion.div>
         ))}
       </div>

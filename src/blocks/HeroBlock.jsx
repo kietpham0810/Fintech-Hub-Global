@@ -39,8 +39,7 @@ const HeroBlock = () => {
 
   // Hàm xử lý nút liên hệ (Cậu có thể đổi thành chuyển hướng sang trang Contact)
   const handleContact = () => {
-    // window.location.href = '/contact';
-    alert('Chuyển hướng đến trang Liên hệ...');
+    navigate('/contact');
   };
 
   return (
