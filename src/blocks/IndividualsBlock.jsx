@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import manImg from '../images/man1.png';
+import manImg from '../images/advisor.png';
 
 const IndividualsBlock = () => {
   const navigate = useNavigate();
@@ -76,13 +76,21 @@ const IndividualsBlock = () => {
             At Datum AI, we simplify the complexity and turn it into strategic plans, ensuring every return and every plan helps your money work harder for you
           </motion.p>
 
-          <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
-            <button
-              onClick={() => navigate('/pricing-estimate')}
-              className="inline-flex items-center justify-center px-8 py-4 rounded-xl border-0 cursor-pointer font-bold bg-[#008899] text-white shadow-[0_8px_20px_rgba(0,136,153,0.3)] hover:bg-[#007080] hover:-translate-y-1 transition-all duration-300 w-full sm:w-auto"
-            >
-              Pricing Estimate
-            </button>
+          <motion.div variants={itemVariants} className="flex flex-col gap-4 items-start">
+            <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center w-full sm:w-auto">
+              <button
+                onClick={() => navigate('/tax-estimator')}
+                className="inline-flex items-center justify-center px-8 py-4 rounded-xl border-0 cursor-pointer font-bold bg-[#008899] text-white shadow-[0_8px_20px_rgba(0,136,153,0.3)] hover:bg-[#007080] hover:-translate-y-1 transition-all duration-300 w-full sm:w-auto"
+              >
+                Tax Estimator
+              </button>
+              <button
+                onClick={() => navigate('/pricing-estimate')}
+                className="inline-flex items-center justify-center px-8 py-4 rounded-xl border-0 cursor-pointer font-bold bg-[#008899] text-white shadow-[0_8px_20px_rgba(0,136,153,0.3)] hover:bg-[#007080] hover:-translate-y-1 transition-all duration-300 w-full sm:w-auto"
+              >
+                Pricing Estimate
+              </button>
+            </div>
             <button
               onClick={() => navigate('/individual-services')}
               className="inline-flex items-center justify-center px-8 py-4 rounded-xl border-2 border-[#008899] text-[#008899] font-bold cursor-pointer bg-transparent hover:bg-[#008899]/5 transition-all duration-300 w-full sm:w-auto"
@@ -105,8 +113,8 @@ const IndividualsBlock = () => {
 
             <img
               src={manImg}
-              alt="Datum AI Individual Services"
-              className="relative w-full h-auto object-contain block drop-shadow-[0_25px_25px_rgba(0,0,0,0.15)]"
+              alt="Datum AI Tax Advisor"
+              className="relative h-auto max-h-[450px] w-auto object-contain block drop-shadow-[0_25px_25px_rgba(0,0,0,0.15)]"
             />
           </div>
         </motion.div>

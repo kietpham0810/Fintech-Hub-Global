@@ -16,6 +16,7 @@ import Contact from './pages/Contact';
 import IndividualServices from './pages/IndividualServices';
 import BusinessServices from './pages/BusinessServices';
 import PricingEstimate from './pages/PricingEstimate';
+import TaxEstimator from './pages/TaxEstimator';
 
 function App() {
   return (
@@ -44,6 +45,9 @@ function App() {
 
           {/* Định tuyến cho trang Pricing Estimate (Individual Tax Calculator) */}
           <Route path="/pricing-estimate" element={<PricingEstimate />} />
+
+          {/* Định tuyến cho trang Tax Estimator */}
+          <Route path="/tax-estimator" element={<TaxEstimator />} />
         </Routes>
       </main>
 

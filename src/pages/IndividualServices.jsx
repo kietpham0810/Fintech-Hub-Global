@@ -24,14 +24,19 @@ const IndividualServices = () => {
 
   return (
     <div className="max-w-[1000px] mx-auto px-6 md:px-10 py-16">
-      <motion.h1
+      <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="text-3xl md:text-4xl font-extrabold text-gray-900 text-center mb-10"
+        className="text-center mb-10"
       >
-        Comprehensive Individual Tax Solutions
-      </motion.h1>
+        <p className="text-xs font-extrabold tracking-[0.08em] uppercase text-gray-500 mb-2">
+          Datum AI · Individual Tax
+        </p>
+        <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900">
+          Comprehensive Individual Tax Solutions
+        </h1>
+      </motion.div>
 
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -61,10 +66,36 @@ const IndividualServices = () => {
         ))}
       </div>
 
+      {/* Phần Estimator & Pricing tách biệt khỏi 2 dịch vụ trên */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.35 }}
+        className="flex flex-col items-center justify-center mb-10"
+      >
+        <div className="flex flex-col sm:flex-row gap-4 items-center justify-center w-full sm:w-auto">
+          <button
+            onClick={() => navigate('/tax-estimator')}
+            className="inline-flex items-center justify-center px-8 py-4 rounded-xl border-0 cursor-pointer font-bold bg-[#008899] text-white shadow-[0_8px_20px_rgba(0,136,153,0.3)] hover:bg-[#007080] hover:-translate-y-1 transition-all duration-300 w-full sm:w-auto"
+          >
+            Tax Estimator
+          </button>
+          <button
+            onClick={() => navigate('/pricing-estimate')}
+            className="inline-flex items-center justify-center px-8 py-4 rounded-xl border-0 cursor-pointer font-bold bg-[#008899] text-white shadow-[0_8px_20px_rgba(0,136,153,0.3)] hover:bg-[#007080] hover:-translate-y-1 transition-all duration-300 w-full sm:w-auto"
+          >
+            Pricing Estimate
+          </button>
+        </div>
+
+        {/* Đường kẻ phân cách nhẹ nhàng giữa phần dự toán và thông tin liên hệ */}
+        <div className="w-full max-w-xl h-px bg-gradient-to-r from-transparent via-[#008899]/30 to-transparent mt-10 mb-8" />
+      </motion.div>
+
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 0.5, delay: 0.4 }}
+        transition={{ duration: 0.5, delay: 0.45 }}
         className="flex flex-col sm:flex-row gap-4 items-center justify-center"
       >
         <button

@@ -1,0 +1,962 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Datum AI — 2026 Tax Estimator</title>
+<style>
+  :root {
+    --bg:#f7f8fa; --card:#fff; --text:#14181f; --muted:#667085; --border:#e4e7ec;
+    --accent:#111827; --soft:#f2f4f7; --ok:#067647; --warn:#b54708; --warnbg:#fffaeb;
+    --warnbd:#fec84b; --r:18px; --sh:0 12px 36px rgba(16,24,40,.08);
+    box-sizing:border-box;
+    padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+  }
+  @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]){
+    --bg:#0f1115; --card:#171a21; --text:#e8eaed; --muted:#98a2b3; --border:#2a2f3a;
+    --accent:#e8eaed; --soft:#20242d; --ok:#4ade80; --warn:#fdb022; --warnbg:#2a2110;
+    --warnbd:#7a5a12; --sh:0 12px 36px rgba(0,0,0,.4);
+  }}
+  :root[data-theme="dark"]{
+    --bg:#0f1115; --card:#171a21; --text:#e8eaed; --muted:#98a2b3; --border:#2a2f3a;
+    --accent:#e8eaed; --soft:#20242d; --ok:#4ade80; --warn:#fdb022; --warnbg:#2a2110;
+    --warnbd:#7a5a12; --sh:0 12px 36px rgba(0,0,0,.4);
+  }
+  html{scroll-padding-top:env(safe-area-inset-top,0px);}
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+    color:var(--text);background:var(--bg);line-height:1.45;}
+  .wrap{max-width:1180px;margin:0 auto;padding:28px 18px 48px;}
+  .kicker{font-size:13px;font-weight:800;letter-spacing:.08em;color:var(--muted);margin-bottom:8px;}
+  h1{font-size:clamp(28px,5vw,44px);line-height:1.08;margin:0 0 10px;letter-spacing:-.035em;}
+  .sub{color:var(--muted);font-size:17px;max-width:740px;margin:0 0 22px;}
+  .grid{display:grid;grid-template-columns:minmax(0,1.12fr) minmax(320px,.88fr);gap:22px;align-items:start;}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);box-shadow:var(--sh);}
+  .form-card{padding:22px;margin-bottom:18px;}
+  .res-card{padding:22px;position:sticky;top:16px;max-height:calc(100vh - 32px);overflow-y:auto;}
+  .sec-title{font-size:18px;margin:0 0 5px;letter-spacing:-.015em;}
+  .sec-help{color:var(--muted);font-size:14px;margin:0 0 16px;}
+  .grp-head{font-size:13px;font-weight:800;color:var(--muted);margin:20px 0 9px;
+    padding-bottom:6px;border-bottom:1px solid var(--border);}
+  .qlist{display:grid;gap:11px;}
+  .q{border:1px solid var(--border);border-radius:14px;padding:13px 14px;}
+  .qrow{display:grid;grid-template-columns:minmax(0,1fr) 150px;gap:12px;align-items:center;}
+  .q label{font-weight:650;font-size:14px;}
+  .q small{display:block;color:var(--muted);margin-top:3px;font-size:12px;}
+  select,input[type=number]{width:100%;min-height:44px;border:1px solid var(--border);border-radius:10px;
+    background:var(--card);color:var(--text);padding:9px 10px;font-size:16px;outline:none;font-family:inherit;}
+  select:focus,input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(17,24,39,.12);}
+  .chk-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;}
+  .chk{display:flex;gap:9px;align-items:flex-start;border:1px solid var(--border);
+    border-radius:12px;padding:12px;font-size:13px;cursor:pointer;}
+  .chk input{margin-top:2px;width:17px;height:17px;flex:none;}
+  .acts{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px;}
+  button{min-height:44px;border-radius:11px;padding:10px 16px;font-size:14px;font-weight:750;
+    cursor:pointer;border:1px solid var(--border);font-family:inherit;background:var(--card);color:var(--text);}
+  .btn-p{background:var(--accent);color:var(--card);border-color:var(--accent);}
+  .btn-w{width:100%;}
+  .badge{display:inline-flex;padding:6px 9px;border-radius:999px;font-size:12px;font-weight:800;
+    background:var(--soft);color:var(--text);}
+  .headline{font-size:36px;line-height:1;font-weight:850;letter-spacing:-.035em;margin:8px 0 4px;}
+  .headline.good{color:var(--ok);}
+  .hlabel{color:var(--muted);font-size:13px;}
+  .rates{display:flex;gap:16px;margin-top:12px;flex-wrap:wrap;}
+  .rate{font-size:13px;color:var(--muted);} .rate b{display:block;font-size:17px;color:var(--text);letter-spacing:-.02em;}
+  .brk{margin-top:16px;border-top:1px solid var(--border);padding-top:12px;}
+  .brow{display:flex;justify-content:space-between;gap:12px;font-size:13px;padding:4px 0;}
+  .brow span:first-child{color:var(--muted);}
+  .brow.tot{font-weight:800;border-top:1px solid var(--border);margin-top:6px;padding-top:8px;font-size:14px;}
+  .brow.tot span:first-child{color:var(--text);}
+  .brow.ind span:first-child{padding-left:12px;}
+  .box{margin-top:14px;border-radius:13px;padding:13px;background:var(--soft);font-size:13px;}
+  .box .amt{font-size:25px;font-weight:850;letter-spacing:-.03em;display:block;margin-top:3px;}
+  .box .amt.good{color:var(--ok);}
+  .box strong{display:block;margin-bottom:4px;font-size:14px;}
+  .box p{margin:0 0 10px;color:var(--muted);}
+  .flags{margin-top:14px;display:grid;gap:8px;}
+  .flag{border-radius:12px;border:1px solid var(--warnbd);background:var(--warnbg);
+    padding:10px 12px;font-size:12.5px;}
+  .flag b{color:var(--warn);}
+  .docs{margin-top:18px;border-top:1px solid var(--border);padding-top:14px;}
+  .dg{margin-bottom:11px;}
+  .dh{display:flex;align-items:center;gap:8px;font-size:13.5px;font-weight:750;}
+  .dl{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;
+    border-radius:7px;background:var(--accent);color:var(--card);font-size:12px;font-weight:850;flex:none;}
+  .dg ul{margin:6px 0 0 32px;padding:0;color:var(--muted);font-size:12.5px;}
+  .dg li{margin-bottom:2px;}
+  .exp{margin-top:15px;padding-top:14px;border-top:1px solid var(--border);color:var(--muted);font-size:12px;}
+  .micro{margin-top:12px;color:var(--muted);font-size:11px;}
+  .hide{display:none !important;}
+  @media (max-width:880px){.grid{grid-template-columns:1fr;}.res-card{position:static;max-height:none;}}
+  @media (max-width:520px){.wrap{padding:18px 12px 34px;}.form-card,.res-card{padding:16px;}
+    .qrow{grid-template-columns:1fr;}.chk-grid{grid-template-columns:1fr;}.headline{font-size:30px;}}
+</style>
+</head>
+<body>
+<main class="wrap" id="datumEstimator">
+  <header>
+    <div class="kicker">Datum AI · 2026 Tax Year</div>
+    <h1>See your tax picture before you hire anyone.</h1>
+    <p class="sub">Pick the return you need, answer what you know, and we'll show the tax, how we
+      got there, and exactly which documents we'd ask for. Nothing is saved or sent.</p>
+  </header>
+
+  <div class="grid">
+    <div>
+      <section class="card form-card">
+        <h2 class="sec-title">What return do you need?</h2>
+        <p class="sec-help">The questions below change to match.</p>
+        <div class="q"><div class="qrow">
+          <div><label for="returnType">Return type</label>
+            <small id="rtHint">Form 1040 — individual income tax return.</small></div>
+          <select id="returnType">
+            <option value="1040">Form 1040 — Individual</option>
+            <option value="1065">Form 1065 — Partnership / multi-member LLC</option>
+            <option value="1120S">Form 1120-S — S corporation</option>
+            <option value="1120">Form 1120 — C corporation</option>
+          </select>
+        </div></div>
+      </section>
+      <div id="formArea"></div>
+    </div>
+
+    <aside class="card res-card" aria-live="polite">
+      <span class="badge" id="confBadge">Ballpark estimate</span>
+      <div class="headline" id="hlNum">$0</div>
+      <div class="hlabel" id="hlLabel">Estimated 2026 federal tax</div>
+      <div class="rates" id="rates"></div>
+      <div id="settleBox"></div>
+      <div class="box" id="nudge"></div>
+      <div class="brk" id="brk"></div>
+      <div class="flags" id="flags"></div>
+      <div class="docs" id="docs"></div>
+      <div class="exp" id="exp"></div>
+      <div class="micro">An estimate for planning and scoping, not tax advice, and not a guarantee of
+        your actual tax. Datum AI confirms every figure against source documents before filing.</div>
+    </aside>
+  </div>
+</main>
+
+<script>
+(() => {
+const root = document.getElementById('datumEstimator');
+if (!root || root.dataset.init === '1') return;
+root.dataset.init = '1';
+
+const $ = id => root.querySelector('#' + id);
+const money = x => (x < 0 ? '-$' : '$') + Math.round(Math.abs(x)).toLocaleString('en-US');
+const pct = x => (x * 100).toFixed(1) + '%';
+const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+
+/* ============ 2026 CONSTANTS (Rev. Proc. 2025-32 + OBBBA) ============ */
+const STD={single:16100,mfj:32200,hoh:24150,mfs:16100};
+const ADD65={single:2050,hoh:2050,mfj:1650,mfs:1650};
+const BR={
+ single:[[12400,.10],[50400,.12],[105700,.22],[201775,.24],[256225,.32],[640600,.35],[1/0,.37]],
+ mfj:[[24800,.10],[100800,.12],[211400,.22],[403550,.24],[512450,.32],[768700,.35],[1/0,.37]],
+ hoh:[[17700,.10],[67450,.12],[105700,.22],[201775,.24],[256200,.32],[640600,.35],[1/0,.37]],
+ mfs:[[12400,.10],[50400,.12],[105700,.22],[201775,.24],[256225,.32],[384350,.35],[1/0,.37]]};
+const LT={single:{a:49450,b:545500},mfj:{a:98900,b:613700},hoh:{a:66200,b:579600},mfs:{a:49450,b:306850}};
+const T200={single:200000,mfj:250000,hoh:200000,mfs:125000};
+const SSB=184500, SEC179=2560000, SEC179PH=4090000, LATEPEN=255, CRATE=.21;
+const SALTC={single:40400,mfj:40400,hoh:40400,mfs:20200};
+const SALTP={single:505000,mfj:505000,hoh:505000,mfs:252500};
+const SALTM={single:10000,mfj:10000,hoh:10000,mfs:5000};
+const QTH={single:201775,mfj:403500,hoh:201775,mfs:201775};
+const QRG={single:75000,mfj:150000,hoh:75000,mfs:75000};
+const AMTE={single:90100,mfj:140200,hoh:90100,mfs:70100};
+const AMTP={single:500000,mfj:1000000,hoh:500000,mfs:500000};
+const CTCP={single:200000,mfj:400000,hoh:200000,mfs:200000};
+const SS1={single:25000,mfj:32000,hoh:25000,mfs:0};
+const SS2={single:34000,mfj:44000,hoh:34000,mfs:0};
+const SRP={single:75000,mfj:150000,hoh:75000,mfs:75000};
+const TOP={single:150000,mfj:300000,hoh:150000,mfs:150000};
+const OTM={single:12500,mfj:25000,hoh:12500,mfs:12500};
+const CARP={single:100000,mfj:200000,hoh:100000,mfs:100000};
+const T37={single:640600,mfj:768700,hoh:640600,mfs:384350};
+
+const STATES=[['GA','Georgia',5.19],['AL','Alabama',4.5],['AK','Alaska',0],['AZ','Arizona',2.5],
+['AR','Arkansas',3.9],['CA','California',6],['CO','Colorado',4.25],['CT','Connecticut',5],
+['DE','Delaware',5.5],['DC','District of Columbia',7],['FL','Florida',0],['HI','Hawaii',7.5],
+['ID','Idaho',5.3],['IL','Illinois',4.95],['IN','Indiana',3],['IA','Iowa',3.8],['KS','Kansas',5.2],
+['KY','Kentucky',3.5],['LA','Louisiana',3],['ME','Maine',6.5],['MD','Maryland',5],
+['MA','Massachusetts',5],['MI','Michigan',4.25],['MN','Minnesota',6.8],['MS','Mississippi',4.4],
+['MO','Missouri',4.7],['MT','Montana',5.9],['NE','Nebraska',4.55],['NV','Nevada',0],
+['NH','New Hampshire',0],['NJ','New Jersey',5.5],['NM','New Mexico',4.9],['NY','New York',6],
+['NC','North Carolina',4.25],['ND','North Dakota',2],['OH','Ohio',3.1],['OK','Oklahoma',4.75],
+['OR','Oregon',8.75],['PA','Pennsylvania',3.07],['RI','Rhode Island',4.75],['SC','South Carolina',6.2],
+['SD','South Dakota',0],['TN','Tennessee',0],['TX','Texas',0],['UT','Utah',4.5],['VT','Vermont',6.6],
+['VA','Virginia',5.75],['WA','Washington',0],['WV','West Virginia',4.8],['WI','Wisconsin',5.3],
+['WY','Wyoming',0]];
+const stateOpts = STATES.map(s => [s[0], s[1]]);
+const stateRate = c => (STATES.find(s => s[0] === c) || [0,0,0])[2];
+
+/* ============ FORM CONFIG ============ */
+const N = (id,label,hint,def,only) => ({id,label,hint,t:'num',def:def||0,only});
+const S = (id,label,hint,opts,def,only) => ({id,label,hint,t:'sel',opts,def,only});
+const YN = (id,label,hint,only,def) => S(id,label,hint,[['0','No'],['1','Yes']],def||'0',only);
+
+const SECTIONS = [
+/* ---------- 1040 ---------- */
+{id:'s1',rt:['1040'],title:'The basics',
+ help:"This alone produces a usable ballpark for most wage earners.",fields:[
+ S('status','Filing status','',[['single','Single'],['mfj','Married filing jointly'],
+   ['hoh','Head of household'],['mfs','Married filing separately']],'mfj'),
+ N('kids','Children under 17','Qualifying children with a valid Social Security number.'),
+ N('otherdeps','Other dependents','College-age children, parents, or others you support.'),
+ S('seniors','People age 65 or older','Unlocks the extra standard deduction and the $6,000 senior deduction.',
+   [['0','None'],['1','One'],['2','Two']],'0'),
+ N('wages','W-2 wages','Box 1, everyone on the return combined.'),
+ N('withholding','Federal income tax withheld','Box 2 of your W-2s. Leave at zero if you do not know.'),
+ N('interest','Interest income','Form 1099-INT.'),
+ N('ordDiv','Ordinary dividends','Form 1099-DIV, Box 1a.'),
+ N('qualDiv','Of that, qualified dividends','Box 1b. Taxed at lower rates.'),
+ N('ltcg','Long-term capital gains','Held over a year. Negative for losses.'),
+ N('stcg','Short-term capital gains','Held a year or less. Negative for losses.'),
+ N('retirement','Pension, IRA, and 401(k) distributions','Taxable amount from Form 1099-R.'),
+ N('ssBenefits','Social Security benefits received','Gross from Form SSA-1099. We compute the taxable portion.'),
+ S('stateCode','State you file in','Rough state estimate only, not a state return.',stateOpts,'GA'),
+ N('stateRate','State tax rate used (%)','Prefilled with a typical effective rate. Edit if you know yours.',5.19)]},
+
+{id:'s2',rt:['1040'],hidden:true,title:'Business, rental, and pass-through income',
+ help:'This is where most of the real tax lives for business owners and landlords.',groups:[
+ {head:'Self-employment',fields:[
+  N('schC','Schedule C net profit','Revenue minus expenses. Negative for a loss.'),
+  N('seHealth','Self-employed health insurance premiums','Paid by you, not through an employer plan.'),
+  N('seRetire','Self-employed retirement contributions','SEP-IRA, SIMPLE, or solo 401(k).')]},
+ {head:'Rental real estate',fields:[
+  N('rentalCount','Number of rental properties',''),
+  N('rentalNet','Combined rental net income or loss','After interest, taxes, repairs, and depreciation.'),
+  YN('repStatus','Real estate professional or short-term rental participation',
+     'Changes whether rental losses offset other income. Say no if unsure.')]},
+ {head:'K-1s',fields:[
+  N('k1Count','Number of K-1s you receive','From partnerships, S corps, estates, or trusts.'),
+  N('k1SCorp','S corporation K-1 ordinary income','Box 1. Not subject to self-employment tax.'),
+  N('k1Partner','Partnership K-1 self-employment income','Box 14A. Subject to self-employment tax.'),
+  YN('sstb','Is the business a professional service?',
+     'Law, accounting, health, consulting, finance, athletics, or performing arts.'),
+  N('addlStates','States you file in beyond your home state','')]}]},
+
+{id:'s3',rt:['1040'],hidden:true,title:'Deductions, credits, and payments',
+ help:"We compare itemizing against the standard deduction and use whichever is better.",groups:[
+ {head:'Itemized deductions',fields:[
+  N('mortInt','Mortgage interest paid','Form 1098, primary and second home.'),
+  N('propTax','Property taxes paid','Your home, not rentals.'),
+  N('stateTaxPaid','State and local income or sales tax paid','Counts against the $40,400 cap with property tax.'),
+  N('charity','Charitable contributions','Itemizers lose the first 0.5% of income starting in 2026.'),
+  N('medical','Out-of-pocket medical expenses','Only the portion above 7.5% of income counts.')]},
+ {head:'Adjustments to income',fields:[
+  N('hsa','HSA contributions you made yourself','Not payroll deductions.'),
+  N('tradIRA','Deductible traditional IRA contributions',''),
+  N('studentLoan','Student loan interest paid','Form 1098-E. Capped at $2,500.')]},
+ {head:'New 2026 deductions',fields:[
+  N('tips','Reported tip income','Up to $25,000 deductible. Phases out above $150,000.'),
+  N('overtime','Overtime premium pay','Only the extra half of time-and-a-half.'),
+  N('carLoan','Interest on a new US-assembled vehicle loan','Up to $10,000. New vehicles only.')]},
+ {head:'Payments already made',fields:[
+  N('estPayments','Federal estimated tax payments','Quarterly payments plus any prior-year overpayment applied.')]}],
+ specials:['Sold a home or investment property','RSUs, ESPP, or stock options','Cryptocurrency',
+  'Foreign income or foreign accounts','1031 exchange','Bought or sold a business',
+  'IRS or state notice','Prior-year return not yet filed']},
+
+/* ---------- ENTITY ---------- */
+{id:'e1',rt:['1065','1120S','1120'],title:'About the entity',
+ help:'A few facts that decide which schedules your return needs.',fields:[
+ N('entOwners','Number of owners during the year','Anyone who held an interest at any time. Drives the K-1 count and the late-filing penalty.',1),
+ YN('entFirstYear','Is this the entity\u2019s first tax return?','Changes whether a prior-year comparison exists.'),
+ S('entMethod','Accounting method','',[['cash','Cash'],['accrual','Accrual']],'cash'),
+ N('entAssets','Total assets at year end','From your balance sheet. Decides whether Schedule L is required.'),
+ S('entState','State of operation','Used for pass-through entity tax and a rough state estimate.',stateOpts,'GA'),
+ N('entStateRate','State tax rate used (%)','',5.19),
+ YN('entPTET','Electing the state pass-through entity tax?','The entity pays state tax so owners can deduct it around the SALT cap. Say no if unsure.'),
+ N('entFranchise','Annual state franchise, margin, or minimum tax','For example California\u2019s $800 minimum, Delaware franchise tax, or a Texas margin tax.'),
+ YN('entSSTB','Is this a professional service business?','Law, accounting, health, consulting, finance, athletics, or performing arts.'),
+ YN('entBIG','Was this entity ever a C corporation?','Triggers built-in gains tax on appreciated assets sold within five years of the S election.',['1120S'])]},
+
+{id:'e2',rt:['1065','1120S','1120'],title:'Income',
+ help:'Use your profit and loss statement for the year.',fields:[
+ N('entRevenue','Gross receipts or sales',''),
+ N('entCOGS','Cost of goods sold','Materials, direct labor, and inventory used. Zero for most service businesses.'),
+ N('entIntInc','Interest income earned','Bank and note interest. Reported separately on the K-1.'),
+ N('entDivInc','Dividend income',''),
+ N('entCapGain','Capital gains','From selling investments or business property. Negative for losses.'),
+ N('entRentInc','Net rental income','Reported separately, not in ordinary business income.'),
+ N('entTaxExempt','Tax-exempt interest','Municipal bond interest. Not taxable, but still reported.')]},
+
+{id:'e3',rt:['1065','1120S','1120'],title:'Expenses',
+ help:'Enter book amounts. We handle the book-to-tax adjustments.',groups:[
+ {head:'Compensation',fields:[
+  N('entOfficerComp','Officer compensation (W-2)','Wages paid to owner-officers.',0,['1120S','1120']),
+  N('entHealthIns','Owner health insurance premiums','For shareholders owning more than 2%, this belongs in W-2 wages.',0,['1120S']),
+  N('entGP','Guaranteed payments to partners','Payments for services or capital, regardless of profit.',0,['1065']),
+  N('entWages','Other employee wages',''),
+  N('entPayrollTax','Payroll taxes paid','')]},
+ {head:'Operating',fields:[
+  N('entRent','Rent and lease expense',''),
+  N('entProf','Professional and legal fees',''),
+  N('entInsurance','Insurance',''),
+  N('entInterestExp','Interest expense',''),
+  N('entOtherExp','All other operating expenses','Utilities, software, supplies, marketing, travel, and so on.')]},
+ {head:'Assets and depreciation',fields:[
+  N('entBookDep','Book depreciation on assets you already owned','Excluding anything purchased this year.'),
+  N('entAdditions','Equipment, vehicles, and improvements placed in service this year',''),
+  YN('entExpenseNow','Expense this year\u2019s purchases immediately?',
+     'Section 179 up to $2.56 million, then 100% bonus depreciation on the rest.',null,'1')]},
+ {head:'Items with special tax treatment',fields:[
+  N('entMeals','Business meals','Only 50% is deductible.'),
+  N('entEntertain','Entertainment','Not deductible at all since 2018.'),
+  N('entPenalties','Penalties, fines, and political contributions','Never deductible.'),
+  N('entCharity','Charitable contributions','Separately stated on a K-1; capped at 10% of income for a C corp.')]}]},
+
+{id:'e4',rt:['1065','1120S','1120'],title:'Owners',
+ help:'We assume equal ownership. Tell us if it is not, and we will model the actual split.',fields:[
+ N('entDistributions','Total distributions or dividends paid to owners','Cash or property taken out during the year.'),
+ S('entMarginal','Owner\u2019s personal federal tax bracket','Used to estimate what the K-1 costs on the 1040.',
+   [['.12','12%'],['.22','22%'],['.24','24%'],['.32','32%'],['.35','35%'],['.37','37%']],'.24',['1065','1120S'])],
+ specials:['Bought or sold business assets','Multi-state operations','Foreign owners or foreign accounts',
+  'Ownership changed during the year','Prior-year return not yet filed','IRS or state notice',
+  'Cryptocurrency held or accepted','Related-party transactions']}
+];
+
+/* ============ STATE + RENDER ============ */
+const VALS = {};
+const SPECIALS = new Set();
+let RT = '1040';
+const OPEN = {s2:false, s3:false};
+
+SECTIONS.forEach(sec => {
+  const all = sec.fields ? [sec.fields] : sec.groups.map(g => g.fields);
+  all.forEach(list => list.forEach(f => { VALS[f.id] = f.def; }));
+});
+
+const visible = f => !f[5] && !(f.only) ? true : true;
+
+function fieldHTML(f) {
+  const only = f.t === 'num' ? f.only : f.only;
+  let ctl;
+  if (f.t === 'sel') {
+    ctl = '<select id="' + f.id + '">' + f.opts.map(o =>
+      '<option value="' + esc(o[0]) + '"' + (String(VALS[f.id]) === String(o[0]) ? ' selected' : '') +
+      '>' + esc(o[1]) + '</option>').join('') + '</select>';
+  } else {
+    ctl = '<input id="' + f.id + '" type="number" step="any" inputmode="decimal" value="' +
+      esc(VALS[f.id] ?? 0) + '" />';
+  }
+  return '<div class="q"><div class="qrow"><div><label for="' + f.id + '">' + esc(f.label) + '</label>' +
+    (f.hint ? '<small>' + esc(f.hint) + '</small>' : '') + '</div>' + ctl + '</div></div>';
+}
+
+function applies(f) { return !f.only || f.only.indexOf(RT) > -1; }
+
+function buildForm() {
+  let html = '';
+  SECTIONS.filter(s => s.rt.indexOf(RT) > -1).forEach(sec => {
+    const hidden = sec.hidden && !OPEN[sec.id];
+    html += '<section class="card form-card' + (hidden ? ' hide' : '') + '" id="sec_' + sec.id + '">' +
+      '<h2 class="sec-title">' + esc(sec.title) + '</h2>' +
+      '<p class="sec-help">' + esc(sec.help) + '</p>';
+    if (sec.fields) {
+      html += '<div class="qlist">' + sec.fields.filter(applies).map(fieldHTML).join('') + '</div>';
+    } else {
+      sec.groups.forEach(g => {
+        const fs = g.fields.filter(applies);
+        if (!fs.length) return;
+        html += '<div class="grp-head">' + esc(g.head) + '</div><div class="qlist">' +
+          fs.map(fieldHTML).join('') + '</div>';
+      });
+    }
+    if (sec.specials) {
+      html += '<div class="grp-head">Anything else going on?</div>' +
+        '<p class="sec-help">These need a conversation, not a calculator.</p><div class="chk-grid">' +
+        sec.specials.map(s => '<label class="chk"><input type="checkbox" class="sp" value="' + esc(s) + '"' +
+          (SPECIALS.has(s) ? ' checked' : '') + ' /> <span>' + esc(s) + '</span></label>').join('') +
+        '</div>';
+    }
+    html += '</section>';
+  });
+  html += '<div class="acts"><button type="button" class="btn-p" id="resetBtn">Start over</button></div>';
+  $('formArea').innerHTML = html;
+}
+
+/* ============ SHARED MATH ============ */
+const v = id => { const p = parseFloat(VALS[id]); return Number.isFinite(p) ? p : 0; };
+const nn = id => Math.max(0, Math.floor(v(id)));
+const sv = id => VALS[id];
+const ordTax = (ti, s) => { let t = 0, p = 0; for (const [c, r] of BR[s]) { if (ti <= p) break;
+  t += (Math.min(ti, c) - p) * r; p = c; } return Math.max(0, t); };
+const margin = (ti, s) => { for (const [c, r] of BR[s]) if (ti <= c) return r; return .37; };
+const prefTax = (tax, pref, s) => { pref = Math.max(0, Math.min(pref, tax));
+  const o = Math.max(0, tax - pref); let t = ordTax(o, s); const {a, b} = LT[s];
+  const lo = o, hi = o + pref, seg = (x, y) => Math.max(0, Math.min(hi, y) - Math.max(lo, x));
+  return t + seg(a, b) * .15 + seg(b, 1/0) * .20; };
+const po = (amt, magi, th, rate) => Math.max(0, amt - Math.max(0, magi - th) * rate);
+
+/* ============ 1040 ENGINE ============ */
+function compute1040() {
+  const s = sv('status');
+  const wages = v('wages'), interest = v('interest'), ordDiv = v('ordDiv');
+  const qualDiv = Math.min(v('qualDiv'), ordDiv), ltcg = v('ltcg'), stcg = v('stcg');
+  const retire = v('retirement'), ssG = v('ssBenefits');
+  const kids = nn('kids'), odeps = nn('otherdeps'), sen = parseInt(sv('seniors'), 10) || 0;
+  const d2 = OPEN.s2, d3 = OPEN.s3;
+  const schC = d2 ? v('schC') : 0, seH = d2 ? v('seHealth') : 0, seR = d2 ? v('seRetire') : 0;
+  const rentRaw = d2 ? v('rentalNet') : 0, rentCt = d2 ? nn('rentalCount') : 0;
+  const rep = d2 && sv('repStatus') === '1';
+  const k1S = d2 ? v('k1SCorp') : 0, k1P = d2 ? v('k1Partner') : 0, k1Ct = d2 ? nn('k1Count') : 0;
+  const sstb = d2 && sv('sstb') === '1', addlSt = d2 ? nn('addlStates') : 0;
+  const mi = d3 ? v('mortInt') : 0, pt = d3 ? v('propTax') : 0, st = d3 ? v('stateTaxPaid') : 0;
+  const ch = d3 ? v('charity') : 0, med = d3 ? v('medical') : 0, hsa = d3 ? v('hsa') : 0;
+  const ira = d3 ? v('tradIRA') : 0, sl = d3 ? Math.min(v('studentLoan'), 2500) : 0;
+  const tips = d3 ? v('tips') : 0, ot = d3 ? v('overtime') : 0, car = d3 ? v('carLoan') : 0;
+  const est = d3 ? v('estPayments') : 0, wh = v('withholding');
+
+  const netCap = ltcg + stcg, capInc = netCap >= 0 ? netCap : Math.max(netCap, -3000);
+  let ncg = 0; if (ltcg > 0) ncg = stcg < 0 ? Math.max(0, ltcg + stcg) : ltcg;
+
+  const seBase = Math.max(0, schC + k1P) * .9235;
+  const seTax = Math.min(seBase, Math.max(0, SSB - wages)) * .124 + seBase * .029;
+  const halfSE = seTax / 2;
+
+  let rentOK = rentRaw, susp = 0;
+  const preAGI = wages + interest + ordDiv + capInc + retire +
+    Math.max(0, schC) + Math.max(0, k1S) + Math.max(0, k1P);
+  if (rentRaw < 0 && !rep) {
+    const allow = Math.max(0, Math.min(25000, 25000 - Math.max(0, preAGI - 100000) * .5));
+    rentOK = Math.max(rentRaw, -allow); susp = rentRaw - rentOK;
+  }
+
+  const other = wages + interest + ordDiv + capInc + retire + schC + k1S + k1P + rentOK;
+  let ssTaxable = 0;
+  if (ssG > 0) {
+    if (s === 'mfs') ssTaxable = ssG * .85;
+    else { const pr = other + ssG * .5, a = SS1[s], b = SS2[s];
+      if (pr <= a) ssTaxable = 0;
+      else if (pr <= b) ssTaxable = Math.min((pr - a) * .5, ssG * .5);
+      else ssTaxable = Math.min(ssG * .85, (pr - b) * .85 + Math.min((b - a) * .5, ssG * .5)); }
+  }
+  const totalInc = other + ssTaxable;
+  const above = halfSE + seH + seR + hsa + ira + sl;
+  const agi = totalInc - above;
+
+  const saltPaid = pt + st;
+  const saltCap = Math.max(SALTM[s], SALTC[s] - Math.max(0, agi - SALTP[s]) * .30);
+  const saltDed = Math.min(saltPaid, saltCap);
+  const chDed = Math.max(0, ch - agi * .005), medDed = Math.max(0, med - agi * .075);
+  let item = saltDed + chDed + medDed + mi;
+  if (item > 0) item -= Math.max(0, (2 / 37) * Math.min(item, Math.max(0, agi - item - T37[s])));
+  const std = STD[s] + sen * ADD65[s];
+  const useItem = item > std, baseDed = useItem ? item : std;
+
+  const srDed = sen > 0 ? po(6000 * sen, agi, SRP[s], .06) : 0;
+  const tipDed = tips > 0 ? po(Math.min(tips, 25000), agi, TOP[s], .10) : 0;
+  const otDed = ot > 0 ? po(Math.min(ot, OTM[s]), agi, TOP[s], .10) : 0;
+  const carDed = car > 0 ? po(Math.min(car, 10000), agi, CARP[s], .20) : 0;
+  const obbba = srDed + tipDed + otDed + carDed;
+
+  const qbiInc = Math.max(0, schC + k1S + k1P + Math.max(0, rentOK) - halfSE - seH - seR);
+  const preQ = Math.max(0, agi - baseDed - obbba);
+  let qbi = 0;
+  if (qbiInc > 0) { let ap = qbiInc; const ov = Math.max(0, preQ - QTH[s]);
+    if (sstb && ov > 0) ap = qbiInc * (1 - Math.min(1, ov / QRG[s]));
+    qbi = Math.min(ap * .20, Math.max(0, preQ - (ncg + qualDiv)) * .20); }
+
+  const ti = Math.max(0, agi - baseDed - obbba - qbi);
+  const pref = Math.min(ncg + qualDiv, ti);
+  const incTax = prefTax(ti, pref, s);
+
+  let amt = 0;
+  const amtI = agi - (useItem ? mi + chDed : 0);
+  const amtEx = Math.max(0, AMTE[s] - Math.max(0, amtI - AMTP[s]) * .5);
+  const amtB = Math.max(0, amtI - amtEx);
+  if (amtB > 0) { const ao = Math.max(0, amtB - pref);
+    let tent = ao <= 244500 ? ao * .26 : 244500 * .26 + (ao - 244500) * .28;
+    tent += prefTax(amtB, pref, s) - prefTax(ao, 0, s);
+    amt = Math.max(0, tent - incTax); }
+
+  const nii = Math.max(0, interest + ordDiv + Math.max(0, capInc) + Math.max(0, rentOK));
+  const niit = .038 * Math.max(0, Math.min(nii, agi - T200[s]));
+  const addMed = .009 * Math.max(0, wages + seBase - T200[s]);
+
+  const ctcG = kids * 2200 + odeps * 500;
+  const ctcA = Math.max(0, ctcG - Math.max(0, agi - CTCP[s]) * .05);
+  const pre = incTax + amt, ctcN = Math.min(ctcA, pre);
+  const earned = wages + Math.max(0, schC + k1P);
+  const actc = kids > 0 ? Math.min(Math.max(0, ctcA - ctcN), kids * 1700,
+    Math.max(0, (earned - 2500) * .15)) : 0;
+  const total = Math.max(0, pre - ctcN) + seTax + niit + addMed;
+  const pay = wh + est + actc, settle = pay - total;
+  const stTax = Math.max(0, agi - (s === 'mfj' ? 24000 : 12000)) * (v('stateRate') / 100);
+
+  return {s, agi, totalInc, ti, baseDed, useItem, obbba, qbi, incTax, amt, seTax, niit, addMed,
+    ctcN, actc, total, settle, wh, est, stTax, ssTaxable, susp, saltPaid, saltCap, qbiInc, sstb,
+    kids, odeps, wages, interest, ordDiv, ltcg, stcg, retire, ssG, schC, rentCt, rentRaw, k1Ct,
+    k1S, k1P, mi, pt, ch, med, hsa, ira, sl, tips, ot, car, addlSt, sen,
+    hasPay: wh > 0 || est > 0, marg: margin(ti, s), eff: totalInc > 0 ? total / totalInc : 0};
+}
+
+/* ============ ENTITY ENGINE ============ */
+function computeEntity() {
+  const T = RT, owners = Math.max(1, nn('entOwners'));
+  const first = sv('entFirstYear') === '1', accrual = sv('entMethod') === 'accrual';
+  const assets = v('entAssets'), ptet = sv('entPTET') === '1';
+  const franchise = v('entFranchise'), sstb = sv('entSSTB') === '1';
+  const wasC = T === '1120S' && sv('entBIG') === '1';
+  const sRate = v('entStateRate') / 100;
+
+  const rev = v('entRevenue'), cogs = v('entCOGS');
+  const intInc = v('entIntInc'), divInc = v('entDivInc'), capG = v('entCapGain');
+  const rentInc = v('entRentInc'), texempt = v('entTaxExempt');
+
+  const officer = T === '1065' ? 0 : v('entOfficerComp');
+  const health = T === '1120S' ? v('entHealthIns') : 0;
+  const gp = T === '1065' ? v('entGP') : 0;
+  const wages = v('entWages'), ptax = v('entPayrollTax'), rent = v('entRent');
+  const prof = v('entProf'), ins = v('entInsurance'), iexp = v('entInterestExp');
+  const oexp = v('entOtherExp'), bookDep = v('entBookDep'), adds = v('entAdditions');
+  const expNow = sv('entExpenseNow') === '1';
+  const meals = v('entMeals'), ent = v('entEntertain'), pen = v('entPenalties'), char = v('entCharity');
+  const dist = v('entDistributions'), ownerRate = parseFloat(sv('entMarginal')) || .24;
+
+  const opex = officer + health + gp + wages + ptax + rent + prof + ins + iexp + oexp +
+    bookDep + meals + ent + pen + char;
+  const bookNI = rev - cogs - opex + intInc + divInc + capG + rentInc + texempt;
+
+  /* first-year expensing */
+  let s179 = 0, bonus = 0;
+  if (expNow && adds > 0) bonus = adds;
+  const s179Cap = Math.max(0, SEC179 - Math.max(0, adds - SEC179PH));
+  const extraDep = s179 + bonus;
+
+  /* book-to-tax */
+  const m1 = [];
+  let ord = bookNI;
+  const addBack = (label, amt) => { if (Math.abs(amt) > .5) { ord += amt; m1.push([label, amt]); } };
+  addBack('Nondeductible half of meals', meals * .5);
+  addBack('Entertainment (not deductible)', ent);
+  addBack('Penalties, fines, and political contributions', pen);
+  if (T !== '1120') addBack('Charitable contributions (separately stated)', char);
+  addBack('Tax-exempt interest', -texempt);
+  if (T !== '1120') {
+    addBack('Interest income (separately stated)', -intInc);
+    addBack('Dividend income (separately stated)', -divInc);
+    addBack('Capital gains (separately stated)', -capG);
+    addBack('Net rental income (separately stated)', -rentInc);
+  }
+  addBack('100% bonus depreciation on 2026 purchases', -extraDep);
+
+  let cTax = 0, cTaxable = 0, drd = 0, charAllowed = 0;
+  if (T === '1120') {
+    drd = divInc * .50;
+    let pre = ord + char - drd;
+    charAllowed = Math.min(char, Math.max(0, pre * .10));
+    cTaxable = pre - charAllowed;
+    cTax = Math.max(0, cTaxable) * CRATE;
+  }
+
+  const sep = [];
+  if (T !== '1120') {
+    if (intInc) sep.push(['Interest income', intInc, 'Box 5']);
+    if (divInc) sep.push(['Dividends', divInc, T === '1065' ? 'Box 6a' : 'Box 5a']);
+    if (capG) sep.push(['Capital gain or loss', capG, T === '1065' ? 'Box 9a' : 'Box 8a']);
+    if (rentInc) sep.push(['Net rental income', rentInc, 'Box 2']);
+    if (char) sep.push(['Charitable contributions', -char, T === '1065' ? 'Box 13A' : 'Box 12A']);
+    if (texempt) sep.push(['Tax-exempt interest', texempt, T === '1065' ? 'Box 18A' : 'Box 16A']);
+    if (gp) sep.push(['Guaranteed payments', gp, 'Box 4']);
+    if (dist) sep.push(['Distributions', dist, T === '1065' ? 'Box 19A' : 'Box 16D']);
+  }
+
+  /* owner impact */
+  const shOrd = ord / owners, shGP = gp / owners;
+  const shSep = (intInc + divInc + capG + rentInc - char) / owners;
+  const qbiBase = Math.max(0, shOrd);
+  const qbiDed = sstb ? 0 : qbiBase * .20;
+  let ownerSE = 0;
+  if (T === '1065') {
+    const b = Math.max(0, shOrd + shGP) * .9235;
+    ownerSE = Math.min(b, SSB) * .124 + b * .029;
+  }
+  const ownerTaxable = shOrd + shGP + shSep - qbiDed;
+  const ownerIncTax = Math.max(0, ownerTaxable) * ownerRate;
+  const ownerTotal = ownerIncTax + ownerSE;
+
+  const bigTax = wasC && capG > 0 ? capG * CRATE : 0;
+  const ptetBase = Math.max(0, ord + intInc + divInc + capG + rentInc);
+  const ptetTax = ptet && T !== '1120' ? ptetBase * sRate : 0;
+  const stateEst = T === '1120' ? Math.max(0, cTaxable) * sRate : 0;
+  const entityCash = cTax + bigTax + ptetTax + franchise + stateEst;
+
+  const schLReq = T === '1065'
+    ? (rev >= 250000 || assets >= 1000000)
+    : (rev >= 250000 || assets >= 250000);
+
+  const penalty = T === '1120' ? 0 : LATEPEN * owners;
+
+  return {T, owners, first, accrual, assets, ptet, franchise, sstb, wasC, rev, cogs, intInc, divInc,
+    capG, rentInc, texempt, officer, health, gp, wages, ptax, rent, prof, ins, iexp, oexp, bookDep,
+    adds, expNow, meals, ent, pen, char, dist, ownerRate, bookNI, ord, m1, s179, bonus, extraDep,
+    sep, shOrd, shGP, shSep, qbiDed, ownerSE, ownerIncTax, ownerTotal, cTax, cTaxable, drd, s179Cap,
+    charAllowed, bigTax, ptetTax, stateEst, entityCash, schLReq, penalty,
+    grossMargin: rev > 0 ? (rev - cogs) / rev : 0};
+}
+
+/* ============ DOCUMENT CHECKLISTS ============ */
+function docs1040(r) {
+  const g = [];
+  const sp = [...SPECIALS];
+  g.push(['A','Organizer and intake',['Completed tax organizer','Photo ID and SSN verification for everyone on the return']]);
+  g.push(['Z','Prior year return',['Complete signed copy of your last filed federal and state return']]);
+  const b = ['Any prior-year overpayment applied to this year'];
+  if (r.wh > 0 || r.wages > 0) b.unshift('Records of federal and state withholding');
+  if (r.est > 0) b.unshift('Proof of quarterly estimated payments with dates and amounts');
+  g.push(['B','Tax payments',b]);
+  if (r.wages > 0 || r.tips > 0 || r.ot > 0) {
+    const c = ['Form W-2 for each job, all copies'];
+    if (r.tips > 0) c.push('W-2 showing reported tips, Boxes 7 and 8');
+    if (r.ot > 0) c.push('W-2 statement of qualified overtime premium');
+    g.push(['C','Wages',c]);
+  }
+  if (r.interest > 0) g.push(['D','Interest income',['Form 1099-INT from each payer','Form 1099-OID if you hold discount bonds']]);
+  if (r.ordDiv > 0) g.push(['E','Dividends',['Form 1099-DIV from each payer','Consolidated brokerage 1099 if dividends and trades are combined']]);
+  if (r.retire > 0) g.push(['F','Pensions and IRAs',['Form 1099-R for every distribution','Form 5498 for contributions and rollovers']]);
+  if (r.schC !== 0) g.push(['H','Schedule C business',['Profit and loss statement and balance sheet','Forms 1099-NEC and 1099-K received','Mileage log and vehicle information','Home office square footage and household expenses','Fixed asset purchases with invoices']]);
+  if (r.ltcg !== 0 || r.stcg !== 0) g.push(['I','Capital gains and losses',['Consolidated 1099-B with realized gain and loss detail','Cost basis for positions reported as noncovered','Closing statements for property sales, Form 1099-S']]);
+  if (r.rentCt > 0 || r.rentRaw !== 0) g.push(['J','Rental real estate',['Income and expense summary for each property','Form 1098 mortgage interest for each property','Closing statements for property bought or sold','Prior year depreciation schedule','Form 1099-K if rents came through a platform']]);
+  if (r.k1Ct > 0 || r.k1S !== 0 || r.k1P !== 0) g.push(['K','K-1s',['Every Schedule K-1 including state K-1s and footnotes','Prior year basis schedule for each entity','Records of contributions and distributions']]);
+  if (r.ssG > 0) g.push(['L','Social Security',['Form SSA-1099']]);
+  if (r.car > 0) g.push(['M','Other 1040 items',['Vehicle loan interest statement and VIN for assembly verification']]);
+  const nl = [];
+  if (r.hsa > 0) nl.push('Form 5498-SA and Form 1099-SA for HSA activity');
+  if (r.ira > 0) nl.push('IRA contribution confirmations and Form 5498');
+  if (r.sl > 0) nl.push('Form 1098-E student loan interest');
+  if (r.schC !== 0) nl.push('Self-employed health insurance premium statements');
+  if (nl.length) g.push(['N','Adjustments to income',nl]);
+  if (r.useItem || r.mi > 0 || r.ch > 0 || r.med > 0 || r.pt > 0) {
+    const o = [];
+    if (r.mi > 0) o.push('Form 1098 for primary and second home');
+    if (r.pt > 0) o.push('Real estate and personal property tax bills');
+    if (r.ch > 0) o.push('Acknowledgment letters for gifts of $250 or more');
+    if (r.med > 0) o.push('Medical expense summary with receipts');
+    o.push('State and local tax payment records');
+    g.push(['O','Itemized deductions',o]);
+  }
+  const q = [];
+  if (r.kids > 0) { q.push('Form 1095-A, 1095-B, or 1095-C health coverage'); q.push('Child care provider statements with EIN'); }
+  if (r.odeps > 0) q.push('Form 1098-T tuition statement');
+  if (q.length) g.push(['Q','Credits',q]);
+  if (sp.length || r.addlSt > 0) {
+    const t = sp.slice();
+    if (r.addlSt > 0) t.push('Apportionment detail for each additional state');
+    g.push(['T','Needs a conversation',t]);
+  }
+  return g;
+}
+
+function docsEntity(r) {
+  const g = [], T = r.T;
+  g.push(['A','Organizer and admin',['Completed business tax organizer','EIN letter and entity formation documents',
+    T === '1120S' ? 'Form 2553 S election acceptance letter' : 'Operating or shareholder agreement']]);
+  g.push(['B','Trial balance and financials',['Year-end trial balance in Excel','Profit and loss statement for the full year',
+    'Balance sheet as of year end' + (r.schLReq ? ' (required — Schedule L applies to you)' : '')]]);
+  g.push(['C','Cash',['December bank statement for every account','Bank reconciliations at year end',
+    'Credit card statements for December']]);
+  if (r.accrual) {
+    g.push(['D','Receivables',['Accounts receivable aging at year end','Bad debt write-off detail']]);
+    g.push(['L','Payables and other liabilities',['Accounts payable aging at year end','Accrued liability detail']]);
+  }
+  if (r.cogs > 0) g.push(['E','Inventory',['Year-end physical inventory count and valuation','Inventory method and any change from last year']]);
+  if (r.adds > 0 || r.bookDep > 0) g.push(['F','Fixed assets',['Prior year depreciation schedule','Invoices for every asset purchased this year',
+    'Disposal detail for assets sold or scrapped','Cost segregation study if one was done']]);
+  if (r.intInc || r.divInc || r.capG) g.push(['K','Other assets and investments',['Brokerage statements for entity-held accounts','Form 1099 composite for entity accounts','Purchase and sale detail with basis']]);
+  if (r.iexp > 0) g.push(['M','Long-term debt',['Loan agreements and amortization schedules','Year-end loan balance statements','Any owner loans to or from the entity with terms']]);
+  g.push(['N','Equity and retained earnings',['Capital account roll-forward for each owner','Contributions received during the year',
+    'Distribution detail by owner and by date', T === '1120S' ? 'Prior year shareholder basis worksheet' : 'Prior year partner basis worksheet']]);
+  g.push(['O','Income',['Gross receipts support and sales reports','Forms 1099-K and 1099-NEC received',
+    'Merchant processor annual summaries']]);
+  if (r.officer || r.wages || r.gp) {
+    const p = ['Forms W-2 and W-3 for the year','Forms 941 for all four quarters','Form 940 annual',
+      'State unemployment filings','Year-end payroll register by employee'];
+    if (T === '1120S' && r.health > 0) p.push('Confirmation that shareholder health premiums are in Box 1 of the W-2');
+    if (T === '1065' && r.gp > 0) p.push('Guaranteed payment detail by partner');
+    g.push(['P','Wages and payroll taxes',p]);
+  }
+  g.push(['Q','General ledger',['Full general ledger detail for the year','Chart of accounts',
+    'QuickBooks or accounting file access if available']]);
+  g.push(['R','Other business expenses',['Detail for any account over $5,000',
+    'Meals log separating meals from entertainment','Vehicle mileage logs','Owner-paid expenses reimbursed or not']]);
+  if (T !== '1065') g.push(['W','Corporate updates and minutes',['Board or shareholder minutes for the year',
+    'Stock ledger and any ownership changes','Registered agent and annual report filings']]);
+  if (!r.first) g.push(['Z','Prior year return',['Complete copy of last year\u2019s federal and state return',
+    'Prior year Schedule K-1s as issued','Prior year working trial balance']]);
+  const sp = [...SPECIALS];
+  if (sp.length) g.push(['S','Needs a conversation',sp]);
+  return g;
+}
+
+/* ============ FLAGS ============ */
+function flags1040(r) {
+  const f = [];
+  if (r.settle < -1000 && r.hasPay) f.push(['Balance due','You are projected to owe more than $1,000, which can trigger an underpayment penalty. Adjusting withholding or making an estimated payment now is usually cheaper than fixing it at filing.']);
+  if (r.amt > 0) f.push(['Possible AMT','Our simplified check shows alternative minimum tax exposure of about ' + money(r.amt) + '. AMT depends on items this tool does not ask about, so treat it as a signal to review.']);
+  if (r.susp < 0) f.push(['Suspended rental losses',money(-r.susp) + ' of rental loss cannot be used this year because of passive activity limits. It carries forward, and tracking it matters when you sell.']);
+  if (r.saltPaid > r.saltCap && r.saltPaid > 0) f.push(['SALT cap','You paid ' + money(r.saltPaid) + ' in state and local taxes but only ' + money(r.saltCap) + ' is deductible. If you own a pass-through business, a state PTET election may recover part of this.']);
+  if (r.qbi > 0 && r.sstb) f.push(['Professional service limit','The 20% pass-through deduction phases out for professional services at your income level. Retirement contributions can sometimes preserve it.']);
+  if (r.qbi > 0 && !r.sstb && r.ti > QTH[r.s]) f.push(['Pass-through deduction may be capped','Above your income level the 20% deduction is also limited by W-2 wages your business pays and the cost of its property. This tool does not ask for those, so the figure shown is a ceiling.']);
+  if (r.niit > 0) f.push(['Net investment income tax','The 3.8% surtax applies to part of your investment income. How rentals are classified can change this.']);
+  if (r.k1Ct > 0) f.push(['K-1 timing','Partnership and S corp K-1s often arrive after April 15. An extension is the normal path, and it extends time to file, not time to pay.']);
+  if (r.schC > 40000 && r.k1S === 0) f.push(['Entity structure','At this level of self-employment income, an S corporation election often reduces self-employment tax. Worth modeling before year end.']);
+  return f;
+}
+
+function flagsEntity(r) {
+  const f = [], T = r.T;
+  if (T === '1120S' && r.ord > 0) {
+    const share = r.officer / Math.max(1, r.officer + r.ord);
+    if (r.officer === 0) f.push(['No officer compensation','An S corporation with ' + money(r.ord) + ' of profit and no W-2 wages to its owners is the single most common audit trigger for this return type. The IRS can reclassify distributions as wages and assess payroll tax plus penalties.']);
+    else if (share < .30) f.push(['Reasonable compensation','Officer wages are ' + pct(share) + ' of profit plus wages. There is no statutory percentage, but this ratio tends to draw scrutiny. Be ready to support the figure with role, hours, and comparable pay.']);
+  }
+  if (T === '1120S' && r.health > 0) f.push(['Shareholder health insurance','Premiums for anyone owning more than 2% must appear in Box 1 of their W-2, or the entity loses the deduction and the shareholder loses the above-the-line deduction on their 1040.']);
+  if (T !== '1120' && r.dist > 0 && r.ord + r.shSep * r.owners < r.dist) f.push(['Distributions may exceed basis','Distributions of ' + money(r.dist) + ' are larger than this year\u2019s income. If they also exceed accumulated basis, the excess is a taxable capital gain. A basis worksheet is required with the return.']);
+  if (r.ord < 0) f.push(['Loss limitations','A loss does not automatically deduct on the owner\u2019s 1040. It must clear basis, then at-risk, then passive activity limits, in that order. Expect us to ask for prior-year basis schedules.']);
+  if (r.schLReq) f.push(['Schedule L required','Your gross receipts or total assets cross the threshold, so a balance sheet is required and must tie to your books exactly. Total assets must equal total liabilities plus equity, and this is where most returns get sent back.']);
+  else f.push(['Schedule L may be optional','Based on what you entered, you may qualify to skip the balance sheet and Schedules M-1 and M-2. We still reconcile the books, because the numbers have to be right regardless.']);
+  if (r.penalty > 0) f.push(['Late filing exposure','With ' + r.owners + ' owner' + (r.owners > 1 ? 's' : '') + ', filing late costs roughly ' + money(r.penalty) + ' per month, up to 12 months, even with zero tax due. The figure adjusts annually. An extension is free and automatic.']);
+  if (r.meals > 0) f.push(['Meals and entertainment','We added back ' + money(r.meals * .5 + r.ent) + '. Keeping meals and entertainment in separate ledger accounts saves real money at preparation time.']);
+  if (r.rev > 30000000) f.push(['Business interest limitation','Above roughly $31 million of average gross receipts, Section 163(j) can cap your interest deduction at 30% of EBITDA. This estimator does not apply that cap.']);
+  if (r.wasC && r.capG > 0) f.push(['Built-in gains tax','As a former C corporation selling appreciated assets within five years of electing S status, the entity itself owes 21% on the built-in gain. We estimated ' + money(r.bigTax) + ', but it depends on asset-by-asset valuation at conversion.']);
+  if (r.ptet) f.push(['Pass-through entity tax','The entity pays ' + money(r.ptetTax) + ' in state tax so owners can deduct it around the federal SALT cap. Owners claim a credit on their personal state return. Rules differ by state and the election is usually irrevocable for the year.']);
+  if (!r.sstb && r.qbiDed > 0) f.push(['Pass-through deduction is a ceiling','The 20% deduction shown is calculated before the owner-level limits based on W-2 wages paid and the cost of business property, and before each owner\u2019s taxable income cap. Their other income decides the real number.']);
+  if (r.sstb) f.push(['Professional service business','Owners above the income threshold lose part or all of the 20% pass-through deduction. We set it to zero here to be conservative; the real answer depends on each owner\u2019s total income.']);
+  if (r.adds > 0 && r.expNow) f.push(['Expensing is a choice, not a default','We applied 100% bonus depreciation to ' + money(r.extraDep) + ' this year. Section 179 is the alternative and can be elected asset by asset, which gives finer control (' + money(r.s179Cap) + ' is available to you this year). That can strand interest deductions under Section 163(j), shrink the 20% pass-through deduction, break a loan covenant tied to EBITDA, or create a state addback. Faster is not always better.']);
+  if (T === '1065' && r.owners < 2) f.push(['Partnership needs two owners','A partnership return requires at least two partners and at least two K-1s. A single-member LLC files on Schedule C of the owner\u2019s 1040 instead.']);
+  return f;
+}
+
+/* ============ RENDER ============ */
+function render1040() {
+  const r = compute1040();
+  const refund = r.settle > 0;
+  $('hlNum').textContent = money(r.total);
+  $('hlNum').classList.remove('good');
+  $('hlLabel').textContent = 'Estimated 2026 federal tax';
+  $('rates').innerHTML =
+    '<div class="rate">Effective rate<b>' + pct(r.eff) + '</b></div>' +
+    '<div class="rate">Top bracket<b>' + Math.round(r.marg * 100) + '%</b></div>' +
+    '<div class="rate">Est. state tax<b>' + money(r.stTax) + '</b></div>';
+
+  $('settleBox').innerHTML = r.hasPay
+    ? '<div class="box">' + (refund ? 'Projected refund, based on what you have paid in'
+        : 'Projected balance due at filing') + '<span class="amt' + (refund ? ' good' : '') + '">' +
+        money(Math.abs(r.settle)) + '</span></div>'
+    : '<div class="box">Add your federal withholding above to see a refund or balance due.</div>';
+
+  const done = OPEN.s2 && OPEN.s3;
+  $('confBadge').textContent = done ? 'Detailed estimate' : OPEN.s2 ? 'Better estimate' : 'Ballpark estimate';
+  $('nudge').innerHTML = done ? '' :
+    '<strong>Is this close enough?</strong><p>' +
+    (OPEN.s2 ? 'Add your deductions and payments to finish the picture.'
+             : 'Add business, rental, K-1, and deduction detail for a much sharper number.') +
+    '</p><button type="button" class="btn-p btn-w" id="moreBtn">Add more detail</button>';
+  $('nudge').className = done ? 'box hide' : 'box';
+
+  const rows = [];
+  const row = (l, x, c) => rows.push('<div class="brow ' + (c || '') + '"><span>' + l +
+    '</span><span>' + money(x) + '</span></div>');
+  row('Total income', r.totalInc);
+  if (r.ssTaxable > 0) row('of which taxable Social Security', r.ssTaxable, 'ind');
+  row('Adjusted gross income', r.agi);
+  row(r.useItem ? 'Itemized deductions' : 'Standard deduction', -r.baseDed);
+  if (r.obbba > 0) row('New 2026 deductions', -r.obbba);
+  if (r.qbi > 0) row('20% pass-through deduction', -r.qbi);
+  row('Taxable income', r.ti, 'tot');
+  row('Income tax', r.incTax);
+  if (r.amt > 0) row('Alternative minimum tax', r.amt);
+  if (r.seTax > 0) row('Self-employment tax', r.seTax);
+  if (r.niit > 0) row('Net investment income tax', r.niit);
+  if (r.addMed > 0) row('Additional Medicare tax', r.addMed);
+  if (r.ctcN > 0) row('Child and dependent credits', -r.ctcN);
+  row('Total federal tax', r.total, 'tot');
+  if (r.hasPay) {
+    if (r.wh > 0) row('Withholding', -r.wh);
+    if (r.est > 0) row('Estimated payments', -r.est);
+    if (r.actc > 0) row('Refundable child credit', -r.actc);
+    row(refund ? 'Refund' : 'Balance due', Math.abs(r.settle), 'tot');
+  }
+  $('brk').innerHTML = rows.join('');
+  $('flags').innerHTML = flags1040(r).map(x => '<div class="flag"><b>' + x[0] + '.</b> ' + x[1] + '</div>').join('');
+  renderDocs(docs1040(r), 'What we would need from you');
+  $('exp').innerHTML = 'Figures use 2026 federal law as amended by the One Big Beautiful Bill Act, ' +
+    'per IRS Revenue Procedure 2025-32. The state figure is a flat-rate approximation, not a state return.';
+}
+
+function renderEntity() {
+  const r = computeEntity(), T = r.T;
+  const name = T === '1065' ? 'partnership' : T === '1120S' ? 'S corporation' : 'C corporation';
+  const form = T === '1065' ? 'Form 1065' : T === '1120S' ? 'Form 1120-S' : 'Form 1120';
+
+  $('confBadge').textContent = form + ' estimate';
+  if (T === '1120') {
+    $('hlNum').textContent = money(r.cTax);
+    $('hlLabel').textContent = 'Estimated federal income tax at 21%';
+  } else {
+    $('hlNum').textContent = money(r.ord);
+    $('hlLabel').textContent = 'Ordinary business income flowing to owners';
+  }
+  $('hlNum').classList.remove('good');
+
+  $('rates').innerHTML =
+    '<div class="rate">Gross margin<b>' + pct(r.grossMargin) + '</b></div>' +
+    '<div class="rate">' + (T === '1065' ? 'K-1s' : 'Shareholders') + '<b>' + r.owners + '</b></div>' +
+    '<div class="rate">Entity pays<b>' + money(r.entityCash) + '</b></div>';
+
+  if (T === '1120') {
+    $('settleBox').innerHTML = '<div class="box">Federal tax the corporation owes<span class="amt">' +
+      money(r.cTax) + '</span>Plus roughly ' + money(r.stateEst + r.franchise) +
+      ' of state income and franchise tax. Dividends paid to shareholders are taxed again on their ' +
+      'personal returns, which is the double taxation an S election avoids.</div>';
+  } else {
+    $('settleBox').innerHTML = '<div class="box"><strong>The entity itself owes no federal income tax.</strong>' +
+      (T === '1120S' ? 'An ' : 'A ') + name + ' is a reporting entity. Income lands on each owner\u2019s Schedule K-1 and is taxed ' +
+      'on their personal return. What the entity does pay in cash: ' +
+      (r.entityCash > 0 ? money(r.entityCash) + ' of state pass-through, franchise, or built-in gains tax.'
+        : 'nothing beyond any state filing fees you have not entered.') +
+      '<span class="amt">' + money(r.ownerTotal) + '</span>Estimated federal tax on each owner\u2019s K-1, ' +
+      'at a ' + Math.round(r.ownerRate * 100) + '% bracket' +
+      (r.ownerSE > 0 ? ', including ' + money(r.ownerSE) + ' of self-employment tax' : '') + '.</div>';
+  }
+
+  $('nudge').className = 'box hide';
+  $('nudge').innerHTML = '';
+
+  const rows = [];
+  const row = (l, x, c) => rows.push('<div class="brow ' + (c || '') + '"><span>' + l +
+    '</span><span>' + money(x) + '</span></div>');
+  row('Gross receipts', r.rev);
+  if (r.cogs) row('Cost of goods sold', -r.cogs);
+  row('Book net income', r.bookNI, 'tot');
+  r.m1.forEach(m => row(m[0], m[1], 'ind'));
+  if (T === '1120') {
+    if (r.drd) row('Dividends received deduction', -r.drd, 'ind');
+    if (r.charAllowed) row('Charitable contributions (10% limit)', -r.charAllowed, 'ind');
+    row('Taxable income', r.cTaxable, 'tot');
+    row('Federal income tax at 21%', r.cTax, 'tot');
+  } else {
+    row(T === '1065' ? 'Ordinary business income (Form 1065, Line 22)'
+                     : 'Ordinary business income (Form 1120-S, Line 21)', r.ord, 'tot');
+    if (r.sep.length) {
+      rows.push('<div class="brow" style="margin-top:8px"><span><b>Separately stated on each K-1</b></span><span></span></div>');
+      r.sep.forEach(s => row(s[0] + ' \u00b7 ' + s[2], s[1] / r.owners, 'ind'));
+    }
+    rows.push('<div class="brow" style="margin-top:8px"><span><b>Per owner, equal split</b></span><span></span></div>');
+    row('Ordinary business income', r.shOrd, 'ind');
+    if (r.shGP) row('Guaranteed payments', r.shGP, 'ind');
+    if (r.shSep) row('Separately stated items, net', r.shSep, 'ind');
+    if (r.qbiDed) row('20% pass-through deduction', -r.qbiDed, 'ind');
+    row('Estimated income tax at ' + Math.round(r.ownerRate * 100) + '%', r.ownerIncTax);
+    if (r.ownerSE) row('Self-employment tax', r.ownerSE);
+    row('Owner\u2019s federal tax on this K-1', r.ownerTotal, 'tot');
+  }
+  if (r.entityCash > 0) {
+    rows.push('<div class="brow" style="margin-top:8px"><span><b>Entity-level cash taxes</b></span><span></span></div>');
+    if (r.cTax) row('Federal income tax', r.cTax, 'ind');
+    if (r.bigTax) row('Built-in gains tax', r.bigTax, 'ind');
+    if (r.ptetTax) row('State pass-through entity tax', r.ptetTax, 'ind');
+    if (r.stateEst) row('State income tax', r.stateEst, 'ind');
+    if (r.franchise) row('Franchise or minimum tax', r.franchise, 'ind');
+    row('Total paid by the entity', r.entityCash, 'tot');
+  }
+  $('brk').innerHTML = rows.join('');
+
+  $('flags').innerHTML = flagsEntity(r).map(x => '<div class="flag"><b>' + x[0] + '.</b> ' + x[1] + '</div>').join('');
+  renderDocs(docsEntity(r), 'What we would need from you');
+
+  const due = T === '1120' ? 'April 15, 2027, extended to October 15, 2027'
+                           : 'March 15, 2027, extended to September 15, 2027';
+  $('exp').innerHTML = form + ' for a calendar-year entity is due ' + due +
+    '. Figures use 2026 federal law as amended by the One Big Beautiful Bill Act, including the ' +
+    '$2.56 million Section 179 limit and permanent 100% bonus depreciation. ' +
+    'Equal ownership is assumed; special allocations change every per-owner number above.';
+}
+
+function renderDocs(groups, title) {
+  $('docs').innerHTML = '<div class="dh" style="margin-bottom:10px">' + title + '</div>' +
+    '<p style="margin:0 0 12px;color:var(--muted);font-size:12.5px">' + groups.length +
+    ' document groups, labeled the way we file them. Gather these and your return moves fast.</p>' +
+    groups.map(d => '<div class="dg"><div class="dh"><span class="dl">' + d[0] + '</span>' + esc(d[1]) +
+      '</div><ul>' + d[2].map(i => '<li>' + esc(i) + '</li>').join('') + '</ul></div>').join('');
+}
+
+function render() { RT === '1040' ? render1040() : renderEntity(); }
+
+/* ============ EVENTS ============ */
+const HINTS = {
+  '1040': 'Form 1040 \u2014 individual income tax return.',
+  '1065': 'Form 1065 \u2014 partnerships and multi-member LLCs. No entity-level federal tax.',
+  '1120S': 'Form 1120-S \u2014 S corporations. No entity-level federal tax in most cases.',
+  '1120': 'Form 1120 \u2014 C corporations. The only one that pays federal income tax itself.'
+};
+
+$('returnType').addEventListener('change', e => {
+  RT = e.target.value;
+  $('rtHint').textContent = HINTS[RT];
+  SPECIALS.clear();
+  buildForm(); render();
+  window.scrollTo({top: 0, behavior: 'smooth'});
+});
+
+root.addEventListener('input', e => {
+  const t = e.target;
+  if (t.id && t.id in VALS) { VALS[t.id] = t.value; render(); }
+});
+
+root.addEventListener('change', e => {
+  const t = e.target;
+  if (t.classList.contains('sp')) {
+    t.checked ? SPECIALS.add(t.value) : SPECIALS.delete(t.value);
+    render(); return;
+  }
+  if (t.id === 'stateCode') { VALS.stateCode = t.value; VALS.stateRate = stateRate(t.value);
+    const el = $('stateRate'); if (el) el.value = VALS.stateRate; render(); return; }
+  if (t.id === 'entState') { VALS.entState = t.value; VALS.entStateRate = stateRate(t.value);
+    const el = $('entStateRate'); if (el) el.value = VALS.entStateRate; render(); return; }
+  if (t.id && t.id in VALS) { VALS[t.id] = t.value; render(); }
+});
+
+root.addEventListener('click', e => {
+  if (e.target.id === 'moreBtn') {
+    if (!OPEN.s2) OPEN.s2 = true; else OPEN.s3 = true;
+    buildForm(); render();
+    const el = $('sec_' + (OPEN.s3 ? 's3' : 's2'));
+    if (el) el.scrollIntoView({behavior: 'smooth', block: 'start'});
+  }
+  if (e.target.id === 'resetBtn') {
+    SECTIONS.forEach(sec => (sec.fields ? [sec.fields] : sec.groups.map(g => g.fields))
+      .forEach(l => l.forEach(f => { VALS[f.id] = f.def; })));
+    SPECIALS.clear(); OPEN.s2 = false; OPEN.s3 = false;
+    buildForm(); render();
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  }
+});
+
+buildForm();
+render();
+
+/* Tell a parent page how tall we are, so an <iframe> embed can resize itself
+   and the visitor never sees a scrollbar inside a scrollbar. */
+function postHeight() {
+  try {
+    if (window.parent && window.parent !== window) {
+      window.parent.postMessage(
+        {datumEstimatorHeight: document.documentElement.scrollHeight}, '*');
+    }
+  } catch (err) { /* cross-origin parent: nothing to do */ }
+}
+if (typeof ResizeObserver === 'function') {
+  new ResizeObserver(postHeight).observe(document.body);
+}
+window.addEventListener('load', postHeight);
+setTimeout(postHeight, 300);
+postHeight();
+})();
+</script>
+</body>
+</html>
