@@ -1,14 +1,14 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <title>Datum AI — 2026 Tax Estimator</title>
 <style>
   :root {
-    --bg:#f7f8fa; --card:#fff; --text:#14181f; --muted:#667085; --border:#e4e7ec;
-    --accent:#111827; --soft:#f2f4f7; --ok:#067647; --warn:#b54708; --warnbg:#fffaeb;
-    --warnbd:#fec84b; --r:18px; --sh:0 12px 36px rgba(16,24,40,.08);
+    --bg:#ffffff; --card:#ffffff; --text:#111827; --muted:#6b7280; --border:#e5e7eb;
+    --accent:#111827; --soft:#f3f4f6; --ok:#067647; --warn:#b54708; --warnbg:#fffaeb;
+    --warnbd:#fec84b; --r:16px; --sh:0 12px 36px rgba(16,24,40,.08);
     box-sizing:border-box;
     padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
   }
@@ -24,52 +24,87 @@
   }
   html{scroll-padding-top:env(safe-area-inset-top,0px);}
   *{box-sizing:border-box;}
-  body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
-    color:var(--text);background:var(--bg);line-height:1.45;}
+  body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    color:var(--text);background:var(--bg);line-height:1.5;-webkit-font-smoothing:antialiased;}
   .wrap{max-width:1180px;margin:0 auto;padding:28px 18px 48px;}
-  .kicker{font-size:13px;font-weight:800;letter-spacing:.08em;color:var(--muted);margin-bottom:8px;}
-  h1{font-size:clamp(28px,5vw,44px);line-height:1.08;margin:0 0 10px;letter-spacing:-.035em;}
-  .sub{color:var(--muted);font-size:17px;max-width:740px;margin:0 0 22px;}
-  .grid{display:grid;grid-template-columns:minmax(0,1.12fr) minmax(320px,.88fr);gap:22px;align-items:start;}
+  .kicker{font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
+  h1{font-size:clamp(30px,4.5vw,48px);line-height:1.15;font-weight:800;color:var(--text);margin:0 0 12px;letter-spacing:-.025em;}
+  .sub{color:var(--muted);font-size:18px;line-height:1.55;max-width:700px;margin:0 0 24px;}
+  .grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(320px,.85fr);gap:24px;align-items:start;}
   .card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);box-shadow:var(--sh);}
   .form-card{padding:22px;margin-bottom:18px;}
-  .res-card{padding:22px;position:sticky;top:16px;max-height:calc(100vh - 32px);overflow-y:auto;}
-  .sec-title{font-size:18px;margin:0 0 5px;letter-spacing:-.015em;}
-  .sec-help{color:var(--muted);font-size:14px;margin:0 0 16px;}
-  .grp-head{font-size:13px;font-weight:800;color:var(--muted);margin:20px 0 9px;
+  .res-card{padding:24px;border-radius:var(--r);position:sticky;top:16px;max-height:calc(100vh - 32px);overflow-y:auto;}
+  .sec-title{font-size:18px;font-weight:700;color:var(--text);margin:0 0 4px;letter-spacing:-.015em;}
+  .sec-help{color:var(--muted);font-size:14px;margin:0 0 16px;line-height:1.4;}
+  .grp-head{font-size:12.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:22px 0 9px;
     padding-bottom:6px;border-bottom:1px solid var(--border);}
   .qlist{display:grid;gap:11px;}
-  .q{border:1px solid var(--border);border-radius:14px;padding:13px 14px;}
-  .qrow{display:grid;grid-template-columns:minmax(0,1fr) 150px;gap:12px;align-items:center;}
-  .q label{font-weight:650;font-size:14px;}
-  .q small{display:block;color:var(--muted);margin-top:3px;font-size:12px;}
-  select,input[type=number]{width:100%;min-height:44px;border:1px solid var(--border);border-radius:10px;
-    background:var(--card);color:var(--text);padding:9px 10px;font-size:16px;outline:none;font-family:inherit;}
-  select:focus,input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(17,24,39,.12);}
+  .q{border:1px solid var(--border);border-radius:12px;padding:14px 16px;background:var(--card);}
+  .qrow{display:flex;justify-content:space-between;align-items:center;gap:16px;}
+  .qrow > div:first-child{flex:1;min-width:0;}
+  .q label{font-weight:600;font-size:14px;color:var(--text);display:block;line-height:1.3;}
+  .q small{display:block;color:var(--muted);margin-top:4px;font-size:12px;line-height:1.35;}
+  select,input[type=number]{height:42px;min-height:42px;border:1px solid var(--border);border-radius:10px;
+    background:var(--card);color:var(--text);padding:8px 12px;font-size:14px;font-weight:500;outline:none;font-family:inherit;box-sizing:border-box;}
+  input[type=number]{width:150px;flex:none;text-align:right;font-weight:600;}
+  select{
+    cursor:pointer;
+    padding-right:32px;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat:no-repeat;
+    background-position:calc(100% - 10px) center;
+    appearance:none;-webkit-appearance:none;
+    width:230px;
+    max-width:260px;
+    flex:none;
+    font-weight:500;
+  }
+  select:focus,input:focus{border-color:#008899;box-shadow:0 0 0 3px rgba(0,136,153,.15);}
   .chk-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;}
-  .chk{display:flex;gap:9px;align-items:flex-start;border:1px solid var(--border);
-    border-radius:12px;padding:12px;font-size:13px;cursor:pointer;}
-  .chk input{margin-top:2px;width:17px;height:17px;flex:none;}
+  .chk{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--border);
+    border-radius:12px;padding:12px;font-size:13.5px;color:var(--text);font-weight:500;cursor:pointer;background:var(--card);transition:border-color .15s;}
+  .chk:hover{border-color:#008899;}
+  .chk input{margin-top:2px;width:16px;height:16px;flex:none;accent-color:#008899;}
+  .return-type-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:10px;}
+  .rt-card{display:flex;gap:12px;align-items:flex-start;border:1.5px solid var(--border);
+    border-radius:14px;padding:14px 16px;cursor:pointer;background:var(--card);transition:all .15s ease;}
+  .rt-card:hover{border-color:#008899;}
+  .rt-card.active{border-color:#008899;background:rgba(0,136,153,.04);box-shadow:0 0 0 1px #008899;}
+  .rt-card input[type=radio]{margin-top:3px;width:18px;height:18px;accent-color:#008899;flex:none;cursor:pointer;}
+  .rt-content{display:flex;flex-direction:column;gap:3px;}
+  .rt-title{font-weight:600;font-size:14.5px;color:var(--text);line-height:1.25;}
+  .rt-desc{font-size:12px;color:var(--muted);line-height:1.35;}
+  @media (max-width:680px){.return-type-grid{grid-template-columns:1fr;}}
+  .seg-ctrl{display:inline-flex;align-items:center;gap:4px;background:#f3f4f6;border-radius:9999px;padding:4px;border:none;flex:none;}
+  .seg-btn{min-height:unset !important;height:auto !important;border:none !important;outline:none;background:transparent !important;padding:6px 14px;border-radius:9999px;font-size:13.5px;font-weight:600;
+    color:#4b5563;cursor:pointer;font-family:inherit;line-height:1.2;transition:all .15s ease;box-shadow:none;}
+  .seg-btn:hover{color:#111827;}
+  .seg-btn.active{background:#111827 !important;color:#ffffff !important;box-shadow:0 1px 2px rgba(16,24,40,.06);border:none !important;}
   .acts{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px;}
-  button{min-height:44px;border-radius:11px;padding:10px 16px;font-size:14px;font-weight:750;
-    cursor:pointer;border:1px solid var(--border);font-family:inherit;background:var(--card);color:var(--text);}
-  .btn-p{background:var(--accent);color:var(--card);border-color:var(--accent);}
+  button{min-height:44px;border-radius:11px;padding:10px 16px;font-size:14px;font-weight:700;
+    cursor:pointer;border:1px solid var(--border);font-family:inherit;background:var(--card);color:var(--text);transition:background .15s;}
+  .btn-p{background:#111827;color:#ffffff;border-color:#111827;}
+  .btn-p:hover{background:#1f2937;}
   .btn-w{width:100%;}
-  .badge{display:inline-flex;padding:6px 9px;border-radius:999px;font-size:12px;font-weight:800;
-    background:var(--soft);color:var(--text);}
-  .headline{font-size:36px;line-height:1;font-weight:850;letter-spacing:-.035em;margin:8px 0 4px;}
+  .badge{display:inline-flex;padding:5px 10px;border-radius:9999px;font-size:12px;font-weight:800;
+    background:#f3f4f6;color:#1f2937;letter-spacing:0.02em;}
+  .headline{font-size:32px;line-height:1.1;font-weight:800;letter-spacing:-.025em;color:var(--text);margin:8px 0 4px;}
   .headline.good{color:var(--ok);}
-  .hlabel{color:var(--muted);font-size:13px;}
+  .hlabel{color:var(--muted);font-size:13px;font-weight:500;}
   .rates{display:flex;gap:16px;margin-top:12px;flex-wrap:wrap;}
-  .rate{font-size:13px;color:var(--muted);} .rate b{display:block;font-size:17px;color:var(--text);letter-spacing:-.02em;}
+  .rate{font-size:12.5px;color:var(--muted);} .rate b{display:block;font-size:16px;font-weight:700;color:var(--text);letter-spacing:-.02em;margin-top:2px;}
   .brk{margin-top:16px;border-top:1px solid var(--border);padding-top:12px;}
-  .brow{display:flex;justify-content:space-between;gap:12px;font-size:13px;padding:4px 0;}
+  .brow{display:flex;justify-content:space-between;gap:12px;font-size:13px;padding:6px 0;line-height:1.35;}
   .brow span:first-child{color:var(--muted);}
-  .brow.tot{font-weight:800;border-top:1px solid var(--border);margin-top:6px;padding-top:8px;font-size:14px;}
-  .brow.tot span:first-child{color:var(--text);}
+  .brow span:last-child{color:var(--text);font-weight:500;}
+  .brow.tot{font-weight:700;border-top:1px solid var(--border);margin-top:8px;padding-top:8px;font-size:14px;color:var(--text);}
+  .brow.tot span:first-child{color:var(--text);font-weight:700;}
+  .brow.tot span:last-child{color:var(--text);font-weight:700;}
   .brow.ind span:first-child{padding-left:12px;}
-  .box{margin-top:14px;border-radius:13px;padding:13px;background:var(--soft);font-size:13px;}
-  .box .amt{font-size:25px;font-weight:850;letter-spacing:-.03em;display:block;margin-top:3px;}
+  .box{margin-top:14px;border-radius:12px;padding:14px;background:#f8fafc;border:1px solid var(--border);font-size:13px;line-height:1.45;color:var(--text);}
+  .box strong{display:block;margin-bottom:4px;font-size:14px;font-weight:700;color:var(--text);}
+  .box p{margin:0 0 10px;color:var(--muted);font-size:13px;}
+  .box .amt{font-size:24px;font-weight:800;letter-spacing:-.025em;display:block;margin:6px 0;color:var(--text);}
   .box .amt.good{color:var(--ok);}
   .box strong{display:block;margin-bottom:4px;font-size:14px;}
   .box p{margin:0 0 10px;color:var(--muted);}
@@ -89,13 +124,15 @@
   .hide{display:none !important;}
   @media (max-width:880px){.grid{grid-template-columns:1fr;}.res-card{position:static;max-height:none;}}
   @media (max-width:520px){.wrap{padding:18px 12px 34px;}.form-card,.res-card{padding:16px;}
-    .qrow{grid-template-columns:1fr;}.chk-grid{grid-template-columns:1fr;}.headline{font-size:30px;}}
+    .qrow{flex-direction:column;align-items:flex-start;gap:10px;}
+    .qrow > input[type=number],.qrow > select{width:100%;max-width:none;}
+    .chk-grid{grid-template-columns:1fr;}.headline{font-size:30px;}}
 </style>
 </head>
 <body>
 <main class="wrap" id="datumEstimator">
   <header>
-    <div class="kicker">Datum AI · 2026 Tax Year</div>
+    <div class="kicker">Datum AI · Tax Estimator</div>
     <h1>See your tax picture before you hire anyone.</h1>
     <p class="sub">Pick the return you need, answer what you know, and we'll show the tax, how we
       got there, and exactly which documents we'd ask for. Nothing is saved or sent.</p>
@@ -105,17 +142,37 @@
     <div>
       <section class="card form-card">
         <h2 class="sec-title">What return do you need?</h2>
-        <p class="sec-help">The questions below change to match.</p>
-        <div class="q"><div class="qrow">
-          <div><label for="returnType">Return type</label>
-            <small id="rtHint">Form 1040 — individual income tax return.</small></div>
-          <select id="returnType">
-            <option value="1040">Form 1040 — Individual</option>
-            <option value="1065">Form 1065 — Partnership / multi-member LLC</option>
-            <option value="1120S">Form 1120-S — S corporation</option>
-            <option value="1120">Form 1120 — C corporation</option>
-          </select>
-        </div></div>
+        <p class="sec-help">Select one return type. The questions below change to match.</p>
+        <div class="return-type-grid" id="returnTypeGroup">
+          <label class="rt-card active" data-val="1040">
+            <input type="radio" name="returnType" value="1040" checked />
+            <div class="rt-content">
+              <span class="rt-title">Form 1040 — Individual</span>
+              <small class="rt-desc">Form 1040 — individual income tax return.</small>
+            </div>
+          </label>
+          <label class="rt-card" data-val="1065">
+            <input type="radio" name="returnType" value="1065" />
+            <div class="rt-content">
+              <span class="rt-title">Form 1065 — Partnership / LLC</span>
+              <small class="rt-desc">Partnerships and multi-member LLCs. No entity-level federal tax.</small>
+            </div>
+          </label>
+          <label class="rt-card" data-val="1120S">
+            <input type="radio" name="returnType" value="1120S" />
+            <div class="rt-content">
+              <span class="rt-title">Form 1120-S — S corporation</span>
+              <small class="rt-desc">S corporations. No entity-level federal tax in most cases.</small>
+            </div>
+          </label>
+          <label class="rt-card" data-val="1120">
+            <input type="radio" name="returnType" value="1120" />
+            <div class="rt-content">
+              <span class="rt-title">Form 1120 — C corporation</span>
+              <small class="rt-desc">C corporations. The only one that pays federal income tax itself.</small>
+            </div>
+          </label>
+        </div>
       </section>
       <div id="formArea"></div>
     </div>
@@ -331,16 +388,31 @@ SECTIONS.forEach(sec => {
 
 const visible = f => !f[5] && !(f.only) ? true : true;
 
+const CAN_BE_NEGATIVE = new Set(['ltcg', 'stcg', 'schC', 'rentalNet', 'entCapGain']);
+
 function fieldHTML(f) {
-  const only = f.t === 'num' ? f.only : f.only;
   let ctl;
   if (f.t === 'sel') {
-    ctl = '<select id="' + f.id + '">' + f.opts.map(o =>
-      '<option value="' + esc(o[0]) + '"' + (String(VALS[f.id]) === String(o[0]) ? ' selected' : '') +
-      '>' + esc(o[1]) + '</option>').join('') + '</select>';
+    const isSegmented = f.opts.length <= 3 && f.id !== 'status' && f.id !== 'stateCode' && f.id !== 'entState' && f.id !== 'entMarginal';
+    if (isSegmented) {
+      ctl = '<div class="seg-ctrl" data-id="' + f.id + '">' + f.opts.map(o => {
+        const active = String(VALS[f.id]) === String(o[0]);
+        return '<button type="button" class="seg-btn' + (active ? ' active' : '') + '" data-val="' + esc(o[0]) + '">' +
+          esc(o[1]) + '</button>';
+      }).join('') + '</div>';
+    } else {
+      ctl = '<select id="' + f.id + '">' + f.opts.map(o =>
+        '<option value="' + esc(o[0]) + '"' + (String(VALS[f.id]) === String(o[0]) ? ' selected' : '') +
+        '>' + esc(o[1]) + '</option>').join('') + '</select>';
+    }
   } else {
-    ctl = '<input id="' + f.id + '" type="number" step="any" inputmode="decimal" value="' +
-      esc(VALS[f.id] ?? 0) + '" />';
+    const isMin1 = f.id === 'entOwners';
+    const allowNeg = CAN_BE_NEGATIVE.has(f.id);
+    const minAttr = allowNeg ? '' : ' min="' + (isMin1 ? '1' : '0') + '"';
+    const isInteger = (f.id === 'kids' || f.id === 'otherdeps' || f.id === 'rentalCount' || f.id === 'k1Count' || f.id === 'addlStates' || f.id === 'entOwners');
+    const stepAttr = isInteger ? ' step="1"' : ' step="any"';
+    ctl = '<input id="' + f.id + '" type="number"' + stepAttr + minAttr + ' inputmode="decimal" value="' +
+      esc(VALS[f.id] ?? (isMin1 ? 1 : 0)) + '" />';
   }
   return '<div class="q"><div class="qrow"><div><label for="' + f.id + '">' + esc(f.label) + '</label>' +
     (f.hint ? '<small>' + esc(f.hint) + '</small>' : '') + '</div>' + ctl + '</div></div>';
@@ -379,7 +451,11 @@ function buildForm() {
 }
 
 /* ============ SHARED MATH ============ */
-const v = id => { const p = parseFloat(VALS[id]); return Number.isFinite(p) ? p : 0; };
+const v = id => {
+  const p = parseFloat(VALS[id]);
+  const num = Number.isFinite(p) ? p : 0;
+  return CAN_BE_NEGATIVE.has(id) ? num : Math.max(0, num);
+};
 const nn = id => Math.max(0, Math.floor(v(id)));
 const sv = id => VALS[id];
 const ordTax = (ti, s) => { let t = 0, p = 0; for (const [c, r] of BR[s]) { if (ti <= p) break;
@@ -895,17 +971,53 @@ const HINTS = {
   '1120': 'Form 1120 \u2014 C corporations. The only one that pays federal income tax itself.'
 };
 
-$('returnType').addEventListener('change', e => {
-  RT = e.target.value;
-  $('rtHint').textContent = HINTS[RT];
-  SPECIALS.clear();
-  buildForm(); render();
-  window.scrollTo({top: 0, behavior: 'smooth'});
+root.querySelectorAll('input[name="returnType"]').forEach(r => {
+  r.addEventListener('change', e => {
+    RT = e.target.value;
+    root.querySelectorAll('.rt-card').forEach(c => c.classList.toggle('active', c.dataset.val === RT));
+    SPECIALS.clear();
+    buildForm(); render();
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  });
+});
+
+root.addEventListener('keydown', e => {
+  const t = e.target;
+  if (t.tagName === 'INPUT' && t.type === 'number') {
+    if (!CAN_BE_NEGATIVE.has(t.id) && (e.key === '-' || e.key === 'Minus')) {
+      e.preventDefault();
+    }
+  }
+});
+
+root.addEventListener('paste', e => {
+  const t = e.target;
+  if (t.tagName === 'INPUT' && t.type === 'number' && !CAN_BE_NEGATIVE.has(t.id)) {
+    const text = (e.clipboardData || window.clipboardData)?.getData('text') || '';
+    if (text.includes('-')) {
+      e.preventDefault();
+      const clean = text.replace(/-/g, '');
+      t.value = clean;
+      VALS[t.id] = clean;
+      render();
+    }
+  }
 });
 
 root.addEventListener('input', e => {
   const t = e.target;
-  if (t.id && t.id in VALS) { VALS[t.id] = t.value; render(); }
+  if (t.id && t.id in VALS) {
+    if (t.type === 'number') {
+      if (!CAN_BE_NEGATIVE.has(t.id)) {
+        const minVal = t.id === 'entOwners' ? 1 : 0;
+        if (t.value !== '' && parseFloat(t.value) < minVal) {
+          t.value = minVal;
+        }
+      }
+    }
+    VALS[t.id] = t.value;
+    render();
+  }
 });
 
 root.addEventListener('change', e => {
@@ -913,6 +1025,14 @@ root.addEventListener('change', e => {
   if (t.classList.contains('sp')) {
     t.checked ? SPECIALS.add(t.value) : SPECIALS.delete(t.value);
     render(); return;
+  }
+  if (t.type === 'number') {
+    if (!CAN_BE_NEGATIVE.has(t.id)) {
+      const minVal = t.id === 'entOwners' ? 1 : 0;
+      if (t.value !== '' && parseFloat(t.value) < minVal) {
+        t.value = minVal;
+      }
+    }
   }
   if (t.id === 'stateCode') { VALS.stateCode = t.value; VALS.stateRate = stateRate(t.value);
     const el = $('stateRate'); if (el) el.value = VALS.stateRate; render(); return; }
@@ -922,6 +1042,18 @@ root.addEventListener('change', e => {
 });
 
 root.addEventListener('click', e => {
+  const segBtn = e.target.closest('.seg-btn');
+  if (segBtn) {
+    const parent = segBtn.closest('.seg-ctrl');
+    if (parent && parent.dataset.id) {
+      const fieldId = parent.dataset.id;
+      const val = segBtn.dataset.val;
+      VALS[fieldId] = val;
+      parent.querySelectorAll('.seg-btn').forEach(b => b.classList.toggle('active', b === segBtn));
+      render();
+    }
+    return;
+  }
   if (e.target.id === 'moreBtn') {
     if (!OPEN.s2) OPEN.s2 = true; else OPEN.s3 = true;
     buildForm(); render();
